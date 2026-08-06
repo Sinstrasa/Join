@@ -1,62 +1,83 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-     <div class="page-shell">
-    <header class="site-header content-limit">
-      <!-- Logo-Platzhalter -->
-      <div class="logo-slot" aria-label="Logo-Platzhalter"></div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header content-limit">
+        <!-- Logo-Platzhalter -->
+        <div class="logo-slot" aria-label="Logo-Platzhalter"></div>
 
-      <div class="signup-area">
-        <span>Not a Join user?</span>
-        <button class="button button--primary" type="button" id="signupButton">Sign up</button>
-      </div>
-    </header>
-    
-    <main class="main-content content-limit">
-      <section class="login-card" aria-labelledby="loginTitle">
-        <div class="title-block">
-          <h1 id="loginTitle">Log in</h1>
-          <div class="title-underline" aria-hidden="true"></div>
+        <div class="signup-area">
+          <span>Not a Join user?</span>
+          <button class="button button--primary" type="button">Sign up</button>
         </div>
+      </header>
 
-        <form id="loginForm" novalidate>
-          <div class="form-group">
-            <label class="sr-only" for="email">Email</label>
-            <div class="input-wrap">
-              <input id="email" name="email" type="text" inputmode="email" autocomplete="email" placeholder="Email">
-              <span class="field-icon" aria-hidden="true">✉</span>
+      <main class="main-content content-limit">
+        <section class="login-card">
+          <div class="title-block">
+            <h1>Log in</h1>
+            <div class="title-underline"></div>
+          </div>
+
+          <form novalidate>
+            <div class="form-group">
+              <label class="sr-only">Email</label>
+
+              <div class="input-wrap">
+                <input
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  placeholder="Email"
+                />
+                <span class="field-icon">✉</span>
+              </div>
+
+              <p class="error-message"></p>
             </div>
-            <p class="error-message" id="emailError" aria-live="polite"></p>
-          </div>
 
-          <div class="form-group">
-            <label class="sr-only" for="password">Password</label>
-            <div class="input-wrap">
-              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Password">
-              <span class="field-icon" aria-hidden="true">▣</span>
+            <div class="form-group">
+              <label class="sr-only">Password</label>
+
+              <div class="input-wrap">
+                <input
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  placeholder="Password"
+                />
+                <span class="field-icon">🔒</span>
+              </div>
+
+              <p class="error-message"></p>
             </div>
-            <p class="error-message" id="passwordError" aria-live="polite"></p>
-          </div>
 
-          <p class="form-status" id="formStatus" aria-live="polite"></p>
+            <p class="form-status"></p>
 
-          <div class="form-actions">
-            <button class="button button--primary" type="submit">Log in</button>
-            <button class="button button--secondary" type="button" id="guestLoginButton">Guest Log in</button>
-          </div>
-        </form>
-      </section>
-    </main>
+            <div class="form-actions">
+              <button class="button button--primary" type="submit">
+                Log in
+              </button>
 
-    <Footer class="footer">
+              <button class="button button--secondary" type="button">
+                Guest Log in
+              </button>
+            </div>
+          </form>
+        </section>
+      </main>
+
+      <footer class="footer">
         <a href="#">Privacy Policy</a>
         <a href="#">Legal notice</a>
         <p>&copy; 2024 My Website. All rights reserved.</p>
-    </footer>
-
+      </footer>
+    </div>
+  </body>
+</html>
