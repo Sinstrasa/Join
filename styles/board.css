@@ -1,0 +1,85 @@
+* {
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  min-height: 100dvh;
+}
+
+a {
+    text-decoration: none;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  gap: 114px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  width: 232px;
+  background-color: var(--main_color);
+}
+
+aside > img {
+  display: flex;
+  padding-left: 66px;
+  padding-right: 66px;
+}
+
+aside > article {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.another_page,
+.current_page {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 56px;
+  color: var(--menu_color);
+  font-family: "Inter";
+  font-weight: 400;
+}
+
+.another_page:hover {
+  background-color: var(--button_hover);
+}
+
+.current_page {
+  background-color: var(--validate_color);
+}
+
+.legal_necessities {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 4px;
+  padding-left: 56px;
+}
+
+.policies {
+  padding: 8px;
+  color: var(--menu_color);
+  font-family: "Inter";
+  font-weight: 400;
+}
+
+.policies:hover {
+  color: var(--button_hover);
+}
