@@ -18,6 +18,42 @@
       </div>
     </header>
     
+    <main class="main-content content-limit">
+      <section class="login-card" aria-labelledby="loginTitle">
+        <div class="title-block">
+          <h1 id="loginTitle">Log in</h1>
+          <div class="title-underline" aria-hidden="true"></div>
+        </div>
+
+        <form id="loginForm" novalidate>
+          <div class="form-group">
+            <label class="sr-only" for="email">Email</label>
+            <div class="input-wrap">
+              <input id="email" name="email" type="text" inputmode="email" autocomplete="email" placeholder="Email">
+              <span class="field-icon" aria-hidden="true">✉</span>
+            </div>
+            <p class="error-message" id="emailError" aria-live="polite"></p>
+          </div>
+
+          <div class="form-group">
+            <label class="sr-only" for="password">Password</label>
+            <div class="input-wrap">
+              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Password">
+              <span class="field-icon" aria-hidden="true">▣</span>
+            </div>
+            <p class="error-message" id="passwordError" aria-live="polite"></p>
+          </div>
+
+          <p class="form-status" id="formStatus" aria-live="polite"></p>
+
+          <div class="form-actions">
+            <button class="button button--primary" type="submit">Log in</button>
+            <button class="button button--secondary" type="button" id="guestLoginButton">Guest Log in</button>
+          </div>
+        </form>
+      </section>
+    </main>
+
     <Footer class="footer">
         <a href="#">Privacy Policy</a>
         <a href="#">Legal notice</a>
