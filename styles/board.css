@@ -1,15 +1,17 @@
 * {
   margin: 0px;
   box-sizing: border-box;
+  font-family: "Inter";
 }
 
 body {
   display: flex;
   min-height: 100dvh;
+  overflow: hidden;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 aside {
@@ -53,7 +55,6 @@ aside > article {
   gap: 8px;
   padding-left: 56px;
   color: var(--menu_color);
-  font-family: "Inter";
   font-weight: 400;
 }
 
@@ -82,4 +83,55 @@ aside > article {
 
 .policies:hover {
   color: var(--button_hover);
+}
+
+.main_content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 116px;
+  background-color: white;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 12px var(--button_shadow);
+}
+
+header > p {
+  font-size: 20px;
+}
+
+.header_right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 40px 20px 0px;
+}
+
+.profile_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  border: 3px solid var(--main_color);
+  border-radius: 50%;
+}
+
+.profile_icon > p {
+  color: var(--button_hover);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+main {
+  background-color: var(--bg_color);
+  flex: 1;
 }
