@@ -1,0 +1,28 @@
+:root {
+    --bg_color: rgb(246, 247, 248);
+    --main_color: rgb(42, 54, 71);
+    --menu_color: rgb(231, 231, 231);
+    --validate_color: rgb(9, 25, 49);
+    --profile_hover: rgba(12, 46, 98, 0.12);
+    --button_hover: rgb(18 ,70, 88);
+    --button_shadow: rgba(0, 0, 0, 0.4);
+    --button_shadow_hover: rgba(0, 0, 0, 0.25);
+    --urgent_color: rgb(255, 61, 0);
+    --medium_color: rgb(255, 168, 0);
+    --low_color: rgb(122, 226, 41);
+    --contact_color_1: rgb(255, 122, 0);
+    --contact_color_2: rgb(255, 94, 179);
+    --contact_color_3: rgb(110, 82, 255);
+    --contact_color_4: rgb(147, 39, 255);
+    --contact_color_5: rgb(0, 190, 232);
+    --contact_color_6: rgb(31, 215, 193);
+    --contact_color_7: rgb(255, 116, 94);
+    --contact_color_8: rgb(255, 163, 94);
+    --contact_color_9: rgb(252, 113, 255);
+    --contact_color_10: rgb(255, 199, 1);
+    --contact_color_11: rgb(0, 56, 255);
+    --contact_color_12: rgb(195, 255, 43);
+    --contact_color_13: rgb(255, 230, 43);
+    --contact_color_14: rgb(255, 70, 70);
+    --contact_color_15: rgb(255, 187, 43);
+}
