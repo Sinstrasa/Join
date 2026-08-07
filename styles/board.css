@@ -1,7 +1,9 @@
+/* Styles, die man in eine Standard CSS packen kann */
 * {
   margin: 0px;
   box-sizing: border-box;
   font-family: "Inter";
+  line-height: 120%;
 }
 
 body {
@@ -14,6 +16,15 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  font-size: 61px;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Styles, explizit für das Board */
 aside {
   display: flex;
   flex-direction: column;
@@ -101,7 +112,7 @@ header {
   background-color: white;
   position: relative;
   z-index: 1;
-  box-shadow: 0 4px 12px var(--button_shadow);
+  box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
 header > p {
@@ -135,3 +146,95 @@ main {
   background-color: var(--bg_color);
   flex: 1;
 }
+
+.main_title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 88px 48px 64px;
+}
+
+.main_title > div {
+  display: flex;
+  gap: 32px;
+}
+
+.search_wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 312px;
+  border: 1px solid rgb(104, 104, 104);
+  border-radius: 10px;
+  background-color: white;
+}
+
+.search_wrapper:hover {
+  border: 1px solid var(--menu_color);
+}
+
+.search_wrapper:focus-within {
+  border: 1px solid var(--main_color);
+}
+
+.search {
+  flex: 1;
+  padding: 8px 48px 8px 16px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-size: 21px;
+  background: transparent;
+}
+
+.search:focus {
+  outline: none;
+}
+
+.search_button {
+  display: flex;
+  justify-content: end;
+  position: absolute;
+  right: 8px;
+  padding: 0;
+  width: 48px;
+  border-left: 1px solid rgb(104, 104, 104);
+  background: transparent;
+}
+
+.search_button > button {
+  padding: 0px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.search_button > button:hover {
+  background-color: buttonface;
+}
+
+.search_icon {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.new_task {
+  padding: 8px 16px;
+  width: 160px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: var(--main_color);
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.new_task:hover {
+  background-color: var(--add_hover);
+  box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
+}
+
