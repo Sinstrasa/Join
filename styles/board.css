@@ -164,7 +164,7 @@ main {
   display: inline-flex;
   align-items: center;
   width: 312px;
-  border: 1px solid rgb(104, 104, 104);
+  border: 1px solid var(--border_color);
   border-radius: 10px;
   background-color: white;
 }
@@ -198,7 +198,7 @@ main {
   right: 8px;
   padding: 0;
   width: 48px;
-  border-left: 1px solid rgb(104, 104, 104);
+  border-left: 1px solid var(--border_color);
   background: transparent;
 }
 
@@ -216,8 +216,6 @@ main {
 }
 
 .search_icon {
-  width: 20px;
-  height: 20px;
   pointer-events: none;
 }
 
@@ -238,3 +236,51 @@ main {
   box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
 }
 
+h2 {
+  font-size: 20px;
+}
+
+.kanban {
+  display: flex;
+  gap: 35px;
+  padding: 0px 64px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.column_title {
+  display: flex;
+  justify-content: space-between;
+  width: 244px;
+  color: var(--button_hover);
+}
+
+.adding_task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  border: 3px solid var(--main_color);
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.nothing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 246px;
+  height: 48px;
+  color: var(--border_color);
+  background-color: var(--menu_color);
+  border: 1px dashed var(--border_color);
+  border-radius: 10px;
+}
