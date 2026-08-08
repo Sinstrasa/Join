@@ -8,3 +8,20 @@
 body {
     min-height: 100vh;
 }
+
+.highlighted_button {
+  padding: 8px 16px;
+  width: 160px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: var(--main_color);
+  font-size: 21px;
+  font-weight: 700;
+}
+.highlighted_button:hover {
+  background-color: var(--add_hover);
+  box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
+  cursor: pointer;
+}

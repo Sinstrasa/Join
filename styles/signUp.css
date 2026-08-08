@@ -1,0 +1,53 @@
+.SignUp_Container {
+    width: 100%;
+    max-width: 640px;
+    padding: 48px 64px;
+    border-radius: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    position: relative;
+}
+
+.SignUp_Container h1 {
+    font-size: 61px;
+    line-height: 1.1;
+    font-weight: 700;
+    text-align: center;
+
+}
+
+
+.signUpForm {
+    align-items: center;
+    gap: 0px;
+    width: 100%;
+}
+
+.back_button {
+  position: absolute;
+  left: 48px;
+  top: 60px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.highlighted_button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input_wrap {
+    margin-bottom: 8px;
+}
+
+.error_message {
+  color: red;
+  font-size: 14px;
+  margin-top: -16px;
+  margin-bottom: 0px;
+}
