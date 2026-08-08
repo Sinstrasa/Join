@@ -1,0 +1,10 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: "Inter";
+    line-height: 120%;
+}
+
+body {
+    min-height: 100vh;
+}

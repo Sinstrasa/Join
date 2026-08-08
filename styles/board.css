@@ -1,14 +1,5 @@
-/* Styles, die man in eine Standard CSS packen kann */
-* {
-  margin: 0px;
-  box-sizing: border-box;
-  font-family: "Inter";
-  line-height: 120%;
-}
-
 body {
   display: flex;
-  min-height: 100dvh;
   overflow: hidden;
 }
 
@@ -24,7 +15,6 @@ button {
   cursor: pointer;
 }
 
-/* Styles, explizit für das Board */
 aside {
   display: flex;
   flex-direction: column;
