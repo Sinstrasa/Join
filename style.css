@@ -16,20 +16,20 @@ body {
     color: #000000;
 }
 
-.page-shell {
+.page_shell {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-.content-limit {
+.content_limit {
     width: 100%;
-    max-width: 1440px;
+    padding: 100px max(calc(50% - 720px), 100px);
     margin-left: 0;
     margin-right: auto;
 }
 
-.site-header {
+.site_header {
     min-height: 190px;
     padding: 64px 80px 24px;
     display: flex;
@@ -37,18 +37,18 @@ body {
     align-items: flex-start;
 }
 
-.logo-slot {
+.logo_slot {
     width: 110px;
     height: 120px;
 }
 
-.signup-area {
+.signup_area {
     display: flex;
     align-items: center;
     gap: 28px;
 }
 
-.signup-area span {
+.signup_area span {
     font-size: 20px;
 }
 
@@ -58,7 +58,7 @@ body {
     cursor: pointer;
 }
 
-.button--primary {
+.button__primary {
     padding: 14px 20px;
     border-radius: 8px;
     background-color: #2a3647;
@@ -67,11 +67,11 @@ body {
     font-weight: 700;
 }
 
-.button--primary:hover {
+.button__primary:hover {
     background-color: #29abe2;
 }
 
-.main-content {
+.main_content {
     flex: 1;
     padding: 32px 80px 60px;
     display: flex;
@@ -79,7 +79,7 @@ body {
     align-items: center;
 }
 
-.login-card {
+.login_card {
     width: 100%;
     max-width: 650px;
     padding: 48px 64px;
@@ -88,18 +88,18 @@ body {
     box-shadow: 0 0 14px rgba(0, 0, 0, 0.12);
 }
 
-.title-block {
+.title_block {
     text-align: center;
     margin-bottom: 32px;
 }
 
-.title-block h1 {
+.title_block h1 {
     font-size: 61px;
     line-height: 1.1;
     font-weight: 700;
 }
 
-.title-underline {
+.title_underline {
     width: 150px;
     height: 3px;
     margin: 16px auto 0;
@@ -113,11 +113,11 @@ form {
     gap: 24px;
 }
 
-.form-group {
+.form_group {
     width: 100%;
 }
 
-.sr-only {
+.sr_only {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -129,12 +129,12 @@ form {
     clip: rect(0, 0, 0, 0);
 }
 
-.input-wrap {
+.input_wrap {
     position: relative;
     width: 100%;
 }
 
-.input-wrap input {
+.input_wrap input {
     width: 100%;
     height: 48px;
     padding: 0 50px 0 16px;
@@ -147,15 +147,15 @@ form {
     font-size: 20px;
 }
 
-.input-wrap input::placeholder {
+.input_wrap input::placeholder {
     color: #a8a8a8;
 }
 
-.input-wrap input:focus {
+.input_wrap input:focus {
     outline: 1px solid #29abe2;
 }
 
-.field-icon {
+.field_icon {
     position: absolute;
     top: 50%;
     right: 16px;
@@ -169,33 +169,33 @@ form {
     pointer-events: none;
 }
 
-.field-icon svg {
+.field_icon svg {
     width: 20px;
     height: 20px;
     display: block;
 }
 
-.error-message {
+.error_message {
     min-height: 18px;
     margin-top: 6px;
     color: #ff001f;
     font-size: 14px;
 }
 
-.form-status {
+.form_status {
     min-height: 18px;
     text-align: center;
     font-size: 14px;
 }
 
-.form-actions {
+.form_actions {
     display: flex;
     justify-content: center;
     gap: 32px;
     margin-top: 8px;
 }
 
-.form-actions .button {
+.form_actions .button {
     min-height: 48px;
     padding: 12px 24px;
     border-radius: 8px;
@@ -203,14 +203,14 @@ form {
     font-weight: 700;
 }
 
-.button--secondary {
+.button__secondary {
     border: unset;
     outline: 1px solid #2a3647;
     background-color: #ffffff;
     color: #2a3647;
 }
 
-.button--secondary:hover {
+.button__secondary:hover {
     outline-color: #29abe2;
     color: #29abe2;
 }
