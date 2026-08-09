@@ -6,7 +6,7 @@
     <title>Board</title>
     <link rel="stylesheet" href="../styles/colors.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
-    <link rel="stylesheet" href="../styles/standard.css">
+    <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/board.css" />
     <script src="../scripts/board.js"></script>
     <link
@@ -16,6 +16,100 @@
     />
   </head>
   <body>
+    <dialog class="add_task_dialog">
+      <article class="add_task">
+        <section class="add_task_head">
+          <h3>Add Task</h3>
+          <button class="close">x</button>
+        </section>
+        <article class="add_task_main">
+          <section class="add_task_left">
+            <div class="add_task_input">
+              <p>Title<span>*</span></p>
+              <input
+                class="input_areas"
+                type="text"
+                placeholder="Enter a Title"
+              />
+            </div>
+            <div class="add_task_input">
+              <p>Description</p>
+              <textarea
+                class="description"
+                placeholder="Enter a Description"
+              ></textarea>
+            </div>
+            <div class="add_task_input">
+              <p>Due Date<span>*</span></p>
+              <input class="input_areas" type="text" placeholder="dd/mm/yyyy" />
+            </div>
+          </section>
+          <div class="add_task_middle"></div>
+          <section class="add_task_right">
+            <div class="add_task_input">
+              <p>Priority</p>
+              <div class="priority">
+                <button>
+                  Urgent
+                  <img
+                    src="../assets/img/task/urgent.svg"
+                    alt="Urgent Symbol"
+                  />
+                </button>
+                <button>
+                  Medium
+                  <img
+                    src="../assets/img/task/medium.svg"
+                    alt="Urgent Symbol"
+                  />
+                </button>
+                <button>
+                  Low
+                  <img src="../assets/img/task/low.svg" alt="Urgent Symbol" />
+                </button>
+              </div>
+            </div>
+            <div class="add_task_input">
+              <p>Assigned To</p>
+              <input
+                class="input_areas"
+                type="text"
+                placeholder="Select Contacts to assign"
+              />
+            </div>
+            <div class="add_task_input">
+              <p>Category<span>*</span></p>
+              <input
+                class="input_areas"
+                type="text"
+                placeholder="Select Task Category"
+              />
+            </div>
+            <div class="add_task_input">
+              <p>Subtasks</p>
+              <input
+                class="input_areas"
+                type="text"
+                placeholder="Add new Subtask"
+              />
+            </div>
+            <div class="subtasks_displayer"></div>
+          </section>
+        </article>
+        <section class="add_task_footer">
+          <p><span>*</span>This field is required</p>
+          <div class="footer_buttons">
+            <button class="cancel">
+              Cancel <span class="cancel_x">x</span>
+            </button>
+            <button class="highlighted_button">
+              Create Task
+              <img src="../assets/img/general/check.svg" alt="Check Symbol" />
+            </button>
+          </div>
+        </section>
+      </article>
+    </dialog>
     <aside>
       <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
       <article>
@@ -84,7 +178,7 @@
                 </button>
               </div>
             </div>
-            <button class="new_task">Add task +</button>
+            <button class="new_task">Add Task +</button>
           </div>
         </section>
         <article class="kanban">

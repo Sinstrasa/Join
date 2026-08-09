@@ -267,6 +267,162 @@ h2 {
   font-size: 20px;
 }
 
+span {
+  color: var(--medium_color);
+}
+
+.add_task_dialog {
+  /* display: flex; */
+  z-index: 2;
+  transform: translateY(6%);
+  margin: auto;
+  padding: 0px;
+}
+
+h3 {
+  font-size: 61px;
+}
+
+.add_task {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 64px 74px;
+}
+
+.add_task_head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close {
+  width: 24px;
+  height: 24px;
+  color: var(--main_color);
+  background-color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.close:hover {
+  background-color: buttonface;
+}
+
+.add_task_main {
+  display: flex;
+  gap: 48px;
+}
+
+.add_task_left {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.add_task_input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.add_task_input > p {
+  font-size: 20px;
+}
+
+.input_areas {
+  padding: 18px 16px;
+  width: 440px;
+  height: 48px;
+  border: 1px solid var(--border_color);
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.description {
+  text-align: left;
+  vertical-align: top;
+  resize: none;
+  padding: 18px 16px;
+  height: 120px;
+  border: 1px solid var(--border_color);
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.add_task_middle {
+  border: 1px solid var(--border_color);
+}
+
+.add_task_right {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.priority {
+  display: flex;
+  gap: 16px;
+}
+
+.priority > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0px;
+  width: 136px;
+  background-color: white;
+  box-shadow: 0px 0px 4px 0px var(--button_shadow);
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.priority > button:hover {
+  box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
+}
+
+.subtasks_displayer {
+  height: 112px;
+}
+
+.add_task_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer_buttons {
+  display: flex;
+  gap: 25px;
+}
+
+.cancel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 126px;
+  height: 56px;
+  color: var(--main_color);
+  background-color: white;
+  border: 1px solid var(--border_color);
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.cancel_x {
+  color: var(--main_color);
+  font-weight: 600;
+}
+
+.highlighted_button > img {
+  width: 16px;
+  height: 12px;
+}
+
 .kanban {
   display: flex;
   gap: 35px;
