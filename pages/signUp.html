@@ -9,14 +9,14 @@
     <link rel="stylesheet" href="../styles/standard.css">
     <link rel="stylesheet" href="../styles/signUp.css" />
     <link rel="stylesheet" href="../style.css">
-    <script src="../scripts/signup.js" defer></script>
+    <script src="../scripts/signup.js" type="module"></script>
     <link
       rel="shortcut icon"
       href="../assets/img/general/logoFavicon.svg"
       type="image/x-icon"
     />
   </head>
-  <body onload="initSignUp()">
+  <body>
     <div class="page_shell">
     <main class="main_content content_limit">
     <div class="SignUp_Container">
@@ -63,13 +63,17 @@
             <div class="checkbox_Group">
                 <input type="checkbox" id="acceptPrivacy" name="acceptPrivacy" required>
                 <label for="acceptPrivacy">I accept the <a href="#" target="_blank">Privacy Policy</a></label>
+                <br /><br />
             </div>
             <button type="submit" class="highlighted_button" id="signUpButton" disabled>Sign Up</button>
         </form>
     </div>
     </main>
-
-
+    <div class="overlay" id="successOverlay" hidden>
+    <div class="overlay_box">
+      <p>You Signed Up successfully</p>
+    </div>
+    </div>
     <footer class="footer">
         <a href="#">Privacy Policy</a>
         <a href="#">Legal notice</a>
