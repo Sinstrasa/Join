@@ -59,7 +59,7 @@
           <section class="add_task_right">
             <div class="add_task_input">
               <p>Priority</p>
-              <div class="priority">
+              <section class="priority">
                 <button>
                   Urgent
                   <img
@@ -78,7 +78,7 @@
                   Low
                   <img src="../assets/img/task/low.svg" alt="Urgent Symbol" />
                 </button>
-              </div>
+              </section>
             </div>
             <div class="add_task_input">
               <p>Assigned To</p>
@@ -108,7 +108,7 @@
             </div>
             <div class="add_task_input">
               <p>Category<span>*</span></p>
-              <div class="select_areas" id="categoryDropdown">
+              <section class="select_areas" id="categoryDropdown">
                 <button
                   class="select_areas_toggle"
                   type="button"
@@ -136,15 +136,27 @@
                   </button>
                 </div>
                 <input type="hidden" name="category" id="category" value="" />
-              </div>
+              </section>
             </div>
             <div class="add_task_input">
               <p>Subtasks</p>
-              <input
-                class="input_areas"
-                type="text"
-                placeholder="Add new Subtask"
-              />
+              <section class="subtask_wrapper">
+                <input
+                  class="input_areas"
+                  type="text"
+                  placeholder="Add new Subtask"
+                />
+                <div class="subtask_validating">
+                  <button>x</button>
+                  <div class="subtask_middle"></div>
+                  <button class="subtask_check">
+                    <img
+                      src="../assets/img/summary/checkValidate.svg"
+                      alt="Check in Main Color"
+                    />
+                  </button>
+                </div>
+              </section>
             </div>
             <div class="subtasks_displayer"></div>
           </section>
@@ -219,7 +231,7 @@
         <section class="main_title">
           <h1>Board</h1>
           <div>
-            <div class="search_wrapper">
+            <section class="search_wrapper">
               <input class="search" type="text" placeholder="Find Task" />
               <div class="search_button" aria-label="Search">
                 <button>
@@ -230,7 +242,7 @@
                   />
                 </button>
               </div>
-            </div>
+            </section>
             <button class="new_task" onclick="openDialog('addTask')">
               Add Task +
             </button>

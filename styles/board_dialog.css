@@ -60,6 +60,8 @@ h3 {
 }
 
 .close {
+  display: flex;
+  justify-content: center;
   padding: 0px;
   width: 24px;
   height: 24px;
@@ -90,6 +92,10 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.add_task_input:focus {
+  outline: none;
 }
 
 .add_task_input > p {
@@ -232,6 +238,60 @@ h3 {
 
 .priority > button:hover {
   box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
+}
+
+.subtask_wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.subtask_wrapper .input_areas {
+  padding-right: 88px;
+}
+
+.subtask_validating {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: absolute;
+  right: 16px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  /* transition: opacity 0.2s ease, visibility 0.2s ease; */
+}
+
+.subtask_wrapper:focus-within .subtask_validating {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.subtask_validating > button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 0px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background-color: white;
+  font-size: 20px;
+}
+
+.subtask_middle {
+    border: 1px solid var(--border_color);
+    height: 24px;
+}
+
+.subtask_check > img {
+  width: 16px;
+  height: 12px;
 }
 
 .subtasks_displayer {

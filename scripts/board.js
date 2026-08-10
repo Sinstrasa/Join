@@ -1,4 +1,4 @@
-// Funktion, die vermutlich ins Standardscript verlagert wird
+// Funktionen, die vermutlich ins Standardscript verlagert werden
 function openDialog(reference) {
   let dialogRef = document.getElementById(reference);
   dialogRef.showModal();
@@ -15,23 +15,24 @@ function stopPropagation(event) {
   event.stopPropagation();
 }
 
+// Funktionen, die nur für board gedacht sind
 function toggleCustomDropdown(id) {
   const dropdown = document.getElementById(id);
   if (!dropdown) return;
 
-  document.querySelectorAll('.select_areas.open').forEach((openDropdown) => {
+  document.querySelectorAll(".select_areas.open").forEach((openDropdown) => {
     if (openDropdown.id !== id) {
-      openDropdown.classList.remove('open');
+      openDropdown.classList.remove("open");
     }
   });
 
-  dropdown.classList.toggle('open');
+  dropdown.classList.toggle("open");
 }
 
 function selectCustomDropdown(optionButton) {
-  const dropdown = optionButton.closest('.select_areas');
+  const dropdown = optionButton.closest(".select_areas");
   const hiddenInput = dropdown.querySelector('input[type="hidden"]');
-  const valueLabel = dropdown.querySelector('.select_areas_value');
+  const valueLabel = dropdown.querySelector(".select_areas_value");
 
   if (hiddenInput) {
     hiddenInput.value = optionButton.dataset.value;
@@ -41,13 +42,13 @@ function selectCustomDropdown(optionButton) {
     valueLabel.textContent = optionButton.textContent.trim();
   }
 
-  dropdown.classList.remove('open');
+  dropdown.classList.remove("open");
 }
 
-document.addEventListener('click', (event) => {
-  if (!event.target.closest('.select_areas')) {
-    document.querySelectorAll('.select_areas.open').forEach((dropdown) => {
-      dropdown.classList.remove('open');
+document.addEventListener("click", (event) => {
+  if (!event.target.closest(".select_areas")) {
+    document.querySelectorAll(".select_areas.open").forEach((dropdown) => {
+      dropdown.classList.remove("open");
     });
   }
 });
