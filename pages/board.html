@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../styles/colors.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/board_dialog.css" />
     <link rel="stylesheet" href="../styles/board.css" />
     <script src="../scripts/board.js"></script>
     <link
@@ -16,11 +17,15 @@
     />
   </head>
   <body>
-    <dialog class="add_task_dialog">
-      <article class="add_task">
+    <dialog
+      class="add_task_dialog"
+      id="addTask"
+      onclick="closeDialog('addTask')"
+    >
+      <article class="add_task" onclick="stopPropagation(event)">
         <section class="add_task_head">
           <h3>Add Task</h3>
-          <button class="close">x</button>
+          <button class="close" onclick="closeDialog('addTask')">x</button>
         </section>
         <article class="add_task_main">
           <section class="add_task_left">
@@ -30,6 +35,7 @@
                 class="input_areas"
                 type="text"
                 placeholder="Enter a Title"
+                required
               />
             </div>
             <div class="add_task_input">
@@ -41,7 +47,12 @@
             </div>
             <div class="add_task_input">
               <p>Due Date<span>*</span></p>
-              <input class="input_areas" type="text" placeholder="dd/mm/yyyy" />
+              <input
+                class="input_areas"
+                type="text"
+                placeholder="dd/mm/yyyy"
+                required
+              />
             </div>
           </section>
           <div class="add_task_middle"></div>
@@ -71,19 +82,61 @@
             </div>
             <div class="add_task_input">
               <p>Assigned To</p>
-              <input
-                class="input_areas"
-                type="text"
-                placeholder="Select Contacts to assign"
-              />
+              <div class="select_areas" id="assignedDropdown">
+                <button
+                  class="select_areas_toggle"
+                  type="button"
+                  onclick="toggleCustomDropdown('assignedDropdown')"
+                >
+                  <span class="select_areas_value"
+                    >Select contacts to assign</span
+                  >
+                  <span class="select_areas_arrow">▾</span>
+                </button>
+                <div class="select_areas_menu" role="listbox">
+                  <button
+                    class="select_areas_option"
+                    type="button"
+                    data-value="contact"
+                    onclick="selectCustomDropdown(this)"
+                  >
+                    Contact
+                  </button>
+                </div>
+                <input type="hidden" name="assigned" id="assigned" value="" />
+              </div>
             </div>
             <div class="add_task_input">
               <p>Category<span>*</span></p>
-              <input
-                class="input_areas"
-                type="text"
-                placeholder="Select Task Category"
-              />
+              <div class="select_areas" id="categoryDropdown">
+                <button
+                  class="select_areas_toggle"
+                  type="button"
+                  onclick="toggleCustomDropdown('categoryDropdown')"
+                >
+                  <span class="select_areas_value">Select task category</span>
+                  <span class="select_areas_arrow">▾</span>
+                </button>
+                <div class="select_areas_menu" role="listbox">
+                  <button
+                    class="select_areas_option"
+                    type="button"
+                    data-value="task"
+                    onclick="selectCustomDropdown(this)"
+                  >
+                    Technical Task
+                  </button>
+                  <button
+                    class="select_areas_option"
+                    type="button"
+                    data-value="story"
+                    onclick="selectCustomDropdown(this)"
+                  >
+                    User Story
+                  </button>
+                </div>
+                <input type="hidden" name="category" id="category" value="" />
+              </div>
             </div>
             <div class="add_task_input">
               <p>Subtasks</p>
@@ -99,7 +152,7 @@
         <section class="add_task_footer">
           <p><span>*</span>This field is required</p>
           <div class="footer_buttons">
-            <button class="cancel">
+            <button class="cancel" onclick="closeDialog('addTask')">
               Cancel <span class="cancel_x">x</span>
             </button>
             <button class="highlighted_button">
@@ -153,7 +206,7 @@
               <p>G</p>
             </button>
             <dialog class="navigation" id="nav" onclick="closeDialog('nav')">
-              <div class="subnavigation">
+              <div class="subnavigation" onclick="stopPropagation(event)">
                 <a href="">Legal Notice</a>
                 <a href="">Privacy Policy</a>
                 <a href="">Log out</a>
@@ -178,14 +231,18 @@
                 </button>
               </div>
             </div>
-            <button class="new_task">Add Task +</button>
+            <button class="new_task" onclick="openDialog('addTask')">
+              Add Task +
+            </button>
           </div>
         </section>
         <article class="kanban">
           <section class="column">
             <div class="column_title">
               <h2>To do</h2>
-              <button class="adding_task">+</button>
+              <button class="adding_task" onclick="openDialog('addTask')">
+                +
+              </button>
             </div>
             <div class="nothing">
               <p>No tasks to do</p>
@@ -194,7 +251,9 @@
           <section class="column">
             <div class="column_title">
               <h2>In progress</h2>
-              <button class="adding_task">+</button>
+              <button class="adding_task" onclick="openDialog('addTask')">
+                +
+              </button>
             </div>
             <div class="nothing">
               <p>No tasks to do</p>
@@ -203,7 +262,9 @@
           <section class="column">
             <div class="column_title">
               <h2>Await Feedback</h2>
-              <button class="adding_task">+</button>
+              <button class="adding_task" onclick="openDialog('addTask')">
+                +
+              </button>
             </div>
             <div class="nothing">
               <p>No tasks to do</p>
