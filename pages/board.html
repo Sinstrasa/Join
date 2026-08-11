@@ -143,13 +143,14 @@
               <section class="subtask_wrapper">
                 <input
                   class="input_areas"
+                  id="subtaskInput"
                   type="text"
                   placeholder="Add new Subtask"
                 />
                 <div class="subtask_validating">
-                  <button>x</button>
+                  <button onclick="removeInput()">x</button>
                   <div class="subtask_middle"></div>
-                  <button class="subtask_check">
+                  <button class="subtask_check" onclick="addInput()">
                     <img
                       src="../assets/img/summary/checkValidate.svg"
                       alt="Check in Main Color"
@@ -158,7 +159,9 @@
                 </div>
               </section>
             </div>
-            <div class="subtasks_displayer"></div>
+            <div class="subtasks_displayer">
+              <ul class="subtasks_list" id="subtasks"></ul>
+            </div>
           </section>
         </article>
         <section class="add_task_footer">

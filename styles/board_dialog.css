@@ -143,7 +143,7 @@ h3 {
   font-size: 18px;
   transition: transform 0.2s ease;
   border-radius: 50%;
-  color: black;
+  color: var(--main_color);
 }
 
 .select_areas_arrow:hover {
@@ -262,6 +262,63 @@ h3 {
   visibility: hidden;
   pointer-events: none;
   /* transition: opacity 0.2s ease, visibility 0.2s ease; */
+}
+
+.subtasks_list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0px;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  gap: 4px;
+  padding: 6.5px 16px;
+  min-height: 32px;
+  border-radius: 10px;
+}
+
+li:hover {
+  background-color: var(--menu_color);
+}
+
+li::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.subtask_text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 16px;
+}
+
+.subtask_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+}
+
+.subtask_icon > img {
+  width: 18px;
+  height: 18px;
 }
 
 .subtask_wrapper:focus-within .subtask_validating {
