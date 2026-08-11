@@ -178,6 +178,62 @@
         </section>
       </article>
     </dialog>
+    <dialog
+      class="task_board_dialog"
+      id="taskBoard"
+      onclick="closeDialog('taskBoard')">
+      <article class="task_board" onclick="stopPropagation(event)">
+        <section class="task_board_header">
+          <div class="category">
+            <p>User Story</p>
+            <button class="close">x</button>
+          </div>
+        </section>
+        <h6>Kochwelt Page & Recipe Recommender</h6>
+        <p>Build start page with recipe recommendation.</p>
+        <section class="expiration">
+          <p class="subtitle">Due Date:</p>
+          <p>10/05/2023</p>
+        </section>
+        <section class="relevance">
+          <p class="subtitle">Priority:</p>
+          <div>
+            <p>Medium</p>
+            <img src="../assets/img/task/medium.svg" alt="Medium Symbol" />
+          </div>
+        </section>
+        <section>
+          <p class="subtitle">Assigned To:</p>
+          <div>
+            <p>Contacts</p>
+          </div>
+        </section>
+        <section class="task_board_footer">
+          <p class="subtitle">Subtasks</p>
+          <div class="checklist_subtask">
+            <p>Subtask</p>
+          </div>
+        </section>
+        <section class="delete_edit">
+          <button class="task_board_buttons">
+            <div>
+              <img src="../assets/img/general/delete.svg" alt="Delete Symbol" />
+              <p>Delete</p>
+            </div>
+          </button>
+          <div class="subtask_middle"></div>
+          <button class="task_board_buttons">
+            <div>
+              <img
+                src="../assets/img/summary/penValidate.svg"
+                alt="Pen Symbol"
+              />
+              <p>Edit</p>
+            </div>
+          </button>
+        </section>
+      </article>
+    </dialog>
     <aside>
       <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
       <article>
@@ -259,9 +315,28 @@
                 +
               </button>
             </div>
-            <div class="nothing">
-              <p>No tasks to do</p>
-            </div>
+            <section class="something">
+              <button class="board_card" onclick="openDialog('taskBoard')">
+                <div class="board_card_content">
+                  <h4>User Story</h4>
+                  <section class="card_text">
+                    <h5>Kochwelt Page & Recipe Recommender</h5>
+                    <p>Build start page with repice recommendation ...</p>
+                  </section>
+                  <section class="sub_ladebalken">
+                    <div class="ladebalken"></div>
+                    <p>1/2 Subtasks</p>
+                  </section>
+                  <section class="card_footer">
+                    <p>Contacts</p>
+                    <img
+                      src="../assets/img/task/medium.svg"
+                      alt="Medium Symbol"
+                    />
+                  </section>
+                </div>
+              </button>
+            </section>
           </section>
           <section class="column">
             <div class="column_title">

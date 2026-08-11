@@ -1,12 +1,13 @@
 * {
-    margin: 0px;
-    box-sizing: border-box;
-    font-family: "Inter";
-    line-height: 120%;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: "Inter";
+  line-height: 120%;
+  font-size: 16px;
 }
 
 body {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 .highlighted_button {

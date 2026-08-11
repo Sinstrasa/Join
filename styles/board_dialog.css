@@ -394,3 +394,100 @@ li::before {
   width: 16px;
   height: 12px;
 }
+
+h6 {
+  font-size: 61px;
+}
+
+.task_board_dialog {
+  margin: auto;
+  width: 525px;
+  padding: 0px;
+  border: none;
+  border-radius: 30px;
+}
+
+.task_board_dialog::backdrop {
+  background-color: var(--button_shadow);
+}
+
+.task_board {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 48px 40px;
+}
+
+.task_board p {
+  font-size: 20px;
+}
+
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.category > p {
+  padding: 4px 24px;
+  font-size: 23px;
+  color: white;
+  background-color: var(--contact_color_11);
+  border-radius: 8px;
+}
+
+.expiration,
+.relevance {
+  display: flex;
+  text-align: left;
+  gap: 25px;
+}
+
+.relevance > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.relevance img {
+  width: 17px;
+  height: 7px;
+}
+
+.subtitle {
+  color: var(--main_color);
+}
+
+.delete_edit {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 8px;
+}
+
+.task_board_buttons {
+  display: flex;
+  gap: 8px;
+  background-color: transparent;
+  border: none;
+}
+
+.task_board_buttons > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task_board_buttons p {
+  font-size: 16px;
+}
+
+.task_board_buttons:hover {
+  font-weight: 700;
+}
+
+.task_board_buttons img {
+  width: 24px;
+  height: 24px;
+}

@@ -285,6 +285,79 @@ span {
   border-radius: 10px;
 }
 
+.something {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.board_card {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  background-color: white;
+  width: 252px;
+  border: none;
+  border-radius: 24px;
+}
+
+.board_card_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 16px;
+}
+
+h4 {
+  padding: 4px 16px;
+  color: white;
+  background-color: var(--contact_color_11);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+h5 {
+  color: var(--main_color);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.card_text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 8px;
+}
+
+.card_text > p {
+  color: var(--border_color);
+  font-size: 16px;
+}
+
+.sub_ladebalken {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.ladebalken {
+  width: 100px;
+  height: 8px;
+  background-color: var(--contact_color_11);
+  border-radius: 16px;
+}
+
+.card_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .dialog_open {
   overflow: hidden;
 }
