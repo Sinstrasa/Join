@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/board_dialog.css" />
     <link rel="stylesheet" href="../styles/board.css" />
+    <script src="../scripts/boardTemplate.js"></script>
     <script src="../scripts/board.js"></script>
     <link
       rel="shortcut icon"
@@ -22,8 +23,156 @@
       id="addTask"
       onclick="closeDialog('addTask')"
     >
-      <article class="add_task" onclick="stopPropagation(event)">
-        <section class="add_task_head">
+      <article class="add_task" onclick="stopPropagation(event)"></article>
+    </dialog>
+    <dialog
+      class="task_board_dialog"
+      id="taskBoard"
+      onclick="closeDialog('taskBoard')"
+    >
+      <article class="task_board" id="test" onclick="stopPropagation(event)"></article>
+    </dialog>
+    <aside>
+      <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
+      <article>
+        <section class="menu">
+          <a class="another_page" href="">
+            <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
+            <p>Summary</p>
+          </a>
+          <a class="another_page" href="">
+            <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
+            <p>Add Task</p>
+          </a>
+          <a class="current_page" href="">
+            <img src="../assets/img/aside/boardValidate.svg" alt="Board Icon" />
+            <p>Board</p>
+          </a>
+          <a class="another_page" href="">
+            <img src="../assets/img/aside/contacts.svg" alt="Contacts Icon" />
+            <p>Contacts</p>
+          </a>
+        </section>
+        <section class="legal_necessities">
+          <a class="policies" href="">
+            <p>Privacy Policy</p>
+          </a>
+          <a class="policies" href="">
+            <p>Legal Notice</p>
+          </a>
+        </section>
+      </article>
+    </aside>
+    <article class="main_content">
+      <header>
+        <p>Kanban Project Management Tool</p>
+        <section class="header_right">
+          <a href="">
+            <img src="../assets/img/general/help.svg" alt="Help Button" />
+          </a>
+          <section>
+            <button class="profile_icon" onclick="openDialog('nav')">
+              <p>G</p>
+            </button>
+            <dialog class="navigation" id="nav" onclick="closeDialog('nav')">
+              <div class="subnavigation" onclick="stopPropagation(event)">
+                <a href="">Legal Notice</a>
+                <a href="">Privacy Policy</a>
+                <a href="">Log out</a>
+              </div>
+            </dialog>
+          </section>
+        </section>
+      </header>
+      <main>
+        <section class="main_title">
+          <h1>Board</h1>
+          <div>
+            <section class="search_wrapper">
+              <input class="search" type="text" placeholder="Find Task" />
+              <div class="search_button" aria-label="Search">
+                <button>
+                  <img
+                    class="search_icon"
+                    src="../assets/img/board/search.svg"
+                    alt="Search icon"
+                  />
+                </button>
+              </div>
+            </section>
+            <button class="new_task" onclick="openDialog('addTask')">
+              Add Task +
+            </button>
+          </div>
+        </section>
+        <article class="kanban">
+          <section class="column">
+            <div class="column_title">
+              <h2>To do</h2>
+              <button class="adding_task" onclick="openDialog('addTask')">
+                +
+              </button>
+            </div>
+            <section class="something">
+              <button class="board_card" onclick="openDialog('taskBoard')">
+                <div class="board_card_content">
+                  <h4>User Story</h4>
+                  <section class="card_text">
+                    <h5>Kochwelt Page & Recipe Recommender</h5>
+                    <p>Build start page with repice recommendation ...</p>
+                  </section>
+                  <section class="sub_ladebalken">
+                    <div class="ladebalken"></div>
+                    <p>1/2 Subtasks</p>
+                  </section>
+                  <section class="card_footer">
+                    <p>Contacts</p>
+                    <img
+                      src="../assets/img/task/medium.svg"
+                      alt="Medium Symbol"
+                    />
+                  </section>
+                </div>
+              </button>
+            </section>
+          </section>
+          <section class="column">
+            <div class="column_title">
+              <h2>In progress</h2>
+              <button class="adding_task" onclick="openDialog('addTask')">
+                +
+              </button>
+            </div>
+            <div class="nothing">
+              <p>No tasks to do</p>
+            </div>
+          </section>
+          <section class="column">
+            <div class="column_title">
+              <h2>Await Feedback</h2>
+              <button class="adding_task" onclick="openDialog('addTask')">
+                +
+              </button>
+            </div>
+            <div class="nothing">
+              <p>No tasks to do</p>
+            </div>
+          </section>
+          <section class="column">
+            <div class="column_title">
+              <h2>Done</h2>
+            </div>
+            <div class="nothing">
+              <p>No tasks Done</p>
+            </div>
+          </section>
+        </article>
+      </main>
+    </article>
+  </body>
+</html>
+
+<!-- <section class="add_task_head">
           <h3>Add Task</h3>
           <button class="close" onclick="closeDialog('addTask')">
             <img src="../assets/img/general/close.svg" alt="Close Symbol" />
@@ -178,204 +327,4 @@
               <img src="../assets/img/general/check.svg" alt="Check Symbol" />
             </button>
           </div>
-        </section>
-      </article>
-    </dialog>
-    <dialog
-      class="task_board_dialog"
-      id="taskBoard"
-      onclick="closeDialog('taskBoard')"
-    >
-      <article class="task_board" onclick="stopPropagation(event)">
-        <section class="task_board_header">
-          <div class="category">
-            <p>User Story</p>
-            <button class="close">
-              <img src="../assets/img/general/close.svg" alt="Close Symbol" />
-            </button>
-          </div>
-        </section>
-        <h6>Kochwelt Page & Recipe Recommender</h6>
-        <p>Build start page with recipe recommendation.</p>
-        <section class="expiration">
-          <p class="subtitle">Due Date:</p>
-          <p>10/05/2023</p>
-        </section>
-        <section class="relevance">
-          <p class="subtitle">Priority:</p>
-          <div>
-            <p>Medium</p>
-            <img src="../assets/img/task/medium.svg" alt="Medium Symbol" />
-          </div>
-        </section>
-        <section>
-          <p class="subtitle">Assigned To:</p>
-          <div>
-            <p>Contacts</p>
-          </div>
-        </section>
-        <section class="task_board_footer">
-          <p class="subtitle">Subtasks</p>
-          <div class="checklist_subtask">
-            <p>Subtask</p>
-          </div>
-        </section>
-        <section class="delete_edit">
-          <button class="task_board_buttons">
-            <div>
-              <img src="../assets/img/general/delete.svg" alt="Delete Symbol" />
-              <p>Delete</p>
-            </div>
-          </button>
-          <div class="subtask_middle"></div>
-          <button class="task_board_buttons">
-            <div>
-              <img
-                src="../assets/img/summary/penValidate.svg"
-                alt="Pen Symbol"
-              />
-              <p>Edit</p>
-            </div>
-          </button>
-        </section>
-      </article>
-    </dialog>
-    <aside>
-      <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
-      <article>
-        <section class="menu">
-          <a class="another_page" href="">
-            <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
-            <p>Summary</p>
-          </a>
-          <a class="another_page" href="">
-            <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
-            <p>Add Task</p>
-          </a>
-          <a class="current_page" href="">
-            <img src="../assets/img/aside/boardValidate.svg" alt="Board Icon" />
-            <p>Board</p>
-          </a>
-          <a class="another_page" href="">
-            <img src="../assets/img/aside/contacts.svg" alt="Contacts Icon" />
-            <p>Contacts</p>
-          </a>
-        </section>
-        <section class="legal_necessities">
-          <a class="policies" href="">
-            <p>Privacy Policy</p>
-          </a>
-          <a class="policies" href="">
-            <p>Legal Notice</p>
-          </a>
-        </section>
-      </article>
-    </aside>
-    <article class="main_content">
-      <header>
-        <p>Kanban Project Management Tool</p>
-        <section class="header_right">
-          <a href="">
-            <img src="../assets/img/general/help.svg" alt="Help Button" />
-          </a>
-          <section>
-            <button class="profile_icon" onclick="openDialog('nav')">
-              <p>G</p>
-            </button>
-            <dialog class="navigation" id="nav" onclick="closeDialog('nav')">
-              <div class="subnavigation" onclick="stopPropagation(event)">
-                <a href="">Legal Notice</a>
-                <a href="">Privacy Policy</a>
-                <a href="">Log out</a>
-              </div>
-            </dialog>
-          </section>
-        </section>
-      </header>
-      <main>
-        <section class="main_title">
-          <h1>Board</h1>
-          <div>
-            <section class="search_wrapper">
-              <input class="search" type="text" placeholder="Find Task" />
-              <div class="search_button" aria-label="Search">
-                <button>
-                  <img
-                    class="search_icon"
-                    src="../assets/img/board/search.svg"
-                    alt="Search icon"
-                  />
-                </button>
-              </div>
-            </section>
-            <button class="new_task" onclick="openDialog('addTask')">
-              Add Task +
-            </button>
-          </div>
-        </section>
-        <article class="kanban">
-          <section class="column">
-            <div class="column_title">
-              <h2>To do</h2>
-              <button class="adding_task" onclick="openDialog('addTask')">
-                +
-              </button>
-            </div>
-            <section class="something">
-              <button class="board_card" onclick="openDialog('taskBoard')">
-                <div class="board_card_content">
-                  <h4>User Story</h4>
-                  <section class="card_text">
-                    <h5>Kochwelt Page & Recipe Recommender</h5>
-                    <p>Build start page with repice recommendation ...</p>
-                  </section>
-                  <section class="sub_ladebalken">
-                    <div class="ladebalken"></div>
-                    <p>1/2 Subtasks</p>
-                  </section>
-                  <section class="card_footer">
-                    <p>Contacts</p>
-                    <img
-                      src="../assets/img/task/medium.svg"
-                      alt="Medium Symbol"
-                    />
-                  </section>
-                </div>
-              </button>
-            </section>
-          </section>
-          <section class="column">
-            <div class="column_title">
-              <h2>In progress</h2>
-              <button class="adding_task" onclick="openDialog('addTask')">
-                +
-              </button>
-            </div>
-            <div class="nothing">
-              <p>No tasks to do</p>
-            </div>
-          </section>
-          <section class="column">
-            <div class="column_title">
-              <h2>Await Feedback</h2>
-              <button class="adding_task" onclick="openDialog('addTask')">
-                +
-              </button>
-            </div>
-            <div class="nothing">
-              <p>No tasks to do</p>
-            </div>
-          </section>
-          <section class="column">
-            <div class="column_title">
-              <h2>Done</h2>
-            </div>
-            <div class="nothing">
-              <p>No tasks Done</p>
-            </div>
-          </section>
-        </article>
-      </main>
-    </article>
-  </body>
-</html>
+        </section> -->

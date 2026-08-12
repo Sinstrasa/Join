@@ -54,11 +54,6 @@ h3 {
   padding: 64px 74px;
 }
 
-.add_task_head {
-  display: flex;
-  justify-content: space-between;
-}
-
 .close {
   display: flex;
   justify-content: center;
@@ -81,6 +76,182 @@ h3 {
   height: 13px;
 }
 
+.highlighted_button > img {
+  width: 16px;
+  height: 12px;
+}
+
+h6 {
+  font-size: 61px;
+}
+
+.task_board_dialog {
+  margin: auto;
+  width: 525px;
+  padding: 0px;
+  border: none;
+  border-radius: 30px;
+}
+
+.task_board_dialog::backdrop {
+  background-color: var(--button_shadow);
+}
+
+.task_board {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 48px 40px;
+}
+
+.task_board p {
+  font-size: 20px;
+}
+
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.category > p {
+  padding: 4px 24px;
+  font-size: 23px;
+  color: white;
+  background-color: var(--contact_color_11);
+  border-radius: 8px;
+}
+
+.expiration,
+.relevance {
+  display: flex;
+  text-align: left;
+  gap: 25px;
+}
+
+.relevance > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.relevance img {
+  width: 17px;
+  height: 7px;
+}
+
+.subtitle {
+  color: var(--main_color);
+}
+
+.delete_edit {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 8px;
+}
+
+.task_board_buttons {
+  display: flex;
+  gap: 8px;
+  background-color: transparent;
+  border: none;
+}
+
+.task_board_buttons > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task_board_buttons p {
+  font-size: 16px;
+}
+
+.task_board_buttons:hover {
+  font-weight: 700;
+}
+
+.task_board_buttons img {
+  width: 24px;
+  height: 24px;
+}
+
+.board_card {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  background-color: white;
+  width: 252px;
+  border: none;
+  border-radius: 24px;
+}
+
+.board_card_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 16px;
+}
+
+h4 {
+  padding: 4px 16px;
+  color: white;
+  background-color: var(--contact_color_11);
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+h5 {
+  color: var(--main_color);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.card_text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 8px;
+}
+
+.card_text > p {
+  color: var(--border_color);
+  font-size: 16px;
+}
+
+.sub_ladebalken {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.ladebalken {
+  width: 100px;
+  height: 8px;
+  background-color: var(--contact_color_11);
+  border-radius: 16px;
+}
+
+.card_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+
+
+/* .add_task_head {
+  display: flex;
+  justify-content: space-between;
+}
+  
 .add_task_main {
   display: flex;
   gap: 48px;
@@ -265,7 +436,7 @@ h3 {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  /* transition: opacity 0.2s ease, visibility 0.2s ease; */
+  transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .subtasks_list {
@@ -392,106 +563,4 @@ li::before {
 .cancel_x {
   color: var(--main_color);
   font-weight: 600;
-}
-
-.highlighted_button > img {
-  width: 16px;
-  height: 12px;
-}
-
-h6 {
-  font-size: 61px;
-}
-
-.task_board_dialog {
-  margin: auto;
-  width: 525px;
-  padding: 0px;
-  border: none;
-  border-radius: 30px;
-}
-
-.task_board_dialog::backdrop {
-  background-color: var(--button_shadow);
-}
-
-.task_board {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 48px 40px;
-}
-
-.task_board p {
-  font-size: 20px;
-}
-
-.category {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.category > p {
-  padding: 4px 24px;
-  font-size: 23px;
-  color: white;
-  background-color: var(--contact_color_11);
-  border-radius: 8px;
-}
-
-.expiration,
-.relevance {
-  display: flex;
-  text-align: left;
-  gap: 25px;
-}
-
-.relevance > div {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.relevance img {
-  width: 17px;
-  height: 7px;
-}
-
-.subtitle {
-  color: var(--main_color);
-}
-
-.delete_edit {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  gap: 8px;
-}
-
-.task_board_buttons {
-  display: flex;
-  gap: 8px;
-  background-color: transparent;
-  border: none;
-}
-
-.task_board_buttons > div {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.task_board_buttons p {
-  font-size: 16px;
-}
-
-.task_board_buttons:hover {
-  font-weight: 700;
-}
-
-.task_board_buttons img {
-  width: 24px;
-  height: 24px;
-}
+} */
