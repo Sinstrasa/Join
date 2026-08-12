@@ -25,7 +25,9 @@
       <article class="add_task" onclick="stopPropagation(event)">
         <section class="add_task_head">
           <h3>Add Task</h3>
-          <button class="close" onclick="closeDialog('addTask')">x</button>
+          <button class="close" onclick="closeDialog('addTask')">
+            <img src="../assets/img/general/close.svg" alt="Close Symbol" />
+          </button>
         </section>
         <article class="add_task_main">
           <section class="add_task_left">
@@ -168,7 +170,8 @@
           <p><span>*</span>This field is required</p>
           <div class="footer_buttons">
             <button class="cancel" onclick="closeDialog('addTask')">
-              Cancel <span class="cancel_x">x</span>
+              Cancel
+              <img src="../assets/img/general/close.svg" alt="Close Symbol" />
             </button>
             <button class="highlighted_button">
               Create Task
@@ -181,12 +184,15 @@
     <dialog
       class="task_board_dialog"
       id="taskBoard"
-      onclick="closeDialog('taskBoard')">
+      onclick="closeDialog('taskBoard')"
+    >
       <article class="task_board" onclick="stopPropagation(event)">
         <section class="task_board_header">
           <div class="category">
             <p>User Story</p>
-            <button class="close">x</button>
+            <button class="close">
+              <img src="../assets/img/general/close.svg" alt="Close Symbol" />
+            </button>
           </div>
         </section>
         <h6>Kochwelt Page & Recipe Recommender</h6>
