@@ -8,7 +8,9 @@ function openDialog(reference) {
 
 function closeDialog(reference) {
   let dialogRef = document.getElementById(reference);
+  let articleRef = document.getElementById('test');
   dialogRef.close();
+  articleRef.innerHTML = ``;
   document.body.classList.toggle("dialog_open");
 }
 
