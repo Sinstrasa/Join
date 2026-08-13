@@ -1,22 +1,52 @@
 function openDialog(reference) {
   let dialogRef = document.getElementById(reference);
-  let articleRef = document.getElementById('test');
+  // let articleRef = document.getElementById('test');
   dialogRef.showModal();
-  articleRef.innerHTML += taskDialogTemplate();
+  // articleRef.innerHTML += taskDialogTemplate();
   document.body.classList.toggle("dialog_open");
 }
 
 function closeDialog(reference) {
   let dialogRef = document.getElementById(reference);
-  let articleRef = document.getElementById('test');
+  // let articleRef = document.getElementById('test');
   dialogRef.close();
-  articleRef.innerHTML = ``;
+  // articleRef.innerHTML = ``;
   document.body.classList.toggle("dialog_open");
 }
 
 function stopPropagation(event) {
   event.stopPropagation();
 }
+
+function updateSubtaskProgress() {
+  const progressBars = document.querySelectorAll(".ladebalken");
+  const subtaskLists = document.querySelectorAll(".checklist_subtask");
+
+  subtaskLists.forEach((list, index) => {
+    const inputs = list.querySelectorAll(".subtask_checkbox");
+    const checkedCount = [...inputs].filter((input) => input.checked).length;
+    const totalCount = inputs.length;
+    const progressPx = totalCount > 0 ? Math.min(100, (checkedCount / totalCount) * 100) : 0;
+    const activeBar = progressBars[index] || progressBars[0];
+
+    if (!activeBar) return;
+
+    activeBar.style.width = `${progressPx}px`;
+
+    const textElement = activeBar.closest(".sub_ladebalken")?.querySelector("p");
+    if (textElement) {
+      textElement.textContent = `${checkedCount}/${totalCount} Subtasks`;
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateSubtaskProgress();
+
+  document.querySelectorAll(".subtask_checkbox").forEach((checkbox) => {
+    checkbox.addEventListener("change", updateSubtaskProgress);
+  });
+});
 
 // Funktionen, die nur für board gedacht sind
 

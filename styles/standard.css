@@ -6,8 +6,138 @@
   font-size: 16px;
 }
 
+a {
+  text-decoration: none;
+}
+
 body {
   min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  gap: 114px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  width: 232px;
+  background-color: var(--main_color);
+}
+
+aside > img {
+  display: flex;
+  padding-left: 66px;
+  padding-right: 66px;
+}
+
+aside > article {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.another_page,
+.current_page {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 56px;
+  color: var(--menu_color);
+  font-weight: 400;
+}
+
+.another_page:hover {
+  background-color: var(--button_hover);
+}
+
+.current_page {
+  background-color: var(--validate_color);
+}
+
+.legal_necessities {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 4px;
+  padding-left: 56px;
+}
+
+.policies {
+  padding: 8px;
+  color: var(--menu_color);
+  font-family: "Inter";
+  font-weight: 400;
+}
+
+.policies:hover {
+  color: var(--button_hover);
+}
+
+.main_content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 116px;
+  background-color: white;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+header > p {
+  font-size: 20px;
+}
+
+.header_right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 40px 20px 0px;
+}
+
+.profile_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 56px;
+  background-color: white;
+  border: 3px solid var(--main_color);
+  border-radius: 50%;
+}
+
+.profile_icon:hover {
+  background-color: var(--profile_hover);
+}
+
+.profile_icon > p {
+  color: var(--button_hover);
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .highlighted_button {
