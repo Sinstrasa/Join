@@ -178,6 +178,25 @@ h6 {
   height: 24px;
 }
 
+.task_board_contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.task_board_names {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0px;
+}
+
+.task_board_names > li {
+  display: flex;
+  gap: 16px;
+  padding: 7px 16px;
+}
+
 .task_board_footer {
   display: flex;
   flex-direction: column;
@@ -236,7 +255,6 @@ h6 {
 .subtask_checkbox:checked + .subtask_checkbox_custom {
   background-image: url("../assets/img/board/checkboxValid.svg");
 }
-
 
 /* .add_task_head {
   display: flex;

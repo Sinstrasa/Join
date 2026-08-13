@@ -161,6 +161,8 @@ span {
   gap: 16px;
 }
 
+
+
 .board_card {
   display: flex;
   flex-direction: column;
@@ -208,6 +210,7 @@ h5 {
 }
 
 .sub_ladebalken {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -215,20 +218,41 @@ h5 {
   width: 100%;
 }
 
+.ladebalken_background,
 .ladebalken {
-  position: relative;
-  width: 0;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
   max-width: 100px;
+  width: 100px;
   height: 8px;
-  background: linear-gradient(90deg, var(--contact_color_11) 0%, var(--contact_color_11) 100%);
   border-radius: 16px;
+}
+
+.ladebalken_background {
+  background: var(--profile_hover);
+  z-index: 0;
+}
+
+.ladebalken {
+  width: 0;
+  background: linear-gradient(
+    90deg,
+    var(--contact_color_11) 0%,
+    var(--contact_color_11) 100%
+  );
   transition: width 0.2s ease-in-out;
   overflow: hidden;
+  z-index: 1;
 }
 
 .sub_ladebalken > p {
+  position: relative;
+  margin-left: 108px;
   font-size: 16px;
   white-space: nowrap;
+  z-index: 2;
 }
 
 .card_footer {

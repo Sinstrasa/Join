@@ -21,19 +21,18 @@ function stopPropagation(event) {
 function updateSubtaskProgress() {
   const progressBars = document.querySelectorAll(".ladebalken");
   const subtaskLists = document.querySelectorAll(".checklist_subtask");
-
   subtaskLists.forEach((list, index) => {
     const inputs = list.querySelectorAll(".subtask_checkbox");
     const checkedCount = [...inputs].filter((input) => input.checked).length;
     const totalCount = inputs.length;
-    const progressPx = totalCount > 0 ? Math.min(100, (checkedCount / totalCount) * 100) : 0;
+    const progressPx =
+      totalCount > 0 ? Math.min(100, (checkedCount / totalCount) * 100) : 0;
     const activeBar = progressBars[index] || progressBars[0];
-
     if (!activeBar) return;
-
     activeBar.style.width = `${progressPx}px`;
-
-    const textElement = activeBar.closest(".sub_ladebalken")?.querySelector("p");
+    const textElement = activeBar
+      .closest(".sub_ladebalken")
+      ?.querySelector("p");
     if (textElement) {
       textElement.textContent = `${checkedCount}/${totalCount} Subtasks`;
     }
@@ -42,14 +41,12 @@ function updateSubtaskProgress() {
 
 document.addEventListener("DOMContentLoaded", () => {
   updateSubtaskProgress();
-
   document.querySelectorAll(".subtask_checkbox").forEach((checkbox) => {
     checkbox.addEventListener("change", updateSubtaskProgress);
   });
 });
 
 // Funktionen, die nur für board gedacht sind
-
 
 // Funktion, die zu Add Task eigentlich gehört
 
