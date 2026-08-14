@@ -129,6 +129,11 @@ span {
   color: var(--button_hover);
 }
 
+.column_list {
+  padding: 0px;
+  list-style: none;
+}
+
 .adding_task {
   display: flex;
   justify-content: center;

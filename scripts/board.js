@@ -1,3 +1,27 @@
+function initialise() {
+  checkAmount('toDo');
+  checkAmount('inProgress');
+  checkAmount('awaitFeedback');
+  checkAmount('done');
+}
+
+function checkAmount(id) {
+  let listRef = document.getElementById(id);
+  const amount = listRef.querySelectorAll('li');
+  switch (id) {
+    case 'done':
+      if (amount.length == 0) {
+        listRef.innerHTML += nothingDoneTemplate();
+      }
+      break;
+    default:
+      if (amount.length == 0) {
+        listRef.innerHTML += nothingTemplate();
+      }
+      break;
+  }
+}
+
 function openDialog(reference) {
   let dialogRef = document.getElementById(reference);
   // let articleRef = document.getElementById('test');

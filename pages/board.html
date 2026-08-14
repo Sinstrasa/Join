@@ -17,7 +17,7 @@
       type="image/x-icon"
     />
   </head>
-  <body>
+  <body onload="initialise()">
     <dialog
       class="add_task_dialog"
       id="addTask"
@@ -56,7 +56,7 @@
           <p class="subtitle">Assigned To:</p>
           <ul class="task_board_names">
             <li>
-              <img src="../assets/img/board/search.svg" alt="">
+              <img src="../assets/img/board/search.svg" alt="" />
               <p>Füge Namen hier ein</p>
             </li>
           </ul>
@@ -187,29 +187,33 @@
                 +
               </button>
             </div>
-            <section class="something" draggable="true">
-              <button class="board_card" onclick="openDialog('taskBoard')">
-                <div class="board_card_content">
-                  <h4>User Story</h4>
-                  <section class="card_text">
-                    <h5>Kochwelt Page & Recipe Recommender</h5>
-                    <p>Build start page with repice recommendation ...</p>
-                  </section>
-                  <section class="sub_ladebalken">
-                    <div class="ladebalken_background"></div>
-                    <div class="ladebalken"></div>
-                    <p></p>
-                  </section>
-                  <section class="card_footer">
-                    <p>Contacts</p>
-                    <img
-                      src="../assets/img/task/medium.svg"
-                      alt="Medium Symbol"
-                    />
-                  </section>
-                </div>
-              </button>
-            </section>
+            <ul class="column_list" id="toDo">
+              <li>
+                <section class="something" draggable="true">
+                  <button class="board_card" onclick="openDialog('taskBoard')">
+                    <div class="board_card_content">
+                      <h4>User Story</h4>
+                      <section class="card_text">
+                        <h5>Kochwelt Page & Recipe Recommender</h5>
+                        <p>Build start page with repice recommendation ...</p>
+                      </section>
+                      <section class="sub_ladebalken">
+                        <div class="ladebalken_background"></div>
+                        <div class="ladebalken"></div>
+                        <p></p>
+                      </section>
+                      <section class="card_footer">
+                        <p>Contacts</p>
+                        <img
+                          src="../assets/img/task/medium.svg"
+                          alt="Medium Symbol"
+                        />
+                      </section>
+                    </div>
+                  </button>
+                </section>
+              </li>
+            </ul>
           </section>
           <section class="column">
             <div class="column_title">
@@ -218,9 +222,7 @@
                 +
               </button>
             </div>
-            <div class="nothing">
-              <p>No tasks to do</p>
-            </div>
+            <ul class="column_list" id="inProgress"></ul>
           </section>
           <section class="column">
             <div class="column_title">
@@ -229,17 +231,13 @@
                 +
               </button>
             </div>
-            <div class="nothing">
-              <p>No tasks to do</p>
-            </div>
+            <ul class="column_list" id="awaitFeedback"></ul>
           </section>
           <section class="column">
             <div class="column_title">
               <h2>Done</h2>
             </div>
-            <div class="nothing">
-              <p>No tasks Done</p>
-            </div>
+            <ul class="column_list" id="done"></ul>
           </section>
         </article>
       </main>
