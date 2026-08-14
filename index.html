@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/colors.css" />
+    <script src="./script.js" type="module" ></script>
   </head>
   <body>
     <div class="page_shell">
@@ -14,7 +16,7 @@
 
         <div class="signup_area">
           <span>Not a Join user?</span>
-          <button class="button button__primary" type="button">Sign up</button>
+         <button class="button button__primary" type="button" onclick="window.location.href='pages/signUp.html'">Sign up</button>
         </div>
       </header>
 
@@ -27,10 +29,10 @@
 
           <form novalidate>
             <div class="form_group">
-              <label class="sr_only">Email</label>
-
+              <label for="email" class="sr_only">Email</label>
               <div class="input_wrap">
                 <input
+                  id="email"
                   name="email"
                   type="email"
                   autocomplete="email"
@@ -43,10 +45,11 @@
             </div>
 
             <div class="form_group">
-              <label class="sr_only">Password</label>
+              <label for="password" class="sr_only">Password</label>
 
               <div class="input_wrap">
                 <input
+                  id="password"
                   name="password"
                   type="password"
                   autocomplete="current_password"

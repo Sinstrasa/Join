@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', initSignUp);
 function saveUserToDatabase(uid, username, email) {
   return set(ref(database, 'users/' + uid), {
     username: username,
-    email: email
+    email: email,
+    color: getRandomContactColor() // Assigns a random contact color to the user
   });
 }
 
@@ -103,4 +104,10 @@ function showSuccessOverlay() {
   setTimeout(() => {
     window.location.href = '../index.html';
   }, 2000);
+}
+
+
+function getRandomContactColor() {
+  const randomColor = Math.floor(Math.random() *15) + 1; // Generates a random number between 1 and 15
+  return '--contact_color_' + randomColor; // Returns the corresponding CSS variable name
 }
