@@ -2,57 +2,61 @@
 
 .Information_Content {
     width: 100%;
-    max-width: 1200px;
-    padding: 64px 80px;
     color: var(--validate_color);
 }
 
-.Information_Content h1 {
+.Information_Text {
+    width: 100%;
+    max-width: 1440px;
+    padding: 64px 80px;
+}
+
+.Information_Text h1 {
     margin-bottom: 24px;
     font-size: 61px;
     font-weight: 700;
 }
 
-.Information_Content h2 {
+.Information_Text h2 {
     margin-bottom: 16px;
     font-size: 27px;
     font-weight: 700;
 }
 
-.Information_Content h3 {
+.Information_Text h3 {
     margin-bottom: 8px;
     font-size: 20px;
     font-weight: 700;
 }
 
-.Information_Content p {
+.Information_Text p {
     margin-bottom: 16px;
     font-size: 16px;
     font-weight: 400;
 }
 
-.Information_Content section {
+.Information_Text section {
     margin-bottom: 32px;
 }
 
-.Information_Content ul,
-.Information_Content ol {
+.Information_Text ul,
+.Information_Text ol {
     margin-top: 8px;
     margin-bottom: 16px;
     padding-left: 24px;
     font-size: 16px;
 }
 
-.Information_Content li {
+.Information_Text li {
     margin-bottom: 6px;
 }
 
-.Information_Content a {
+.Information_Text a {
     color: var(--add_hover);
     text-decoration: none;
 }
 
-.Information_Content a:hover {
+.Information_Text a:hover {
     text-decoration: underline;
 }
 
@@ -113,3 +117,5 @@
     margin-top: 0;
     margin-bottom: 8px;
 }
+
+
