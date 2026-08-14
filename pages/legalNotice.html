@@ -1,50 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles/colors.css" />
-  <link rel="stylesheet" href="../styles/fonts.css" />
-  <link rel="stylesheet" href="../styles/standard.css" />
-  <link rel="stylesheet" href="../styles/information.css" />
-  <title>Legal Notice</title>
-</head>
-<body>
-  <main class="Information_Content">
-    <h1>Legal Notice</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/colors.css" />
+    <link rel="stylesheet" href="../styles/fonts.css" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/information.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
+    <script src="../scripts/board.js"></script>
+    <title>Legal Notice</title>
+  </head>
+  <body>
+    <aside>
+      <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
+      <article>
+        <section class="menu">
+          <a class="another_page" href="">
+            <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
+            <p>Summary</p>
+          </a>
+          <a class="another_page" href="">
+            <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
+            <p>Add Task</p>
+          </a>
+          <a class="current_page" href="">
+            <img src="../assets/img/aside/boardValidate.svg" alt="Board Icon" />
+            <p>Board</p>
+          </a>
+          <a class="another_page" href="">
+            <img src="../assets/img/aside/contacts.svg" alt="Contacts Icon" />
+            <p>Contacts</p>
+          </a>
+        </section>
+        <section class="legal_necessities">
+          <a class="policies" href="">
+            <p>Privacy Policy</p>
+          </a>
+          <a class="policies" href="">
+            <p>Legal Notice</p>
+          </a>
+        </section>
+      </article>
+    </aside>
+    <main class="Information_Content">
+        <header>
+        <p>Kanban Project Management Tool</p>
+        <section class="header_right">
+          <a href="">
+            <img src="../assets/img/general/help.svg" alt="Help Button" />
+          </a>
+          <section>
+            <button class="profile_icon" onclick="openDialog('nav')">
+              <p>G</p>
+            </button>
+            <dialog class="navigation" id="nav" onclick="closeDialog('nav')">
+              <div class="subnavigation">
+                <a href="">Legal Notice</a>
+                <a href="">Privacy Policy</a>
+                <a href="">Log out</a>
+              </div>
+            </dialog>
+          </section>
+        </section>
+      </header>
+      <div class="Information_Text">
+        <h1>Legal Notice</h1>
 
-    <section class="Legal_Section">
-        <h2>Imprint</h2>
+        <section class="Legal_Section">
+          <h2>Imprint</h2>
 
-        <p>
-            Marc Mähling<br>
-            Musterstraße 111<br>
-            Building 44<br>
-            90210 Musterstadt<br>
+          <p>
+            Marc Mähling<br />
+            Musterstraße 111<br />
+            Building 44<br />
+            90210 Musterstadt<br />
             Germany
-        </p>
-    </section>
+          </p>
+        </section>
 
-    <section class="Legal_Section">
-        <h2>Contact</h2>
+        <section class="Legal_Section">
+          <h2>Contact</h2>
 
-        <p>
-            Phone: +49 (0) 123 44 55 66<br>
+          <p>
+            Phone: +49 (0) 123 44 55 66<br />
             Email:
-            <a href="">
-                info@beispielfirma.de
-            </a>
-        </p>
-    </section>
+            <a href=""> info@beispielfirma.de </a>
+          </p>
+        </section>
 
-    <section class="Legal_Section">
-        <p>
+        <section class="Legal_Section">
+          <p>
             Source:
-            <a href="https://www.e-recht24.de/" target="_blank" rel="noopener noreferrer">
-                e-recht24.de
+            <a
+              href="https://www.e-recht24.de/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              e-recht24.de
             </a>
-        </p>
-    </section>
-</main>
-</body>
+          </p>
+        </section>
+      </div>
+    </main>
+  </body>
 </html>

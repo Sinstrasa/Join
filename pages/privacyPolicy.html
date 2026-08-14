@@ -1,164 +1,220 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../styles/colors.css" />
-  <link rel="stylesheet" href="../styles/fonts.css" />
-  <link rel="stylesheet" href="../styles/standard.css" />
-  <link rel="stylesheet" href="../styles/information.css" />
-  <title>Privacy Policy</title>
-</head>
-<body>
-  <main class="Information_Content">
-    <h1>Privacy Policy</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/colors.css" />
+    <link rel="stylesheet" href="../styles/fonts.css" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/information.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
+    <script src="../scripts/board.js"></script>
+    <title>Privacy Policy</title>
+  </head>
+  <body>
+    <aside>
+      <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
+      <article>
+        <section class="menu">
+          <a class="another_page" href="">
+            <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
+            <p>Summary</p>
+          </a>
+          <a class="another_page" href="">
+            <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
+            <p>Add Task</p>
+          </a>
+          <a class="current_page" href="">
+            <img src="../assets/img/aside/boardValidate.svg" alt="Board Icon" />
+            <p>Board</p>
+          </a>
+          <a class="another_page" href="">
+            <img src="../assets/img/aside/contacts.svg" alt="Contacts Icon" />
+            <p>Contacts</p>
+          </a>
+        </section>
+        <section class="legal_necessities">
+          <a class="policies" href="">
+            <p>Privacy Policy</p>
+          </a>
+          <a class="policies" href="">
+            <p>Legal Notice</p>
+          </a>
+        </section>
+      </article>
+    </aside>
+    <main class="Information_Content">
+        <header>
+        <p>Kanban Project Management Tool</p>
+        <section class="header_right">
+          <a href="">
+            <img src="../assets/img/general/help.svg" alt="Help Button" />
+          </a>
+          <section>
+            <button class="profile_icon" onclick="openDialog('nav')">
+              <p>G</p>
+            </button>
+            <dialog class="navigation" id="nav" onclick="closeDialog('nav')">
+              <div class="subnavigation">
+                <a href="">Legal Notice</a>
+                <a href="">Privacy Policy</a>
+                <a href="">Log out</a>
+              </div>
+            </dialog>
+          </section>
+        </section>
+      </header>
+      <div class="Information_Text">
+        <h1>Privacy Policy</h1>
 
-    <section class="Privacy_Section">
-        <h2>1. Privacy at a Glance</h2>
+        <section class="Privacy_Section">
+          <h2>1. Privacy at a Glance</h2>
 
-        <h3>General Information</h3>
-        <p>
+          <h3>General Information</h3>
+          <p>
             The following information provides a simple overview of what happens
             to your personal data when you visit this website. Personal data is
             any data that can be used to personally identify you.
-        </p>
+          </p>
 
-        <h3>Data Collection on This Website</h3>
+          <h3>Data Collection on This Website</h3>
 
-        <h4>Who is responsible for data collection on this website?</h4>
-        <p>
-            Data processing on this website is carried out by the website operator.
-            The operator's contact details can be found in the section
+          <h4>Who is responsible for data collection on this website?</h4>
+          <p>
+            Data processing on this website is carried out by the website
+            operator. The operator's contact details can be found in the section
             "Information on the Responsible Party" in this Privacy Policy.
-        </p>
+          </p>
 
-        <h4>How do we collect your data?</h4>
-        <p>
-            Some data is collected when you provide it to us. This may, for example,
-            be data that you enter into a contact form.
-        </p>
+          <h4>How do we collect your data?</h4>
+          <p>
+            Some data is collected when you provide it to us. This may, for
+            example, be data that you enter into a contact form.
+          </p>
 
-        <p>
+          <p>
             Other data is collected automatically or with your consent by our IT
-            systems when you visit the website. This primarily includes technical
-            data such as your browser, operating system, or the time the page was accessed.
-        </p>
+            systems when you visit the website. This primarily includes
+            technical data such as your browser, operating system, or the time
+            the page was accessed.
+          </p>
 
-        <h4>What do we use your data for?</h4>
-        <p>
-            Some data is collected to ensure that the website functions correctly.
-            Other data may be used to analyze how visitors use the website.
-        </p>
+          <h4>What do we use your data for?</h4>
+          <p>
+            Some data is collected to ensure that the website functions
+            correctly. Other data may be used to analyze how visitors use the
+            website.
+          </p>
 
-        <h4>What rights do you have regarding your data?</h4>
-        <p>
+          <h4>What rights do you have regarding your data?</h4>
+          <p>
             You have the right to request information about your stored personal
-            data, its origin, recipients, and purpose. You also have the right to
-            request correction or deletion of this data.
-        </p>
-    </section>
+            data, its origin, recipients, and purpose. You also have the right
+            to request correction or deletion of this data.
+          </p>
+        </section>
 
-    <section class="Privacy_Section">
-        <h2>2. General Information and Mandatory Information</h2>
+        <section class="Privacy_Section">
+          <h2>2. General Information and Mandatory Information</h2>
 
-        <h3>Data Protection</h3>
-        <p>
+          <h3>Data Protection</h3>
+          <p>
             The operators of this website take the protection of your personal
             data very seriously. We treat your personal data confidentially and
             in accordance with applicable data protection regulations.
-        </p>
+          </p>
 
-        <p>
+          <p>
             When you use this website, various personal data may be collected.
             This Privacy Policy explains what data we collect, how we use it,
             and for what purpose.
-        </p>
+          </p>
 
-        <h3>Information on the Responsible Party</h3>
-        <p>
-            The responsible party for data processing on this website is:
-        </p>
+          <h3>Information on the Responsible Party</h3>
+          <p>The responsible party for data processing on this website is:</p>
 
-        <p>
-            Example Company<br>
-            Musterweg 10<br>
+          <p>
+            Example Company<br />
+            Musterweg 10<br />
             90210 Musterstadt
-        </p>
+          </p>
 
-        <p>
-            Phone: +49 (0) 123 44 55 66<br>
+          <p>
+            Phone: +49 (0) 123 44 55 66<br />
             Email:
-            <a href="mailto:info@beispielfirma.de">
-                info@beispielfirma.de
-            </a>
-        </p>
+            <a href="mailto:info@beispielfirma.de"> info@beispielfirma.de </a>
+          </p>
 
-        <h3>Storage Duration</h3>
-        <p>
+          <h3>Storage Duration</h3>
+          <p>
             Unless a more specific storage period has been specified, your
             personal data will remain stored until the purpose for processing
             the data no longer applies.
-        </p>
+          </p>
 
-        <h3>Revocation of Your Consent to Data Processing</h3>
-        <p>
+          <h3>Revocation of Your Consent to Data Processing</h3>
+          <p>
             Many data processing operations are only possible with your explicit
-            consent. You may revoke consent that you have already given at any time.
-        </p>
+            consent. You may revoke consent that you have already given at any
+            time.
+          </p>
 
-        <h3>Right to Lodge a Complaint</h3>
-        <p>
+          <h3>Right to Lodge a Complaint</h3>
+          <p>
             In the event of violations of applicable data protection law,
             affected persons have the right to lodge a complaint with the
             responsible supervisory authority.
-        </p>
+          </p>
 
-        <h3>Information, Correction and Deletion</h3>
-        <p>
+          <h3>Information, Correction and Deletion</h3>
+          <p>
             You have the right to receive information about your stored personal
             data and, where applicable, the right to request correction or
             deletion of this data.
-        </p>
+          </p>
 
-        <h3>SSL or TLS Encryption</h3>
-        <p>
+          <h3>SSL or TLS Encryption</h3>
+          <p>
             This website uses SSL or TLS encryption for security reasons and to
             protect the transmission of confidential content.
-        </p>
-    </section>
+          </p>
+        </section>
 
-    <section class="Privacy_Section">
-        <h2>3. Data Collection on This Website</h2>
+        <section class="Privacy_Section">
+          <h2>3. Data Collection on This Website</h2>
 
-        <h3>Contact Form</h3>
-        <p>
+          <h3>Contact Form</h3>
+          <p>
             If you contact us via a contact form, the information you provide,
             including your contact details, will be stored for the purpose of
             processing your request and any follow-up questions.
-        </p>
+          </p>
 
-        <p>
-            This data will not be shared without your consent.
-        </p>
-    </section>
+          <p>This data will not be shared without your consent.</p>
+        </section>
 
-    <section class="Privacy_Section">
-        <h2>4. Plugins and Tools</h2>
+        <section class="Privacy_Section">
+          <h2>4. Plugins and Tools</h2>
 
-        <h3>Google Fonts (Local Hosting)</h3>
-        <p>
+          <h3>Google Fonts (Local Hosting)</h3>
+          <p>
             This website uses Google Fonts to ensure consistent font display.
             The Google Fonts are installed locally. No connection to Google's
             servers is established.
-        </p>
+          </p>
 
-        <p>
+          <p>
             Source:
-            <a href="https://www.e-recht24.de/" target="_blank" rel="noopener noreferrer">
-                e-recht24.de
+            <a
+              href="https://www.e-recht24.de/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              e-recht24.de
             </a>
-        </p>
-    </section>
-</main>
-</body>
+          </p>
+        </section>
+      </div>
+    </main>
+  </body>
 </html>
