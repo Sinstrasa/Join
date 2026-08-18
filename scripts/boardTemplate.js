@@ -1,44 +1,36 @@
-function taskDialogTemplate(
-  title,
-  description,
-  date,
-  priority,
-  assigned,
-  category,
-  subtasks,
-) {
+async function taskDialogTemplate(arr, index) {
   return `
     <section class="task_board_header">
       <div class="category">
-            <p>${category}</p>
+            <p>${await readDatabase(arr, index, 'category')}</p>
             <button class="close" onclick="closeDialog('taskBoard')">
               <img src="../assets/img/general/close.svg" alt="Close Symbol" />
             </button>
           </div>
         </section>
-        <h6>${title}</h6>
-        <p>${description}</p>
+        <h6>${await readDatabase(arr, index, 'title')}</h6>
+        <p>${await readDatabase(arr, index, 'description')}</p>
         <section class="expiration">
           <p class="subtitle">Due Date:</p>
-          <p>${date}</p>
+          <p>${await readDatabase(arr, index, 'date')}</p>
         </section>
         <section class="relevance">
           <p class="subtitle">Priority:</p>
           <div>
-            <p>${priority}</p>
-            <img src="../assets/img/task/medium.svg" alt="Medium Symbol" />
+            <p>${await readDatabase(arr, index, 'priority')}</p>
+            ${readPriority(await readDatabase(arr, index, 'priority'))}
           </div>
         </section>
         <section class="task_board_contacts">
           <p class="subtitle">Assigned To:</p>
           <ul class="task_board_names">
-            ${readAssigned(assigned)}
+            ${readAssigned(arr, index, 'assigned')}
           </ul>
         </section>
         <section class="task_board_footer">
           <p class="subtitle">Subtasks</p>
           <ul class="checklist_subtask">
-            ${readSubtask(subtasks)}
+            ${readSubtask(arr, index, 'subtasks')}
           </ul>
         </section>
         <section class="delete_edit">
@@ -102,6 +94,33 @@ function nothingDoneTemplate() {
       <div class="nothing">
         <p>No tasks Done</p>
       </div>
+    </li>
+  `;
+}
+
+async function somethingTemplate(arr, index) {
+  return `
+    <li>
+      <section class="something" draggable="true">
+        <button class="board_card" id="card${+ await readDatabase(arr, index, 'id')}" onclick="openDialog('taskBoard')">
+          <div class="board_card_content">
+            <h4>${await readDatabase(arr, index, 'category')}</h4>
+            <section class="card_text">
+              <h5>${await readDatabase(arr, index, 'title')}</h5>
+              <p>${await readDatabase(arr, index, 'description')}</p>
+            </section>
+            <section class="sub_ladebalken">
+              <div class="ladebalken_background"></div>
+              <div class="ladebalken"></div>
+              <p></p>
+            </section>
+            <section class="card_footer">
+              <p>Contacts</p>
+              ${readPriority(await readDatabase(arr, index, 'priority'))}
+            </section>
+          </div>
+        </button>
+      </section>
     </li>
   `;
 }

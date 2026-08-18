@@ -2,11 +2,17 @@ const BaseUrl =
   "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
 
 function initialise() {
-  checkAmount("toDo");
-  checkAmount("inProgress");
-  checkAmount("awaitFeedback");
-  checkAmount("done");
-  readDatabase("/tickets");
+  cardColumn();
+  // checkAmount('toDo');
+  // checkAmount('inProgress');
+  // checkAmount('awaitFeedback');
+  // checkAmount('done');
+}
+
+async function getTickets(path = "") {
+  let response = await fetch(BaseUrl + path + ".json");
+  let responseToJson = await response.json();
+  return await Object.values(responseToJson);
 }
 
 // async function postData(path = "", data = {}) {
@@ -29,26 +35,61 @@ function initialise() {
 //     subtasks: ["Implementation Recipe Recommendation", "Start Page Layout"],
 //   });
 
-async function database(path = "") {
-  let response = await fetch(BaseUrl + path + ".json");
-  let responseToJson = await response.json();
-  console.log(await responseToJson[0]);
+async function cardColumn() {
+  let myArray = await getTickets("/tickets");
+  await sort(myArray);
+  await checkAmount("toDo");
+  await checkAmount("inProgress");
+  await checkAmount("awaitFeedback");
+  await checkAmount("done");
 }
 
-async function readDatabase(path = "") {
-  let test = document.getElementById("test");
-  let response = await fetch(BaseUrl + path + ".json");
-  let responseToJson = await response.json();
-  let myArray = await Object.values(responseToJson);
-  for (let index = 0; index < myArray.length; index++) {
-    let title = myArray[index].title;
-    let description = await myArray[index].description;
-    let date = await myArray[index].date;
-    let priority = await myArray[index].priority;
-    let assigned = await myArray[index].assigned;
-    let category = await myArray[index].category;
-    let subtasks = await myArray[index].subtasks;
-    test.innerHTML += await taskDialogTemplate(title, description, date, priority, assigned, category, subtasks);
+async function sort(arr) {
+  let toDo = arr.filter(t => t['status'] == 'toDo');
+  let inProgress = arr.filter(t => t['status'] == 'inProgress');
+  let awaitFeedback = arr.filter(t => t['status'] == 'awaitFeedback');
+  let done = arr.filter(t => t['status'] == 'done');
+  updateHTML(toDo, inProgress, awaitFeedback, done);
+}
+
+async function updateHTML(toDo, inProgress, awaitFeedback, done) {
+  document.getElementById("toDo").innerHTML = ``;
+  for (let index = 0; index < toDo.length; index++) {
+    const element = toDo[index];
+    document.getElementById("toDo").innerHTML += await somethingTemplate(toDo, index);
+  }
+  document.getElementById("inProgress").innerHTML = ``;
+  for (let index = 0; index < inProgress.length; index++) {
+    const element = inProgress[index];
+    document.getElementById("inProgress").innerHTML += await somethingTemplate(inProgress, index);
+  }
+  document.getElementById("awaitFeedback").innerHTML = ``;
+  for (let index = 0; index < awaitFeedback.length; index++) {
+    const element = awaitFeedback[index];
+    document.getElementById("awaitFeedback").innerHTML += await somethingTemplate(awaitFeedback, index);
+  }
+  document.getElementById("done").innerHTML = ``;
+  for (let index = 0; index < done.length; index++) {
+    const element = done[index];
+    document.getElementById("done").innerHTML += await somethingTemplate(done, index);
+  }
+}
+
+async function readDatabase(arr, index, information) {
+  return await arr[index][information];
+}
+
+function readPriority(priority) {
+  switch (priority) {
+    case "low":
+      return `<img src="../assets/img/task/low.svg" alt="Low Symbol">`;
+      break;
+    case "urgent":
+      return `<img src="../assets/img/task/urgent.svg" alt="Urgent Symbol">`;
+      break;
+    default:
+      return `<img src="../assets/img/task/medium.svg" alt="Urgent Symbol">`;
+      break;
   }
 }
 
@@ -64,11 +105,6 @@ function readSubtask(subtasks) {
   return safeSubtasks
     .map((content) => taskDialogSubtasksTemplate(content))
     .join("");
-}
-
-function contentArray(arr, index) {
-  let content = arr[index];
-  return content;
 }
 
 function checkAmount(id) {
