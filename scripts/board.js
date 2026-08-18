@@ -1,15 +1,81 @@
+const BaseUrl =
+  "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
+
 function initialise() {
-  checkAmount('toDo');
-  checkAmount('inProgress');
-  checkAmount('awaitFeedback');
-  checkAmount('done');
+  checkAmount("toDo");
+  checkAmount("inProgress");
+  checkAmount("awaitFeedback");
+  checkAmount("done");
+  readDatabase("/tickets");
+}
+
+// async function postData(path = "", data = {}) {
+//   let response = await fetch(BaseUrl + path + ".json", {
+//     method: "POST",
+//     header: {
+//       "content-type": "application/json",
+//     },
+//     body: JSON.stringify(data),
+//   });
+// }
+
+// postData("/tickets", {
+//     title: "Kochwelt Page & Recipce Recommender",
+//     description: "Build start page with recipe recommendation",
+//     dueDate: "10/05/2023",
+//     priority: "Medium",
+//     assigned: ["Emmanuel Mauer", "Marcel Bauer", "Anton Mayer"],
+//     category: "User Story",
+//     subtasks: ["Implementation Recipe Recommendation", "Start Page Layout"],
+//   });
+
+async function database(path = "") {
+  let response = await fetch(BaseUrl + path + ".json");
+  let responseToJson = await response.json();
+  console.log(await responseToJson[0]);
+}
+
+async function readDatabase(path = "") {
+  let test = document.getElementById("test");
+  let response = await fetch(BaseUrl + path + ".json");
+  let responseToJson = await response.json();
+  let myArray = await Object.values(responseToJson);
+  for (let index = 0; index < myArray.length; index++) {
+    let title = myArray[index].title;
+    let description = await myArray[index].description;
+    let date = await myArray[index].date;
+    let priority = await myArray[index].priority;
+    let assigned = await myArray[index].assigned;
+    let category = await myArray[index].category;
+    let subtasks = await myArray[index].subtasks;
+    test.innerHTML += await taskDialogTemplate(title, description, date, priority, assigned, category, subtasks);
+  }
+}
+
+function readAssigned(assigned) {
+  const safeAssigned = Array.isArray(assigned) ? assigned : [];
+  return safeAssigned
+    .map((content) => taskDialogNamesTemplate(content))
+    .join("");
+}
+
+function readSubtask(subtasks) {
+  const safeSubtasks = Array.isArray(subtasks) ? subtasks : [];
+  return safeSubtasks
+    .map((content) => taskDialogSubtasksTemplate(content))
+    .join("");
+}
+
+function contentArray(arr, index) {
+  let content = arr[index];
+  return content;
 }
 
 function checkAmount(id) {
   let listRef = document.getElementById(id);
-  const amount = listRef.querySelectorAll('li');
+  const amount = listRef.querySelectorAll("li");
   switch (id) {
-    case 'done':
+    case "done":
       if (amount.length == 0) {
         listRef.innerHTML += nothingDoneTemplate();
       }
