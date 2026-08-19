@@ -46,6 +46,7 @@ body {
     display: flex;
     align-items: center;
     gap: 28px;
+    margin-left: auto;
 }
 
 .signup_area span {
@@ -235,3 +236,51 @@ form {
     color: #29abe2;
 }
 
+/* Logo Animation */
+
+.signup_logo {
+    position: fixed;
+    top: 64px;
+    left: 80px;
+    width: 100px;
+    z-index: 100;
+    animation: Logo_Intro 1200ms ease-in-out forwards;
+}
+
+@keyframes Logo_Intro {
+    0% {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.6);
+    }
+
+    50% {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.6);
+    }
+
+    100% {
+        top: 64px;
+        left: 80px;
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+
+/* Login Animation */
+
+.login_fade {
+    opacity: 0;
+    animation: Login_Fade_In 400ms ease-out 950ms forwards;
+}
+
+@keyframes Login_Fade_In {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
