@@ -1,5 +1,6 @@
 const BaseUrl =
   "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
+const taskList = {};
 
 function initialise() {
   cardColumn();
@@ -49,29 +50,29 @@ async function sort(arr) {
   let inProgress = arr.filter(t => t['status'] == 'inProgress');
   let awaitFeedback = arr.filter(t => t['status'] == 'awaitFeedback');
   let done = arr.filter(t => t['status'] == 'done');
-  updateHTML(toDo, inProgress, awaitFeedback, done);
+  await updateHTML(toDo, inProgress, awaitFeedback, done);
 }
 
 async function updateHTML(toDo, inProgress, awaitFeedback, done) {
+  taskList.toDo = toDo;
+  taskList.inProgress = inProgress;
+  taskList.awaitFeedback = awaitFeedback;
+  taskList.done = done;
   document.getElementById("toDo").innerHTML = ``;
   for (let index = 0; index < toDo.length; index++) {
-    const element = toDo[index];
-    document.getElementById("toDo").innerHTML += await somethingTemplate(toDo, index);
+    document.getElementById("toDo").innerHTML += await somethingTemplate(toDo, index, 'toDo');
   }
   document.getElementById("inProgress").innerHTML = ``;
   for (let index = 0; index < inProgress.length; index++) {
-    const element = inProgress[index];
-    document.getElementById("inProgress").innerHTML += await somethingTemplate(inProgress, index);
+    document.getElementById("inProgress").innerHTML += await somethingTemplate(inProgress, index, 'inProgress');
   }
   document.getElementById("awaitFeedback").innerHTML = ``;
   for (let index = 0; index < awaitFeedback.length; index++) {
-    const element = awaitFeedback[index];
-    document.getElementById("awaitFeedback").innerHTML += await somethingTemplate(awaitFeedback, index);
+    document.getElementById("awaitFeedback").innerHTML += await somethingTemplate(awaitFeedback, index, 'awaitFeedback');
   }
   document.getElementById("done").innerHTML = ``;
   for (let index = 0; index < done.length; index++) {
-    const element = done[index];
-    document.getElementById("done").innerHTML += await somethingTemplate(done, index);
+    document.getElementById("done").innerHTML += await somethingTemplate(done, index, 'done');
   }
 }
 
@@ -93,14 +94,14 @@ function readPriority(priority) {
   }
 }
 
-function readAssigned(assigned) {
+function readAssigned(arr, index, assigned) {
   const safeAssigned = Array.isArray(assigned) ? assigned : [];
   return safeAssigned
     .map((content) => taskDialogNamesTemplate(content))
     .join("");
 }
 
-function readSubtask(subtasks) {
+function readSubtask(arr, index, subtasks) {
   const safeSubtasks = Array.isArray(subtasks) ? subtasks : [];
   return safeSubtasks
     .map((content) => taskDialogSubtasksTemplate(content))
@@ -124,19 +125,17 @@ function checkAmount(id) {
   }
 }
 
-function openDialog(reference) {
+async function openDialog(listKey, index, reference) {
+  let arr = taskList[listKey];
   let dialogRef = document.getElementById(reference);
-  // let articleRef = document.getElementById('test');
+  dialogRef.innerHTML = await taskDialogTemplate(arr, index);
   dialogRef.showModal();
-  // articleRef.innerHTML += taskDialogTemplate();
   document.body.classList.toggle("dialog_open");
 }
 
 function closeDialog(reference) {
   let dialogRef = document.getElementById(reference);
-  // let articleRef = document.getElementById('test');
   dialogRef.close();
-  // articleRef.innerHTML = ``;
   document.body.classList.toggle("dialog_open");
 }
 
