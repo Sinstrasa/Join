@@ -4,7 +4,7 @@ async function taskDialogTemplate(arr, index) {
       <section class="task_board_header">
         <div class="category">
           <p>${await readDatabase(arr, index, 'category')}</p>
-          <button class="close" onclick="${closeDialog('taskBoardDialog')}">
+          <button class="close" onclick="closeDialog('taskBoardDialog')">
             <img src="../assets/img/general/close.svg" alt="Close Symbol" />
           </button>
         </div>
@@ -25,13 +25,13 @@ async function taskDialogTemplate(arr, index) {
       <section class="task_board_contacts">
         <p class="subtitle">Assigned To:</p>
         <ul class="task_board_names">
-          <!-- ${readAssigned(arr, index, 'assigned')} -->
+          ${readAssigned(arr, index, 'assigned')}
         </ul>
       </section>
       <section class="task_board_footer">
         <p class="subtitle">Subtasks</p>
         <ul class="checklist_subtask">
-          <!-- ${readSubtask(arr, index, 'subtasks')} -->
+          ${readSubtask(arr, index, 'subtasks')}
         </ul>
       </section>
       <section class="delete_edit">
@@ -65,14 +65,14 @@ function taskDialogNamesTemplate(content) {
   `;
 }
 
-function taskDialogSubtasksTemplate(content) {
+function taskDialogSubtasksTemplate(content, index, checked) {
   return `
     <li class="subtask">
       <label
         class="subtask_checkbox_label"
         aria-label="Mark task as done"
       >
-        <input type="checkbox" class="subtask_checkbox" />
+        <input type="checkbox" class="subtask_checkbox" data-subtask-index="${index}" ${checked ? "checked" : ""} />
         <span class="subtask_checkbox_custom"></span>
       </label>
       <p>${content}</p>

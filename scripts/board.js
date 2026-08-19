@@ -1,6 +1,7 @@
 const BaseUrl =
   "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
 const taskList = {};
+const subtaskProgressKey = "join-subtask-progress";
 
 function initialise() {
   cardColumn();
@@ -46,10 +47,10 @@ async function cardColumn() {
 }
 
 async function sort(arr) {
-  let toDo = arr.filter(t => t['status'] == 'toDo');
-  let inProgress = arr.filter(t => t['status'] == 'inProgress');
-  let awaitFeedback = arr.filter(t => t['status'] == 'awaitFeedback');
-  let done = arr.filter(t => t['status'] == 'done');
+  let toDo = arr.filter((t) => t["status"] == "toDo");
+  let inProgress = arr.filter((t) => t["status"] == "inProgress");
+  let awaitFeedback = arr.filter((t) => t["status"] == "awaitFeedback");
+  let done = arr.filter((t) => t["status"] == "done");
   await updateHTML(toDo, inProgress, awaitFeedback, done);
 }
 
@@ -60,20 +61,34 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
   taskList.done = done;
   document.getElementById("toDo").innerHTML = ``;
   for (let index = 0; index < toDo.length; index++) {
-    document.getElementById("toDo").innerHTML += await somethingTemplate(toDo, index, 'toDo');
+    document.getElementById("toDo").innerHTML += await somethingTemplate(
+      toDo,
+      index,
+      "toDo",
+    );
   }
   document.getElementById("inProgress").innerHTML = ``;
   for (let index = 0; index < inProgress.length; index++) {
-    document.getElementById("inProgress").innerHTML += await somethingTemplate(inProgress, index, 'inProgress');
+    document.getElementById("inProgress").innerHTML += await somethingTemplate(
+      inProgress,
+      index,
+      "inProgress",
+    );
   }
   document.getElementById("awaitFeedback").innerHTML = ``;
   for (let index = 0; index < awaitFeedback.length; index++) {
-    document.getElementById("awaitFeedback").innerHTML += await somethingTemplate(awaitFeedback, index, 'awaitFeedback');
+    document.getElementById("awaitFeedback").innerHTML +=
+      await somethingTemplate(awaitFeedback, index, "awaitFeedback");
   }
   document.getElementById("done").innerHTML = ``;
   for (let index = 0; index < done.length; index++) {
-    document.getElementById("done").innerHTML += await somethingTemplate(done, index, 'done');
+    document.getElementById("done").innerHTML += await somethingTemplate(
+      done,
+      index,
+      "done",
+    );
   }
+  updateSubtaskProgress();
 }
 
 async function readDatabase(arr, index, information) {
@@ -82,10 +97,10 @@ async function readDatabase(arr, index, information) {
 
 function readPriority(priority) {
   switch (priority) {
-    case "low":
+    case "Low":
       return `<img src="../assets/img/task/low.svg" alt="Low Symbol">`;
       break;
-    case "urgent":
+    case "Urgent":
       return `<img src="../assets/img/task/urgent.svg" alt="Urgent Symbol">`;
       break;
     default:
@@ -95,16 +110,26 @@ function readPriority(priority) {
 }
 
 function readAssigned(arr, index, assigned) {
-  const safeAssigned = Array.isArray(assigned) ? assigned : [];
+  const safeAssigned = Array.isArray(arr[index]?.assigned)
+    ? arr[index].assigned
+    : [];
   return safeAssigned
     .map((content) => taskDialogNamesTemplate(content))
     .join("");
 }
 
 function readSubtask(arr, index, subtasks) {
-  const safeSubtasks = Array.isArray(subtasks) ? subtasks : [];
+  const safeSubtasks = Array.isArray(arr[index]?.subtasks)
+    ? arr[index]?.subtasks
+    : [];
   return safeSubtasks
-    .map((content) => taskDialogSubtasksTemplate(content))
+    .map((content, subtaskIndex) =>
+      taskDialogSubtasksTemplate(
+        content,
+        subtaskIndex,
+        isSubtaskChecked(arr[index]?.id, subtaskIndex),
+      ),
+    )
     .join("");
 }
 
@@ -128,6 +153,7 @@ function checkAmount(id) {
 async function openDialog(listKey, index, reference) {
   let arr = taskList[listKey];
   let dialogRef = document.getElementById(reference);
+  dialogRef.dataset.taskId = arr[index].id;
   dialogRef.innerHTML = await taskDialogTemplate(arr, index);
   dialogRef.showModal();
   document.body.classList.toggle("dialog_open");
@@ -144,30 +170,57 @@ function stopPropagation(event) {
 }
 
 function updateSubtaskProgress() {
-  const progressBars = document.querySelectorAll(".ladebalken");
-  const subtaskLists = document.querySelectorAll(".checklist_subtask");
-  subtaskLists.forEach((list, index) => {
-    const inputs = list.querySelectorAll(".subtask_checkbox");
-    const checkedCount = [...inputs].filter((input) => input.checked).length;
-    const totalCount = inputs.length;
-    const progressPx =
-      totalCount > 0 ? Math.min(100, (checkedCount / totalCount) * 100) : 0;
-    const activeBar = progressBars[index] || progressBars[0];
-    if (!activeBar) return;
-    activeBar.style.width = `${progressPx}px`;
-    const textElement = activeBar
-      .closest(".sub_ladebalken")
-      ?.querySelector("p");
-    if (textElement) {
-      textElement.textContent = `${checkedCount}/${totalCount} Subtasks`;
-    }
+  const columns = ["toDo", "inProgress", "awaitFeedback", "done"];
+  const progress = getSubtaskProgress();
+  columns.forEach((column) => {
+    const tasks = taskList[column] || [];
+    const cards = document.querySelectorAll(`#${column} .board_card`);
+    tasks.forEach((task, index) => {
+      const subtasks = Array.isArray(task?.subtasks) ? task.subtasks : [];
+      const checkedCount = subtasks.reduce(
+        (count, _, subtaskIndex) =>
+          count + (progress[task.id]?.[subtaskIndex] ? 1 : 0), 0);
+      const progressBar = cards[index]?.querySelector(".ladebalken");
+      const progressText = cards[index]?.querySelector(".sub_ladebalken > p");
+      if (!progressBar || !progressText) return;
+      const progressPercent =
+        subtasks.length > 0 ? (checkedCount / subtasks.length) * 100 : 0;
+      progressBar.style.width = `${progressPercent}px`;
+      progressText.textContent = `${checkedCount}/${subtasks.length} Subtasks`;
+    });
   });
+}
+
+function getSubtaskProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(subtaskProgressKey)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function isSubtaskChecked(taskId, index) {
+  return Boolean(getSubtaskProgress()[taskId]?.[index]);
+}
+
+function saveSubtaskState(taskId, index, checked) {
+  const progress = getSubtaskProgress();
+  progress[taskId] = progress[taskId] || {};
+  progress[taskId][index] = checked;
+  localStorage.setItem(subtaskProgressKey, JSON.stringify(progress));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   updateSubtaskProgress();
-  document.querySelectorAll(".subtask_checkbox").forEach((checkbox) => {
-    checkbox.addEventListener("change", updateSubtaskProgress);
+  document.addEventListener("change", (event) => {
+    if (!event.target.classList.contains("subtask_checkbox")) return;
+    const dialog = event.target.closest("dialog");
+    saveSubtaskState(
+      dialog.dataset.taskId,
+      event.target.dataset.subtaskIndex,
+      event.target.checked,
+    );
+    updateSubtaskProgress();
   });
 });
 

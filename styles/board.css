@@ -130,6 +130,9 @@ span {
 }
 
 .column_list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   padding: 0px;
   list-style: none;
 }
