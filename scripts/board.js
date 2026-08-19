@@ -109,7 +109,7 @@ function readPriority(priority) {
   }
 }
 
-function readAssigned(arr, index, assigned) {
+function readAssigned(arr, index) {
   const safeAssigned = Array.isArray(arr[index]?.assigned)
     ? arr[index].assigned
     : [];
@@ -118,7 +118,7 @@ function readAssigned(arr, index, assigned) {
     .join("");
 }
 
-function readSubtask(arr, index, subtasks) {
+function readSubtask(arr, index) {
   const safeSubtasks = Array.isArray(arr[index]?.subtasks)
     ? arr[index]?.subtasks
     : [];
@@ -150,7 +150,13 @@ function checkAmount(id) {
   }
 }
 
-async function openDialog(listKey, index, reference) {
+function openDialog(reference) {
+  let dialogRef = document.getElementById(reference);
+  dialogRef.showModal();
+  document.body.classList.toggle("dialog_open");
+}
+
+async function openTaskDialog(listKey, index, reference) {
   let arr = taskList[listKey];
   let dialogRef = document.getElementById(reference);
   dialogRef.dataset.taskId = arr[index].id;

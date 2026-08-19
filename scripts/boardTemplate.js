@@ -104,7 +104,7 @@ async function somethingTemplate(arr, index, listKey) {
   return `
     <li>
       <section class="something" draggable="true">
-        <button class="board_card" id="card${+ await readDatabase(arr, index, 'id')}" onclick="openDialog('${listKey}', ${index}, 'taskBoardDialog')">
+        <button class="board_card" id="card${+ await readDatabase(arr, index, 'id')}" onclick="openTaskDialog('${listKey}', ${index}, 'taskBoardDialog')">
           <div class="board_card_content">
             <h4>${await readDatabase(arr, index, 'category')}</h4>
             <section class="card_text">
