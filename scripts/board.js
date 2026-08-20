@@ -18,7 +18,7 @@ async function getTickets(path = "") {
 
 async function cardColumn() {
   let myArray = await getTickets("/tickets");
-  sort(myArray);
+  await sort(myArray);
   checkAmount("toDo");
   checkAmount("inProgress");
   checkAmount("awaitFeedback");
