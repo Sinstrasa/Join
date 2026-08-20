@@ -1,0 +1,374 @@
+/* Add Task */
+
+.add_task_page {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 64px 96px;
+    overflow-y: auto;
+}
+
+.add_task_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.add_task_head h3 {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.add_task_head .close {
+    display: none;
+}
+
+
+/* Main */
+
+.add_task_main {
+    display: flex;
+    gap: 48px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.add_task_left,
+.add_task_right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.add_task_left {
+    gap: 32px;
+}
+
+.add_task_right {
+    gap: 24px;
+}
+
+.add_task_middle {
+    width: 1px;
+    min-height: 424px;
+    background-color: var(--subnav_color);
+}
+
+
+/* Inputs */
+
+.add_task_input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.add_task_input > p {
+    font-size: 20px;
+}
+
+.add_task_input > p span {
+    color: var(--urgent_color);
+}
+
+.input_areas {
+    width: 100%;
+    height: 48px;
+    padding: 12px 16px;
+    border: 1px solid var(--subnav_color);
+    border-radius: 10px;
+    background-color: white;
+    font-size: 20px;
+    outline: none;
+}
+
+.input_areas::placeholder,
+.description::placeholder {
+    color: var(--subnav_color);
+}
+
+.input_areas:focus,
+.description:focus {
+    border-color: var(--add_hover);
+}
+
+
+/* Description */
+
+.description {
+    width: 100%;
+    height: 120px;
+    padding: 16px;
+    resize: none;
+    border: 1px solid var(--subnav_color);
+    border-radius: 10px;
+    background-color: white;
+    font-size: 20px;
+    outline: none;
+}
+
+
+/* Priority */
+
+.priority {
+    display: flex;
+    gap: 16px;
+}
+
+.priority > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    height: 56px;
+    padding: 16px 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 4px var(--button_shadow_hover);
+    font-size: 20px;
+}
+
+.priority > button:hover {
+    box-shadow: 0 4px 4px var(--button_shadow_hover);
+}
+
+.priority > button img {
+    width: 20px;
+    height: 20px;
+}
+
+
+/* Dropdown */
+
+.select_areas {
+    position: relative;
+    width: 100%;
+}
+
+.select_areas_toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid var(--subnav_color);
+    border-radius: 10px;
+    background-color: white;
+    font-size: 20px;
+}
+
+.select_areas_value {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.select_areas_arrow {
+    font-size: 18px;
+    transition: transform 200ms ease;
+}
+
+.select_areas.open .select_areas_arrow {
+    transform: rotate(180deg);
+}
+
+.select_areas_menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: 5;
+    display: none;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 14px var(--profile_hover);
+}
+
+.select_areas.open .select_areas_menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.select_areas_option {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    background-color: white;
+    text-align: left;
+    font-size: 20px;
+}
+
+.select_areas_option:hover {
+    background-color: var(--menu_color);
+}
+
+
+/* Subtasks */
+
+.subtask_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.subtask_wrapper .input_areas {
+    padding-right: 88px;
+}
+
+.subtask_validating {
+    position: absolute;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.subtask_wrapper:focus-within .subtask_validating {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.subtask_validating button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.subtask_validating button:hover {
+    background-color: var(--menu_color);
+}
+
+.subtask_middle {
+    width: 1px;
+    height: 24px;
+    background-color: var(--subnav_color);
+    border: none;
+}
+
+.subtask_check img {
+    width: 16px;
+    height: 12px;
+}
+
+.subtasks_displayer {
+    min-height: 80px;
+}
+
+.subtasks_list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0;
+    list-style: none;
+}
+
+.subtasks_list li {
+    display: flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 4px 16px;
+    border-radius: 10px;
+}
+
+.subtasks_list li:hover {
+    background-color: var(--menu_color);
+}
+
+
+/* Footer */
+
+.add_task_footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 32px;
+}
+
+.add_task_footer > p {
+    font-size: 16px;
+}
+
+.add_task_footer > p span {
+    color: var(--urgent_color);
+}
+
+.footer_buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 56px;
+    padding: 0 16px;
+    border: 1px solid var(--main_color);
+    border-radius: 10px;
+    background-color: white;
+    color: var(--main_color);
+    font-size: 20px;
+}
+
+.cancel:hover {
+    border-color: var(--add_hover);
+    color: var(--add_hover);
+    box-shadow: 0 4px 4px var(--button_shadow_hover);
+}
+
+.cancel img {
+    width: 14px;
+    height: 14px;
+}
+
+.add_task_footer .highlighted_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.add_task_footer .highlighted_button img {
+    width: 16px;
+    height: 12px;
+}
+
+.priority_urgent_active {
+    background-color: var(--urgent_color) !important;
+    color: white;
+}
+
+.priority_medium_active {
+    background-color: var(--medium_color) !important;
+    color: white;
+}
+
+.priority_low_active {
+    background-color: var(--low_color) !important;
+    color: white;
+}
+
+.priority_urgent_active img,
+.priority_medium_active img,
+.priority_low_active img {
+    filter: brightness(0) invert(1);
+}

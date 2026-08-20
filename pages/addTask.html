@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/board.css" />
-    <!-- <link rel="stylesheet" href="../styles/board_dialog.css" /> -->
-    <!-- <script src="../scripts/boardTemplate.js"></script>
-    <script src="../scripts/board.js"></script> -->
+    <link rel="stylesheet" href="../styles/board_dialog.css" />
+    <link rel="stylesheet" href="../styles/addTask.css" />
+    <script src="../scripts/addTask.js"></script>
     <link
       rel="shortcut icon"
       href="../assets/img/general/logoFavicon.svg"
@@ -70,163 +70,216 @@
           </section>
         </section>
       </header>
-      <main>
-        <!-- <section class="add_task_head">
+      <main class="add_task_page">
+        <section class="add_task_head">
           <h3>Add Task</h3>
-          <button class="close" onclick="closeDialog('addTask')">
-            <img src="../assets/img/general/close.svg" alt="Close Symbol" />
-          </button>
         </section>
+
         <article class="add_task_main">
           <section class="add_task_left">
             <div class="add_task_input">
               <p>Title<span>*</span></p>
+
               <input
                 class="input_areas"
+                id="taskTitle"
                 type="text"
-                placeholder="Enter a Title"
+                placeholder="Enter a title"
                 required
               />
             </div>
+
             <div class="add_task_input">
               <p>Description</p>
+
               <textarea
                 class="description"
+                id="description"
                 placeholder="Enter a Description"
               ></textarea>
             </div>
+
             <div class="add_task_input">
               <p>Due Date<span>*</span></p>
-              <input
-                class="input_areas"
-                type="text"
-                placeholder="dd/mm/yyyy"
-                required
-              />
+
+              <input class="input_areas" id="dueDate" type="date" required />
             </div>
           </section>
+
           <div class="add_task_middle"></div>
+
           <section class="add_task_right">
             <div class="add_task_input">
               <p>Priority</p>
+
               <section class="priority">
-                <button>
+                <button
+                  class="priority_button"
+                  type="button"
+                  data-priority="Urgent"
+                  onclick="setPriority('Urgent')"
+                >
                   Urgent
+
                   <img
                     src="../assets/img/task/urgent.svg"
-                    alt="Urgent Symbol"
+                    alt="Urgent priority"
                   />
                 </button>
-                <button>
+
+                <button
+                  class="priority_button"
+                  type="button"
+                  data-priority="Medium"
+                  onclick="setPriority('Medium')"
+                >
                   Medium
+
                   <img
                     src="../assets/img/task/medium.svg"
-                    alt="Urgent Symbol"
+                    alt="Medium priority"
                   />
                 </button>
-                <button>
+
+                <button
+                  class="priority_button"
+                  type="button"
+                  data-priority="Low"
+                  onclick="setPriority('Low')"
+                >
                   Low
-                  <img src="../assets/img/task/low.svg" alt="Urgent Symbol" />
+
+                  <img src="../assets/img/task/low.svg" alt="Low priority" />
                 </button>
               </section>
             </div>
+
             <div class="add_task_input">
               <p>Assigned To</p>
+
               <div class="select_areas" id="assignedDropdown">
                 <button
                   class="select_areas_toggle"
                   type="button"
                   onclick="toggleCustomDropdown('assignedDropdown')"
                 >
-                  <span class="select_areas_value"
-                    >Select contacts to assign</span
-                  >
-                  <span class="select_areas_arrow">▾</span>
+                  <span class="select_areas_value">
+                    Select contacts to assign
+                  </span>
+
+                  <span class="select_areas_arrow"> ▾ </span>
                 </button>
-                <div class="select_areas_menu" role="listbox">
+
+                <div class="select_areas_menu">
                   <button
                     class="select_areas_option"
                     type="button"
-                    data-value="contact"
+                    data-value="Contact"
                     onclick="selectCustomDropdown(this)"
                   >
                     Contact
                   </button>
                 </div>
-                <input type="hidden" name="assigned" id="assigned" value="" />
+
+                <input type="hidden" id="assigned" name="assigned" value="" />
               </div>
             </div>
+
             <div class="add_task_input">
               <p>Category<span>*</span></p>
-              <section class="select_areas" id="categoryDropdown">
+
+              <div class="select_areas" id="categoryDropdown">
                 <button
                   class="select_areas_toggle"
                   type="button"
                   onclick="toggleCustomDropdown('categoryDropdown')"
                 >
-                  <span class="select_areas_value">Select task category</span>
-                  <span class="select_areas_arrow">▾</span>
+                  <span class="select_areas_value"> Select task category </span>
+
+                  <span class="select_areas_arrow"> ▾ </span>
                 </button>
-                <div class="select_areas_menu" role="listbox">
+
+                <div class="select_areas_menu">
                   <button
                     class="select_areas_option"
                     type="button"
-                    data-value="task"
+                    data-value="Technical Task"
                     onclick="selectCustomDropdown(this)"
                   >
                     Technical Task
                   </button>
+
                   <button
                     class="select_areas_option"
                     type="button"
-                    data-value="story"
+                    data-value="User Story"
                     onclick="selectCustomDropdown(this)"
                   >
                     User Story
                   </button>
                 </div>
-                <input type="hidden" name="category" id="category" value="" />
-              </section>
+
+                <input type="hidden" id="category" name="category" value="" />
+              </div>
             </div>
+
             <div class="add_task_input">
               <p>Subtasks</p>
+
               <section class="subtask_wrapper">
                 <input
                   class="input_areas"
                   id="subtaskInput"
                   type="text"
-                  placeholder="Add new Subtask"
+                  placeholder="Add new subtask"
                 />
+
                 <div class="subtask_validating">
-                  <button onclick="removeInput()">x</button>
+                  <button type="button" onclick="removeInput()">x</button>
+
                   <div class="subtask_middle"></div>
-                  <button class="subtask_check" onclick="addInput()">
+
+                  <button
+                    class="subtask_check"
+                    type="button"
+                    onclick="addInput()"
+                  >
                     <img
                       src="../assets/img/summary/checkValidate.svg"
-                      alt="Check in Main Color"
+                      alt="Add subtask"
                     />
                   </button>
                 </div>
               </section>
             </div>
+
             <div class="subtasks_displayer">
               <ul class="subtasks_list" id="subtasks"></ul>
             </div>
           </section>
         </article>
+
         <section class="add_task_footer">
           <p><span>*</span>This field is required</p>
+
           <div class="footer_buttons">
-            <button class="cancel" onclick="closeDialog('addTask')">
-              Cancel
-              <img src="../assets/img/general/close.svg" alt="Close Symbol" />
+            <button class="cancel" type="button" onclick="clearTaskForm()">
+              Clear
+
+              <img src="../assets/img/general/close.svg" alt="Clear" />
             </button>
-            <button class="highlighted_button">
+
+            <button
+              class="highlighted_button"
+              type="button"
+              onclick="createTask()"
+            >
               Create Task
-              <img src="../assets/img/general/check.svg" alt="Check Symbol" />
+
+              <img src="../assets/img/general/check.svg" alt="Create task" />
             </button>
           </div>
-        </section>  -->
+        </section>
       </main>
     </article>
   </body>
