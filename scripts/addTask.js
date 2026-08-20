@@ -203,8 +203,7 @@ function escapeHtml(value) {
 /* Validation */
 
 function validateTask() {
-  const requiredValues = getRequiredValues();
-  return requiredValues.every(Boolean);
+  return getRequiredValues().every(Boolean);
 }
 
 function getRequiredValues() {
@@ -219,25 +218,70 @@ function getInputValue(id) {
   return document.getElementById(id)?.value.trim() || "";
 }
 
+function showValidationError() {
+  alert("Please fill in all required fields.");
+}
+
+
+/* Date */
+
+function formatDate(date) {
+  if (!date) return "";
+  const [year, month, day] = date.split("-");
+  return `${day}/${month}/${year}`;
+}
+
+
+/* Firebase */
+
+async function getData(path = "") {
+  const response = await fetch(baseUrl + path + ".json");
+  if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+  return await response.json();
+}
+
+async function getNextTaskId() {
+  const tasks = await getData("/tickets");
+  if (!tasks) return 0;
+  const ids = Object.keys(tasks).filter(isNumericKey).map(Number);
+  if (ids.length === 0) return 0;
+  return Math.max(...ids) + 1;
+}
+
+function isNumericKey(key) {
+  return /^\d+$/.test(key);
+}
+
+async function putData(path = "", data = {}) {
+  const response = await fetch(baseUrl + path + ".json", getPutOptions(data));
+  if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+  return await response.json();
+}
+
+function getPutOptions(data) {
+  return {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+}
+
 
 /* Create Task */
 
 async function createTask() {
   if (!validateTask()) return showValidationError();
-  const task = collectTaskData();
+  const id = await getNextTaskId();
+  const task = collectTaskData(id);
   await saveTask(task);
 }
 
-function showValidationError() {
-  alert("Please fill in all required fields.");
-}
-
-function collectTaskData() {
+function collectTaskData(id) {
   return {
-    id: Date.now(),
+    id: id,
     title: getInputValue("taskTitle"),
     description: getInputValue("description"),
-    date: getInputValue("dueDate"),
+    date: formatDate(getInputValue("dueDate")),
     priority: selectedPriority,
     assigned: getAssignedContacts(),
     category: getInputValue("category"),
@@ -253,7 +297,7 @@ function getAssignedContacts() {
 
 async function saveTask(task) {
   try {
-    await postData("/tickets", task);
+    await putData(`/tickets/${task.id}`, task);
     handleSuccessfulTaskCreation();
   } catch (error) {
     handleTaskCreationError(error);
@@ -270,22 +314,8 @@ function handleTaskCreationError(error) {
   alert("Task could not be created.");
 }
 
-async function postData(path = "", data = {}) {
-  const response = await fetch(baseUrl + path + ".json", getPostOptions(data));
-  if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-  return await response.json();
-}
 
-function getPostOptions(data) {
-  return {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
-}
-
-
-/* Clear Form */
+/* Clear */
 
 function clearTaskForm() {
   clearTextInputs();
