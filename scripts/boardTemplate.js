@@ -35,7 +35,7 @@ async function taskDialogTemplate(arr, index) {
         </ul>
       </section>
       <section class="delete_edit">
-        <button class="task_board_buttons">
+        <button class="task_board_buttons" onclick="deleteTicket('/tickets/${await readDatabase(arr, index, 'id')}')">
           <div>
             <img src="../assets/img/general/delete.svg" alt="Delete Symbol" />
             <p>Delete</p>
@@ -103,7 +103,7 @@ function nothingDoneTemplate() {
 async function somethingTemplate(arr, index, listKey) {
   return `
     <li>
-      <section class="something" draggable="true">
+      <section class="something" draggable="true" ondragstart="dragticket(${await readDatabase(arr, index, 'id')})">
         <button class="board_card" id="card${+ await readDatabase(arr, index, 'id')}" onclick="openTaskDialog('${listKey}', ${index}, 'taskBoardDialog')">
           <div class="board_card_content">
             <h4>${await readDatabase(arr, index, 'category')}</h4>

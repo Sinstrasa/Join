@@ -104,7 +104,7 @@
           </div>
         </section>
         <article class="kanban">
-          <section class="column">
+          <section class="column" ondrop="changeStatus()" ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>To do</h2>
               <button class="adding_task" onclick="openDialog('addTask')">
