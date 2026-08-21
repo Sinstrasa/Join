@@ -105,10 +105,6 @@ h2 {
   font-size: 20px;
 }
 
-span {
-  color: var(--medium_color);
-}
-
 .kanban {
   display: flex;
   gap: 35px;

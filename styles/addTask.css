@@ -165,11 +165,13 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: black;
 }
 
 .select_areas_arrow {
     font-size: 18px;
     transition: transform 200ms ease;
+    color: var(--main_color);
 }
 
 .select_areas.open .select_areas_arrow {
