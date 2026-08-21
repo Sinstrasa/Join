@@ -1,6 +1,7 @@
 import { auth, database } from "./firebaseConfig.js";
-import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-import { addContactDialogTemplate } from "./templates.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+import { ref, push, set, get } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { addContactDialogTemplate, contactsListItemTemplate} from "./templates.js";
 
 // Creates a new contact under the current user's contacts branch
 function createContact(uid, contactData) {
@@ -34,6 +35,7 @@ function handleAddContactSubmit(event) {
   const phone = document.getElementById('contactPhone').value;
 
   generateContact(name, email, phone).then(() => closeDialog('addContact'));
+  loadContacts(auth.currentUser.uid); // Refresh the contacts list after adding a new contact
 }
 
 // Opens a dialog by its id
@@ -56,10 +58,43 @@ function injectAddContactDialog() {
   document.querySelector('.main_content').insertAdjacentHTML('beforeend', addContactDialogTemplate());
 }
 
+// Converts the raw contacts object from the database into an array with id fields
+function mapContactsToArray(contactsData) {
+  if (!contactsData) return [];
+  return Object.keys(contactsData).map((key) => {
+    return { id: key, ...contactsData[key] };
+  });
+}
+
+// Fetches the current user's contacts from the database and renders them
+function loadContacts(uid) {
+  get(ref(database, 'users/' + uid + '/contacts')).then((snapshot) => {
+    const contacts = mapContactsToArray(snapshot.val());
+    renderContactsList(contacts);
+  });
+}
+
+// Renders the list of contacts into the contactsList element
+function renderContactsList(contacts) {
+  const contactsList = document.getElementById('contactsList');
+  contactsList.innerHTML = contacts.map((contact) => contactsListItemTemplate(contact)).join('');
+}
+
+
 // Entry point: injects the dialog markup, then attaches all event listeners
 function initContacts() {
   injectAddContactDialog();
 
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      loadContacts(user.uid);
+    } else {
+      window.location.href = '../index.html';
+    }
+  });
+
+  document.getElementById('addContactForm').addEventListener('submit', handleAddContactSubmit);
+  document.getElementById('addContactButton').addEventListener('click', () => openDialog('addContact'));
   document.getElementById('addContactForm').addEventListener('submit', handleAddContactSubmit);
   document.getElementById('addContactButton').addEventListener('click', () => openDialog('addContact'));
   document.getElementById('closeAddContactButton').addEventListener('click', () => closeDialog('addContact'));

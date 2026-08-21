@@ -7,7 +7,7 @@ main{
     background-color: var(--bg_color);
     flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -182,4 +182,83 @@ main{
   width: 100%;
   font-size: 24px;
   font-weight: 400;
+}
+
+.contacts_container {
+  width: 500px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: left;
+  justify-content: left;
+}
+
+
+
+.contacts_list {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* -----------------Contacts List Item----------------- */
+
+.contact_item{
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  gap: 24px;
+  margin-left: 24px;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--menu_color);
+}
+
+.contact_item:hover {
+  background-color: var(--profile_hover);
+}
+
+.contact_color {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.contact_info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.contact_name {
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact_email {
+  color: var(--add_hover);
+  font-size: 14px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact_phone {
+  display: none;
 }

@@ -46,4 +46,17 @@ function addContactDialogTemplate() {
   `;
 }
 
-export { addContactDialogTemplate };
+function contactsListItemTemplate(contact) {
+  return `
+    <li class="contact_item" data-contact-id="${contact.id}">
+        <div class="contact_color" style="background-color: var(${contact.color});">${contact.name.charAt(0).toUpperCase()}</div>
+        <div class="contact_info">
+            <p class="contact_name">${contact.name}</p>
+            <p class="contact_email">${contact.email}</p>
+            <p class="contact_phone">${contact.phone}</p>
+        </div>
+    </li>
+  `;
+}
+
+export { addContactDialogTemplate, contactsListItemTemplate };
