@@ -1,7 +1,7 @@
 import { auth, database } from "./firebaseConfig.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 import { ref, push, set, get } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-import { addContactDialogTemplate, contactsListItemTemplate} from "./templates.js";
+import { addContactDialogTemplate, contactsListItemTemplate} from "./contactsTemplates.js";
 
 // Creates a new contact under the current user's contacts branch
 function createContact(uid, contactData) {
