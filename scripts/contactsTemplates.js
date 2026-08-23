@@ -1,3 +1,6 @@
+import{getInitials} from "./contacts.js";
+
+
 //-----------------Add Contact Dialog Template-----------------//
 function addContactDialogTemplate() {
   return `
@@ -49,7 +52,7 @@ function addContactDialogTemplate() {
 function contactsListItemTemplate(contact) {
   return `
     <li class="contact_item" data-contact-id="${contact.id}">
-        <div class="contact_color" style="background-color: var(${contact.color});">${contact.name.charAt(0).toUpperCase()}</div>
+        <div class="contact_color" style="background-color: var(${contact.color});">${getInitials(contact.name)}</div>
         <div class="contact_info">
             <p class="contact_name">${contact.name}</p>
             <p class="contact_email">${contact.email}</p>
@@ -59,4 +62,32 @@ function contactsListItemTemplate(contact) {
   `;
 }
 
-export { addContactDialogTemplate, contactsListItemTemplate };
+/// Returns the HTML markup for a single contact's detail view
+function contactDetailTemplate(contact) {
+  return `
+    <div class="contact_card_header">
+      <div class="contact_card_color" style="background-color: var(${contact.color});">${getInitials(contact.name)}</div>
+      <div class="name_and_buttons">
+        <h2>${contact.name}</h2>
+        <div class="contact_card_buttons">
+          <button class="contact_buttons" type="button" id="editContactButton" data-contact-id="${contact.id}">
+          <img src="../assets/img/general/edit.svg" alt="" class="button_icon">
+          Edit</button>
+          <button class="contact_buttons" type="button" id="deleteContactButton" data-contact-id="${contact.id}">
+          <img src="../assets/img/general/delete.svg" alt="" class="button_icon">
+          Delete</button>
+        </div>
+      </div>
+    </div>
+    <section class="contact_card_info">
+      <p class="subtitle">Contact Information</p>
+      <p class="detail_label">Email</p>
+      <p class="detail_value contact_email">${contact.email}</p>
+      <p class="detail_label">Phone</p>
+      <p class="detail_value">+ ${contact.phone}</p>
+    </section>
+  `;
+}
+
+
+export { addContactDialogTemplate, contactsListItemTemplate, contactDetailTemplate};
