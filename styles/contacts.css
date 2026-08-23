@@ -7,8 +7,19 @@ main{
     background-color: var(--bg_color);
     flex: 1;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
+}
+
+.new_contact{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.highlighted_button{
+  width: 90%;
 }
 
 .add_contact_dialog {
@@ -192,6 +203,8 @@ main{
   height: 100%;
   align-items: left;
   justify-content: left;
+  background-color: white;
+   box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -206,19 +219,32 @@ main{
 
 /* -----------------Contacts List Item----------------- */
 
+.contact_group_header {
+  padding: 12px 16px 16px;
+  margin-left: 24px;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--border_color);
+   border-bottom: 1px solid var(--menu_color);
+  
+}
+
 .contact_item{
   display: flex;
   flex-direction: row;
   align-items: left;
   gap: 24px;
   margin-left: 24px;
-  padding: 12px 16px;
+  padding: 16px 16px;
   cursor: pointer;
-  border-bottom: 1px solid var(--menu_color);
 }
 
 .contact_item:hover {
-  background-color: var(--profile_hover);
+  color: white;
+  background-color: var(--main_color);
+  box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .contact_color {
@@ -262,3 +288,39 @@ main{
 .contact_phone {
   display: none;
 }
+
+/* ------------------Contact Details----------------- */
+
+.contact_details_container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: top;
+  height: 100%;
+}
+
+.contact_detail_header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  height: 60px;
+  margin-top: 80px;
+}
+
+.contact_detail_header h2{
+  font-size:64px;
+  font-size: bold;
+}
+
+.contact_detail_header p{
+  font-size: 40px;
+}
+
+.contact_details{
+  margin-top: 80px;
+}
+
+

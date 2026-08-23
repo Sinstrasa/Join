@@ -188,3 +188,11 @@ header > p {
   box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
   cursor: pointer;
 }
+
+.seperator_line {
+    width: 4px;
+    height: 100%;
+     margin: 16px auto 0;
+    border-radius: 3px;
+    background-color: #29abe2;
+}

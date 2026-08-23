@@ -34,8 +34,11 @@ function handleAddContactSubmit(event) {
   const email = document.getElementById('contactEmail').value;
   const phone = document.getElementById('contactPhone').value;
 
-  generateContact(name, email, phone).then(() => closeDialog('addContact'));
-  loadContacts(auth.currentUser.uid); // Refresh the contacts list after adding a new contact
+  generateContact(name, email, phone).then(() => {
+    document.getElementById('addContactForm').reset();
+    closeDialog('addContact');
+    loadContacts(auth.currentUser.uid);
+  });
 }
 
 // Opens a dialog by its id
@@ -74,11 +77,43 @@ function loadContacts(uid) {
   });
 }
 
-// Renders the list of contacts into the contactsList element
+// Sorts contacts alphabetically by name
+function sortContactsByName(contacts) {
+  return [...contacts].sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// Groups sorted contacts by their first letter into an object like { A: [...], B: [...] }
+function groupContactsByLetter(contacts) {
+  const groups = {};
+  contacts.forEach((contact) => {
+    const letter = contact.name.charAt(0).toUpperCase();
+    if (!groups[letter]) groups[letter] = [];
+    groups[letter].push(contact);
+  });
+  return groups;
+}
+
+// Returns the HTML markup for a group header (the divider letter)
+function contactGroupHeaderTemplate(letter) {
+  return `<li class="contact_group_header">${letter}</li>`;
+}
+
+// Renders the grouped, sorted contacts list into the contactsList element
 function renderContactsList(contacts) {
   const contactsList = document.getElementById('contactsList');
-  contactsList.innerHTML = contacts.map((contact) => contactsListItemTemplate(contact)).join('');
+  const sorted = sortContactsByName(contacts);
+  const grouped = groupContactsByLetter(sorted);
+
+  const html = Object.keys(grouped).sort().map((letter) => {
+    const header = contactGroupHeaderTemplate(letter);
+    const items = grouped[letter].map((contact) => contactsListItemTemplate(contact)).join('');
+    return header + items;
+  }).join('');
+
+  contactsList.innerHTML = html;
 }
+
+
 
 
 // Entry point: injects the dialog markup, then attaches all event listeners

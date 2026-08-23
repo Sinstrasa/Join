@@ -66,13 +66,22 @@
       </header>
       <main>
         <section class="contacts_container">
-  <button class="new_contact" id="addContactButton">
+        <div class="new_contact">
+  <button class="highlighted_button" id="addContactButton">
     Add new contact +
-  </button>
+    </button>
+        </div>
   <ul class="contacts_list" id="contactsList"></ul>
 </section>
-        <section class="contact_detail" id="contactDetail">
+        <section class="contact_details_container">
+          <div class="contact_detail_header">
+            <h2>Contacs</h2>
+            <div class="seperator_line"></div>
+            <p>Better with a team</p>
+          </div>
+          <div class="contact_details" id="contactDetails">
           <p>Select a contact to see details.</p>
+          </div>
         </section>
       </main>
     </article>
