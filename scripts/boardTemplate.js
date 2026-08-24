@@ -3,39 +3,39 @@ async function taskDialogTemplate(arr, index) {
     <article class="task_board" id="taskBoard" onclick="stopPropagation(event)">
       <section class="task_board_header">
         <div class="category">
-          <p>${await readDatabase(arr, index, 'category')}</p>
+          <p>${await readDatabase(arr, index, "category")}</p>
           <button class="close" onclick="closeDialog('taskBoardDialog')">
             <img src="../assets/img/general/close.svg" alt="Close Symbol" />
           </button>
         </div>
       </section>
-      <h6>${await readDatabase(arr, index, 'title')}</h6>
-      <p>${await readDatabase(arr, index, 'description')}</p>
+      <h6>${await readDatabase(arr, index, "title")}</h6>
+      <p>${await readDatabase(arr, index, "description")}</p>
       <section class="expiration">
         <p class="subtitle">Due Date:</p>
-        <p>${await readDatabase(arr, index, 'date')}</p>
+        <p>${await readDatabase(arr, index, "date")}</p>
       </section>
       <section class="relevance">
         <p class="subtitle">Priority:</p>
         <div>
-          <p>${await readDatabase(arr, index, 'priority')}</p>
-          ${readPriority(await readDatabase(arr, index, 'priority'))}
+          <p>${await readDatabase(arr, index, "priority")}</p>
+          ${readPriority(await readDatabase(arr, index, "priority"))}
         </div>
       </section>
       <section class="task_board_contacts">
         <p class="subtitle">Assigned To:</p>
         <ul class="task_board_names">
-          ${readAssigned(arr, index, 'assigned')}
+          ${readAssigned(arr, index, "assigned")}
         </ul>
       </section>
       <section class="task_board_footer">
         <p class="subtitle">Subtasks</p>
         <ul class="checklist_subtask">
-          ${readSubtask(arr, index, 'subtasks')}
+          ${readSubtask(arr, index, "subtasks")}
         </ul>
       </section>
       <section class="delete_edit">
-        <button class="task_board_buttons" onclick="deleteTicket('/tickets/${await readDatabase(arr, index, 'id')}'), closeDialog('taskBoardDialog')">
+        <button class="task_board_buttons" onclick="deleteTicket('/tickets/${await readDatabase(arr, index, "id")}'), closeDialog('taskBoardDialog')">
           <div>
             <img src="../assets/img/general/delete.svg" alt="Delete Symbol" />
             <p>Delete</p>
@@ -103,13 +103,13 @@ function nothingDoneTemplate() {
 async function somethingTemplate(arr, index, listKey) {
   return `
     <li>
-      <section class="something" draggable="true" ondragstart="dragticket(${await readDatabase(arr, index, 'id')})">
-        <button class="board_card" id="card${+ await readDatabase(arr, index, 'id')}" onclick="openTaskDialog('${listKey}', ${index}, 'taskBoardDialog')">
+      <section class="something" draggable="true" ondragstart="dragTicket(${await readDatabase(arr, index, "id")})">
+        <button class="board_card" id="card${+(await readDatabase(arr, index, "id"))}" onclick="openTaskDialog('${listKey}', ${index}, 'taskBoardDialog')">
           <div class="board_card_content">
-            <h4>${await readDatabase(arr, index, 'category')}</h4>
+            <h4>${await readDatabase(arr, index, "category")}</h4>
             <section class="card_text">
-              <h5>${await readDatabase(arr, index, 'title')}</h5>
-              <p>${await readDatabase(arr, index, 'description')}</p>
+              <h5>${await readDatabase(arr, index, "title")}</h5>
+              <p>${await readDatabase(arr, index, "description")}</p>
             </section>
             <section class="sub_ladebalken">
               <div class="ladebalken_background"></div>
@@ -118,7 +118,7 @@ async function somethingTemplate(arr, index, listKey) {
             </section>
             <section class="card_footer">
               <p>Contacts</p>
-              ${readPriority(await readDatabase(arr, index, 'priority'))}
+              ${readPriority(await readDatabase(arr, index, "priority"))}
             </section>
           </div>
         </button>

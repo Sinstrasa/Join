@@ -165,8 +165,6 @@ h2 {
   gap: 16px;
 }
 
-
-
 .board_card {
   display: flex;
   flex-direction: column;
@@ -264,8 +262,4 @@ h5 {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-}
-
-.dialog_open {
-  overflow: hidden;
 }

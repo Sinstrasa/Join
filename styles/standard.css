@@ -68,6 +68,7 @@ aside > article {
 
 .current_page {
   background-color: var(--validate_color);
+  color: white;
 }
 
 .legal_necessities {
@@ -187,4 +188,8 @@ header > p {
   background-color: var(--add_hover);
   box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
   cursor: pointer;
+}
+
+.dialog_open {
+  overflow: hidden;
 }

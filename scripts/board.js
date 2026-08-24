@@ -192,24 +192,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function openDialog(reference) {
-  let dialogRef = document.getElementById(reference);
-  dialogRef.showModal();
-  document.body.classList.toggle("dialog_open");
-}
-
 async function openTaskDialog(listKey, index, reference) {
   let arr = taskList[listKey];
   let dialogRef = document.getElementById(reference);
   dialogRef.dataset.taskId = arr[index].id;
   dialogRef.innerHTML = await taskDialogTemplate(arr, index);
   dialogRef.showModal();
-  document.body.classList.toggle("dialog_open");
-}
-
-function closeDialog(reference) {
-  let dialogRef = document.getElementById(reference);
-  dialogRef.close();
   document.body.classList.toggle("dialog_open");
 }
 
