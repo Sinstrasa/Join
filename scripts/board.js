@@ -1,5 +1,3 @@
-const baseUrl =
-  "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
 const taskList = {};
 const subtaskProgressKey = "join-subtask-progress";
 let draggedTicket;

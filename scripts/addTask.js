@@ -1,6 +1,3 @@
-const baseUrl =
-  "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
-
 let selectedPriority = "Medium";
 let subtasks = [];
 
