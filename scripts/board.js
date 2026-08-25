@@ -30,7 +30,6 @@ function dragTicket(id) {
 function changeStatus(listKey) {
   let arr = taskList[listKey];
   let index = arr.findIndex((findId) => findId.id == draggedTicket);
-  
 }
 
 function allowDrop(event) {
@@ -52,13 +51,19 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
   taskList.done = done;
   document.getElementById("toDo").innerHTML = ``;
   for (let index = 0; index < toDo.length; index++) {
-    document.getElementById("toDo").innerHTML +=
-      await somethingTemplate(toDo, index, "toDo");
+    document.getElementById("toDo").innerHTML += await somethingTemplate(
+      toDo,
+      index,
+      "toDo",
+    );
   }
   document.getElementById("inProgress").innerHTML = ``;
   for (let index = 0; index < inProgress.length; index++) {
-    document.getElementById("inProgress").innerHTML +=
-      await somethingTemplate(inProgress, index, "inProgress");
+    document.getElementById("inProgress").innerHTML += await somethingTemplate(
+      inProgress,
+      index,
+      "inProgress",
+    );
   }
   document.getElementById("awaitFeedback").innerHTML = ``;
   for (let index = 0; index < awaitFeedback.length; index++) {
@@ -67,8 +72,11 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
   }
   document.getElementById("done").innerHTML = ``;
   for (let index = 0; index < done.length; index++) {
-    document.getElementById("done").innerHTML +=
-      await somethingTemplate(done, index, "done");
+    document.getElementById("done").innerHTML += await somethingTemplate(
+      done,
+      index,
+      "done",
+    );
   }
   updateSubtaskProgress();
 }
@@ -99,14 +107,17 @@ function readAssigned(arr, index) {
 
 function readSubtask(arr, index) {
   const safeSubtasks = Array.isArray(arr[index]?.subtasks)
-    ? arr[index]?.subtasks: [];
-  return safeSubtasks.map((content, subtaskIndex) =>
-    taskDialogSubtasksTemplate(
-      content,
-      subtaskIndex,
-      isSubtaskChecked(arr[index]?.id, subtaskIndex))
-  )
-  .join("");
+    ? arr[index]?.subtasks
+    : [];
+  return safeSubtasks
+    .map((content, subtaskIndex) =>
+      taskDialogSubtasksTemplate(
+        content,
+        subtaskIndex,
+        isSubtaskChecked(arr[index]?.id, subtaskIndex),
+      ),
+    )
+    .join("");
 }
 
 function checkAmount(id) {
@@ -127,7 +138,7 @@ function checkAmount(id) {
 }
 
 async function deleteTicket(path = "") {
-  await fetch(baseUrl+ path + ".json", {method: "DELETE"});
+  await fetch(baseUrl + path + ".json", { method: "DELETE" });
   await cardColumn();
 }
 
@@ -145,7 +156,9 @@ function updateSubtaskProgress() {
       const subtasks = Array.isArray(task?.subtasks) ? task.subtasks : [];
       const checkedCount = subtasks.reduce(
         (count, _, subtaskIndex) =>
-          count + (progress[task.id]?.[subtaskIndex] ? 1 : 0), 0);
+          count + (progress[task.id]?.[subtaskIndex] ? 1 : 0),
+        0,
+      );
       const progressBar = cards[index]?.querySelector(".ladebalken");
       const progressText = cards[index]?.querySelector(".sub_ladebalken > p");
       if (!progressBar || !progressText) return;
@@ -192,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function openTaskDialog(listKey, index) {
   let arr = taskList[listKey];
-  let dialogRef = document.getElementById('taskBoardDialog');
+  let dialogRef = document.getElementById("taskBoardDialog");
   dialogRef.dataset.taskId = arr[index].id;
   dialogRef.innerHTML = await taskDialogTemplate(arr, index);
   dialogRef.showModal();
@@ -205,8 +218,19 @@ async function openTaskDialog(listKey, index) {
   document.body.classList.toggle("dialog_open");
 }
 
-async function closeTaskDialog(){
-  let dialogRef = document.getElementById('taskBoardDialog');
+async function openAddTaskDialog() {
+  let dialogRef = document.getElementById("addTask");
+  dialogRef.showModal();
+  dialogRef.classList.add("slide_in");
+  dialogRef.addEventListener(
+    "animationend",
+    () => dialogRef.classList.remove("slide_in"),
+    { once: true },
+  );
+}
+
+async function closeSpecificDialog(reference) {
+  let dialogRef = document.getElementById(reference);
   if (dialogRef.classList.contains("slide_out")) return;
   dialogRef.classList.add("slide_out");
   dialogRef.addEventListener(

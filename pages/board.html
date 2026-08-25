@@ -24,7 +24,7 @@
     <dialog
       class="add_task_dialog"
       id="addTask"
-      onclick="closeDialog('addTask')">
+      onclick="closeSpecificDialog('addTask')">
       <article class="add_task" onclick="stopPropagation(event)">
         <section class="add_task_head">
           <h3>Add Task</h3>
@@ -194,7 +194,7 @@
     <dialog
       class="task_board_dialog"
       id="taskBoardDialog"
-      onclick="closeTaskDialog()"
+      onclick="closeSpecificDialog('taskBoardDialog')"
     ></dialog>
     <aside>
       <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
@@ -264,7 +264,7 @@
                 </button>
               </div>
             </section>
-            <button class="new_task" onclick="openDialog('addTask')">
+            <button class="new_task" onclick="openAddTaskDialog()">
               Add Task +
             </button>
           </div>
