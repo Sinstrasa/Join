@@ -4,7 +4,7 @@ async function taskDialogTemplate(arr, index) {
       <section class="task_board_header">
         <div class="category">
           <p>${await readDatabase(arr, index, "category")}</p>
-          <button class="close" onclick="closeDialog('taskBoardDialog')">
+          <button class="close" onclick="closeTaskDialog()">
             <img src="../assets/img/general/close.svg" alt="Close Symbol" />
           </button>
         </div>
@@ -104,7 +104,7 @@ async function somethingTemplate(arr, index, listKey) {
   return `
     <li>
       <section class="something" draggable="true" ondragstart="dragTicket(${await readDatabase(arr, index, "id")})">
-        <button class="board_card" id="card${+(await readDatabase(arr, index, "id"))}" onclick="openTaskDialog('${listKey}', ${index}, 'taskBoardDialog')">
+        <button class="board_card" id="card${+(await readDatabase(arr, index, "id"))}" onclick="openTaskDialog('${listKey}', ${index})">
           <div class="board_card_content">
             <h4>${await readDatabase(arr, index, "category")}</h4>
             <section class="card_text">

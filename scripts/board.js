@@ -190,34 +190,50 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-async function openTaskDialog(listKey, index, reference) {
+async function openTaskDialog(listKey, index) {
   let arr = taskList[listKey];
-  let dialogRef = document.getElementById(reference);
+  let dialogRef = document.getElementById('taskBoardDialog');
   dialogRef.dataset.taskId = arr[index].id;
   dialogRef.innerHTML = await taskDialogTemplate(arr, index);
   dialogRef.showModal();
+  dialogRef.classList.add("slide_in");
+  dialogRef.addEventListener(
+    "animationend",
+    () => dialogRef.classList.remove("slide_in"),
+    { once: true },
+  );
   document.body.classList.toggle("dialog_open");
 }
 
-// async function postData(path = "", data = {}) {
-//   let response = await fetch(BaseUrl + path + ".json", {
-//     method: "POST",
-//     header: {
-//       "content-type": "application/json",
-//     },
-//     body: JSON.stringify(data),
-//   });
-// }
+async function closeTaskDialog(){
+  let dialogRef = document.getElementById('taskBoardDialog');
+  if (dialogRef.classList.contains("slide_out")) return;
+  dialogRef.classList.add("slide_out");
+  dialogRef.addEventListener(
+    "animationend",
+    () => {
+      dialogRef.classList.remove("slide_out");
+      dialogRef.close();
+      document.body.classList.toggle("dialog_open");
+    },
+    { once: true },
+  );
+}
 
-// postData("/tickets", {
-//     title: "Kochwelt Page & Recipce Recommender",
-//     description: "Build start page with recipe recommendation",
-//     dueDate: "10/05/2023",
-//     priority: "Medium",
-//     assigned: ["Emmanuel Mauer", "Marcel Bauer", "Anton Mayer"],
-//     category: "User Story",
-//     subtasks: ["Implementation Recipe Recommendation", "Start Page Layout"],
-//   });
+// if (dialogRef.classList.contains("task_board_dialog")) {
+//     if (dialogRef.classList.contains("closing")) return;
+//     dialogRef.classList.add("closing");
+//     dialogRef.addEventListener(
+//       "animationend",
+//       () => {
+//         dialogRef.classList.remove("closing");
+//         dialogRef.close();
+//         document.body.classList.toggle("dialog_open");
+//       },
+//       { once: true },
+//     );
+//     return;
+// }
 
 // Funktion, die zu Add Task eigentlich gehört
 

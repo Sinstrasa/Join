@@ -17,6 +17,7 @@ main {
   align-items: center;
   justify-content: space-between;
   padding: 80px 88px 48px 64px;
+  max-width: 1208px;
 }
 
 .main_title > div {
