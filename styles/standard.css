@@ -68,6 +68,7 @@ aside > article {
 
 .current_page {
   background-color: var(--validate_color);
+  color: white;
 }
 
 .legal_necessities {
@@ -189,10 +190,8 @@ header > p {
   cursor: pointer;
 }
 
-.seperator_line {
-    width: 4px;
-    height: 100%;
-     margin: 16px auto 0;
-    border-radius: 3px;
-    background-color: #29abe2;
+.dialog_open {
+  overflow: hidden;
 }
+
+

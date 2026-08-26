@@ -1,5 +1,3 @@
-const baseUrl =
-  "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
 const taskList = {};
 const subtaskProgressKey = "join-subtask-progress";
 let draggedTicket;
@@ -32,7 +30,6 @@ function dragTicket(id) {
 function changeStatus(listKey) {
   let arr = taskList[listKey];
   let index = arr.findIndex((findId) => findId.id == draggedTicket);
-  
 }
 
 function allowDrop(event) {
@@ -54,13 +51,19 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
   taskList.done = done;
   document.getElementById("toDo").innerHTML = ``;
   for (let index = 0; index < toDo.length; index++) {
-    document.getElementById("toDo").innerHTML +=
-      await somethingTemplate(toDo, index, "toDo");
+    document.getElementById("toDo").innerHTML += await somethingTemplate(
+      toDo,
+      index,
+      "toDo",
+    );
   }
   document.getElementById("inProgress").innerHTML = ``;
   for (let index = 0; index < inProgress.length; index++) {
-    document.getElementById("inProgress").innerHTML +=
-      await somethingTemplate(inProgress, index, "inProgress");
+    document.getElementById("inProgress").innerHTML += await somethingTemplate(
+      inProgress,
+      index,
+      "inProgress",
+    );
   }
   document.getElementById("awaitFeedback").innerHTML = ``;
   for (let index = 0; index < awaitFeedback.length; index++) {
@@ -69,8 +72,11 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
   }
   document.getElementById("done").innerHTML = ``;
   for (let index = 0; index < done.length; index++) {
-    document.getElementById("done").innerHTML +=
-      await somethingTemplate(done, index, "done");
+    document.getElementById("done").innerHTML += await somethingTemplate(
+      done,
+      index,
+      "done",
+    );
   }
   updateSubtaskProgress();
 }
@@ -101,14 +107,17 @@ function readAssigned(arr, index) {
 
 function readSubtask(arr, index) {
   const safeSubtasks = Array.isArray(arr[index]?.subtasks)
-    ? arr[index]?.subtasks: [];
-  return safeSubtasks.map((content, subtaskIndex) =>
-    taskDialogSubtasksTemplate(
-      content,
-      subtaskIndex,
-      isSubtaskChecked(arr[index]?.id, subtaskIndex))
-  )
-  .join("");
+    ? arr[index]?.subtasks
+    : [];
+  return safeSubtasks
+    .map((content, subtaskIndex) =>
+      taskDialogSubtasksTemplate(
+        content,
+        subtaskIndex,
+        isSubtaskChecked(arr[index]?.id, subtaskIndex),
+      ),
+    )
+    .join("");
 }
 
 function checkAmount(id) {
@@ -129,7 +138,7 @@ function checkAmount(id) {
 }
 
 async function deleteTicket(path = "") {
-  await fetch(baseUrl+ path + ".json", {method: "DELETE"});
+  await fetch(baseUrl + path + ".json", { method: "DELETE" });
   await cardColumn();
 }
 
@@ -143,20 +152,22 @@ function updateSubtaskProgress() {
   columns.forEach((column) => {
     const tasks = taskList[column] || [];
     const cards = document.querySelectorAll(`#${column} .board_card`);
-    tasks.forEach((task, index) => {
-      const subtasks = Array.isArray(task?.subtasks) ? task.subtasks : [];
-      const checkedCount = subtasks.reduce(
-        (count, _, subtaskIndex) =>
-          count + (progress[task.id]?.[subtaskIndex] ? 1 : 0), 0);
-      const progressBar = cards[index]?.querySelector(".ladebalken");
-      const progressText = cards[index]?.querySelector(".sub_ladebalken > p");
-      if (!progressBar || !progressText) return;
-      const progressPercent =
-        subtasks.length > 0 ? (checkedCount / subtasks.length) * 100 : 0;
-      progressBar.style.width = `${progressPercent}px`;
-      progressText.textContent = `${checkedCount}/${subtasks.length} Subtasks`;
-    });
+    tasks.forEach((task, index) =>
+      updateTaskSubtaskProgress(task, cards[index], progress));
   });
+}
+
+function updateTaskSubtaskProgress(task, card, progress) {
+  const subtasks = Array.isArray(task?.subtasks) ? task.subtasks : [];
+  const progressSection = card?.querySelector(".sub_ladebalken");
+  const progressBar = card?.querySelector(".ladebalken");
+  const progressText = card?.querySelector(".sub_ladebalken > p");
+  if (!progressSection || !progressBar || !progressText) return;
+  const checkedCount = subtasks.reduce(
+    (count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0), 0);
+  progressSection.style.display = subtasks.length === 0 ? "none" : "";
+  progressBar.style.width = `${subtasks.length ? (checkedCount / subtasks.length) * 100 : 0}px`;
+  progressText.textContent = `${checkedCount}/${subtasks.length} Subtasks`;
 }
 
 function getSubtaskProgress() {
@@ -192,46 +203,61 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function openDialog(reference) {
-  let dialogRef = document.getElementById(reference);
-  dialogRef.showModal();
-  document.body.classList.toggle("dialog_open");
-}
-
-async function openTaskDialog(listKey, index, reference) {
+async function openTaskDialog(listKey, index) {
   let arr = taskList[listKey];
-  let dialogRef = document.getElementById(reference);
+  let dialogRef = document.getElementById("taskBoardDialog");
   dialogRef.dataset.taskId = arr[index].id;
   dialogRef.innerHTML = await taskDialogTemplate(arr, index);
   dialogRef.showModal();
+  dialogRef.classList.add("slide_in");
+  dialogRef.addEventListener(
+    "animationend",
+    () => dialogRef.classList.remove("slide_in"),
+    { once: true },
+  );
   document.body.classList.toggle("dialog_open");
 }
 
-function closeDialog(reference) {
+async function openAddTaskDialog() {
+  let dialogRef = document.getElementById("addTask");
+  dialogRef.showModal();
+  dialogRef.classList.add("slide_in");
+  dialogRef.addEventListener(
+    "animationend",
+    () => dialogRef.classList.remove("slide_in"),
+    { once: true },
+  );
+}
+
+async function closeSpecificDialog(reference) {
   let dialogRef = document.getElementById(reference);
-  dialogRef.close();
-  document.body.classList.toggle("dialog_open");
+  if (dialogRef.classList.contains("slide_out")) return;
+  dialogRef.classList.add("slide_out");
+  dialogRef.addEventListener(
+    "animationend",
+    () => {
+      dialogRef.classList.remove("slide_out");
+      dialogRef.close();
+      document.body.classList.toggle("dialog_open");
+    },
+    { once: true },
+  );
 }
 
-// async function postData(path = "", data = {}) {
-//   let response = await fetch(BaseUrl + path + ".json", {
-//     method: "POST",
-//     header: {
-//       "content-type": "application/json",
-//     },
-//     body: JSON.stringify(data),
-//   });
+// if (dialogRef.classList.contains("task_board_dialog")) {
+//     if (dialogRef.classList.contains("closing")) return;
+//     dialogRef.classList.add("closing");
+//     dialogRef.addEventListener(
+//       "animationend",
+//       () => {
+//         dialogRef.classList.remove("closing");
+//         dialogRef.close();
+//         document.body.classList.toggle("dialog_open");
+//       },
+//       { once: true },
+//     );
+//     return;
 // }
-
-// postData("/tickets", {
-//     title: "Kochwelt Page & Recipce Recommender",
-//     description: "Build start page with recipe recommendation",
-//     dueDate: "10/05/2023",
-//     priority: "Medium",
-//     assigned: ["Emmanuel Mauer", "Marcel Bauer", "Anton Mayer"],
-//     category: "User Story",
-//     subtasks: ["Implementation Recipe Recommendation", "Start Page Layout"],
-//   });
 
 // Funktion, die zu Add Task eigentlich gehört
 

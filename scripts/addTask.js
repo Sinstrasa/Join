@@ -7,11 +7,11 @@ let subtasks = [];
 
 /* Initialize */
 
-document.addEventListener("DOMContentLoaded", initialiseAddTask);
+document.addEventListener("DOMContentLoaded", initAddTask);
 
-function initialiseAddTask() {
-  setPriority("Medium");
+function initAddTask() {
   setupOutsideClick();
+  setPriority("Medium");
 }
 
 
