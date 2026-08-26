@@ -152,22 +152,22 @@ function updateSubtaskProgress() {
   columns.forEach((column) => {
     const tasks = taskList[column] || [];
     const cards = document.querySelectorAll(`#${column} .board_card`);
-    tasks.forEach((task, index) => {
-      const subtasks = Array.isArray(task?.subtasks) ? task.subtasks : [];
-      const checkedCount = subtasks.reduce(
-        (count, _, subtaskIndex) =>
-          count + (progress[task.id]?.[subtaskIndex] ? 1 : 0),
-        0,
-      );
-      const progressBar = cards[index]?.querySelector(".ladebalken");
-      const progressText = cards[index]?.querySelector(".sub_ladebalken > p");
-      if (!progressBar || !progressText) return;
-      const progressPercent =
-        subtasks.length > 0 ? (checkedCount / subtasks.length) * 100 : 0;
-      progressBar.style.width = `${progressPercent}px`;
-      progressText.textContent = `${checkedCount}/${subtasks.length} Subtasks`;
-    });
+    tasks.forEach((task, index) =>
+      updateTaskSubtaskProgress(task, cards[index], progress));
   });
+}
+
+function updateTaskSubtaskProgress(task, card, progress) {
+  const subtasks = Array.isArray(task?.subtasks) ? task.subtasks : [];
+  const progressSection = card?.querySelector(".sub_ladebalken");
+  const progressBar = card?.querySelector(".ladebalken");
+  const progressText = card?.querySelector(".sub_ladebalken > p");
+  if (!progressSection || !progressBar || !progressText) return;
+  const checkedCount = subtasks.reduce(
+    (count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0), 0);
+  progressSection.style.display = subtasks.length === 0 ? "none" : "";
+  progressBar.style.width = `${subtasks.length ? (checkedCount / subtasks.length) * 100 : 0}px`;
+  progressText.textContent = `${checkedCount}/${subtasks.length} Subtasks`;
 }
 
 function getSubtaskProgress() {
