@@ -192,39 +192,19 @@ async function openTaskDialog(listKey, index) {
   dialogRef.dataset.taskId = arr[index].id;
   dialogRef.innerHTML = await taskDialogTemplate(arr, index);
   dialogRef.showModal();
-  dialogRef.classList.add("slide_in");
-  dialogRef.addEventListener(
-    "animationend",
-    () => dialogRef.classList.remove("slide_in"),
-    { once: true },
-  );
-  document.body.classList.toggle("dialog_open");
+  openAnimation(dialogRef);
+  document.body.classList.add("dialog_open");
 }
 
 async function openAddTaskDialog() {
   let dialogRef = document.getElementById("addTask");
   dialogRef.showModal();
-  dialogRef.classList.add("slide_in");
-  dialogRef.addEventListener(
-    "animationend",
-    () => dialogRef.classList.remove("slide_in"),
-    { once: true },
-  );
+  openAnimation(dialogRef);
 }
 
 async function closeSpecificDialog(reference) {
   let dialogRef = document.getElementById(reference);
-  if (dialogRef.classList.contains("slide_out")) return;
-  dialogRef.classList.add("slide_out");
-  dialogRef.addEventListener(
-    "animationend",
-    () => {
-      dialogRef.classList.remove("slide_out");
-      dialogRef.close();
-      document.body.classList.toggle("dialog_open");
-    },
-    { once: true },
-  );
+  closeAnimation(dialogRef);
 }
 
 // if (dialogRef.classList.contains("task_board_dialog")) {
