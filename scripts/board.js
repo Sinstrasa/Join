@@ -49,36 +49,19 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
   taskList.inProgress = inProgress;
   taskList.awaitFeedback = awaitFeedback;
   taskList.done = done;
-  document.getElementById("toDo").innerHTML = ``;
-  for (let index = 0; index < toDo.length; index++) {
-    document.getElementById("toDo").innerHTML += await somethingTemplate(
-      toDo,
-      index,
-      "toDo",
-    );
-  }
-  document.getElementById("inProgress").innerHTML = ``;
-  for (let index = 0; index < inProgress.length; index++) {
-    document.getElementById("inProgress").innerHTML += await somethingTemplate(
-      inProgress,
-      index,
-      "inProgress",
-    );
-  }
-  document.getElementById("awaitFeedback").innerHTML = ``;
-  for (let index = 0; index < awaitFeedback.length; index++) {
-    document.getElementById("awaitFeedback").innerHTML +=
-      await somethingTemplate(awaitFeedback, index, "awaitFeedback");
-  }
-  document.getElementById("done").innerHTML = ``;
-  for (let index = 0; index < done.length; index++) {
-    document.getElementById("done").innerHTML += await somethingTemplate(
-      done,
-      index,
-      "done",
-    );
-  }
+  updateColumn(taskList.toDo, 'toDo');
+  updateColumn(taskList.inProgress, 'inProgress');
+  updateColumn(taskList.awaitFeedback, 'awaitFeedback');
+  await updateColumn(taskList.done, 'done');
   updateSubtaskProgress();
+}
+
+async function updateColumn(arr, id) {
+  document.getElementById(id).innerHTML = ``;
+  for (let index = 0; index < arr.length; index++) {
+    document.getElementById(id).innerHTML +=
+    await somethingTemplate(arr, index, id);
+  }
 }
 
 async function readDatabase(arr, index, information) {
