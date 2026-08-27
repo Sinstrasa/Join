@@ -40,16 +40,21 @@ function getUserInitial(userData) {
 }
 
 function setupLogoutButton() {
-  const logoutButton = document.getElementById("logoutButton");
-  if (!logoutButton) return;
-  logoutButton.addEventListener("click", handleLogout);
+  const button = document.getElementById("logoutButton");
+  if (!button) return;
+  button.addEventListener("click", handleLogout);
 }
 
-function handleLogout(event) {
+async function handleLogout(event) {
   event.preventDefault();
-  signOut(auth).then(redirectToLogin);
+  try {
+    await signOut(auth);
+    redirectToLogin();
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
 }
 
 function redirectToLogin() {
-  window.location.href = "../index.html";
+  window.location.replace("../index.html");
 }

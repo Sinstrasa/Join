@@ -4,37 +4,33 @@ const baseUrl =
 let selectedPriority = "Medium";
 let subtasks = [];
 
-
 /* Initialize */
 
 document.addEventListener("DOMContentLoaded", initAddTask);
 
 function initAddTask() {
   setupOutsideClick();
+  initPriorityButtons();
+  initDropdownButtons();
+  initDropdownOptions();
+  initActionButtons();
   setPriority("Medium");
 }
 
-
-/* Navigation */
-
-function openDialog(reference) {
-  const dialogRef = document.getElementById(reference);
-  if (!dialogRef) return;
-  dialogRef.showModal();
-}
-
-function closeDialog(reference) {
-  const dialogRef = document.getElementById(reference);
-  if (!dialogRef) return;
-  dialogRef.close();
-}
-
-function stopPropagation(event) {
-  event.stopPropagation();
-}
-
-
 /* Dropdowns */
+
+function initDropdownButtons() {
+  const buttons = document.querySelectorAll(".select_areas_toggle");
+  buttons.forEach((button) => {
+    button.addEventListener("click", handleDropdownClick);
+  });
+}
+
+function handleDropdownClick(event) {
+  const dropdown = event.currentTarget.closest(".select_areas");
+  if (!dropdown) return;
+  toggleCustomDropdown(dropdown.id);
+}
 
 function toggleCustomDropdown(id) {
   const dropdown = document.getElementById(id);
@@ -47,6 +43,17 @@ function closeOtherDropdowns(currentId) {
   document.querySelectorAll(".select_areas.open").forEach((dropdown) => {
     if (dropdown.id !== currentId) dropdown.classList.remove("open");
   });
+}
+
+function initDropdownOptions() {
+  const options = document.querySelectorAll(".select_areas_option");
+  options.forEach((option) => {
+    option.addEventListener("click", handleDropdownOption);
+  });
+}
+
+function handleDropdownOption(event) {
+  selectCustomDropdown(event.currentTarget);
 }
 
 function selectCustomDropdown(optionButton) {
@@ -78,8 +85,19 @@ function closeAllDropdowns() {
   });
 }
 
-
 /* Priority */
+
+function initPriorityButtons() {
+  const buttons = document.querySelectorAll(".priority_button");
+  buttons.forEach((button) => {
+    button.addEventListener("click", handlePriorityClick);
+  });
+}
+
+function handlePriorityClick(event) {
+  const priority = event.currentTarget.dataset.priority;
+  setPriority(priority);
+}
 
 function setPriority(priority) {
   selectedPriority = priority;
@@ -117,6 +135,20 @@ function getPriorityClass(priority) {
   return "priority_medium_active";
 }
 
+/* Action Buttons */
+
+function initActionButtons() {
+  addClickListener("clearTaskButton", clearTaskForm);
+  addClickListener("createTaskButton", createTask);
+  addClickListener("clearSubtaskButton", removeInput);
+  addClickListener("addSubtaskButton", addInput);
+}
+
+function addClickListener(id, callback) {
+  const button = document.getElementById(id);
+  if (!button) return;
+  button.addEventListener("click", callback);
+}
 
 /* Subtasks */
 
@@ -150,29 +182,54 @@ function createSubtaskTemplate(subtask, index) {
   return `
     <li>
       <p class="subtask_text">${escapeHtml(subtask)}</p>
-      ${createEditButton(index)}
+
+      <button
+        class="subtask_icon"
+        type="button"
+        data-action="edit"
+        data-index="${index}"
+        aria-label="Edit subtask"
+      >
+        <img
+          src="../assets/img/summary/penValidate.svg"
+          alt="Edit subtask"
+        />
+      </button>
+
       <div class="subtask_middle"></div>
-      ${createDeleteButton(index)}
+
+      <button
+        class="subtask_icon"
+        type="button"
+        data-action="delete"
+        data-index="${index}"
+        aria-label="Delete subtask"
+      >
+        <img
+          src="../assets/img/general/delete.svg"
+          alt="Delete subtask"
+        />
+      </button>
     </li>
   `;
 }
 
-function createEditButton(index) {
-  return `
-    <button class="subtask_icon" type="button"
-      onclick="editSubtask(${index})" aria-label="Edit subtask">
-      <img src="../assets/img/summary/penValidate.svg" alt="Edit subtask" />
-    </button>
-  `;
+function initSubtaskListEvents() {
+  const list = document.getElementById("subtasks");
+  if (!list) return;
+  list.addEventListener("click", handleSubtaskListClick);
 }
 
-function createDeleteButton(index) {
-  return `
-    <button class="subtask_icon" type="button"
-      onclick="deleteSubtask(${index})" aria-label="Delete subtask">
-      <img src="../assets/img/general/delete.svg" alt="Delete subtask" />
-    </button>
-  `;
+function handleSubtaskListClick(event) {
+  const button = event.target.closest(".subtask_icon");
+  if (!button) return;
+  handleSubtaskAction(button);
+}
+
+function handleSubtaskAction(button) {
+  const index = Number(button.dataset.index);
+  if (button.dataset.action === "edit") editSubtask(index);
+  if (button.dataset.action === "delete") deleteSubtask(index);
 }
 
 function deleteSubtask(index) {
@@ -199,7 +256,6 @@ function escapeHtml(value) {
   return div.innerHTML;
 }
 
-
 /* Validation */
 
 function validateTask() {
@@ -222,7 +278,6 @@ function showValidationError() {
   alert("Please fill in all required fields.");
 }
 
-
 /* Date */
 
 function formatDate(date) {
@@ -230,7 +285,6 @@ function formatDate(date) {
   const [year, month, day] = date.split("-");
   return `${day}/${month}/${year}`;
 }
-
 
 /* Firebase */
 
@@ -265,7 +319,6 @@ function getPutOptions(data) {
     body: JSON.stringify(data),
   };
 }
-
 
 /* Create Task */
 
@@ -313,7 +366,6 @@ function handleTaskCreationError(error) {
   console.error("Task could not be created:", error);
   alert("Task could not be created.");
 }
-
 
 /* Clear */
 
