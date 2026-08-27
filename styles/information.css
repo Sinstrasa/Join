@@ -137,4 +137,19 @@ body {
     margin-bottom: 8px;
 }
 
+/* PreLogin Header */
+
+.prelogin_header {
+  display: flex;
+  align-items: center;
+  min-height: 96px;
+  padding: 0 64px;
+  background-color: white;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.prelogin_header p {
+  font-size: 20px;
+  font-weight: 400;
+}
 
