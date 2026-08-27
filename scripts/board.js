@@ -81,24 +81,20 @@ function readPriority(priority) {
 
 function readAssigned(arr, index) {
   const safeAssigned = Array.isArray(arr[index]?.assigned)
-    ? arr[index].assigned
-    : [];
+    ? arr[index].assigned: [];
   return safeAssigned
-    .map((content) => taskDialogNamesTemplate(content))
-    .join("");
+    .map((content) => taskDialogNamesTemplate(content)).join("");
 }
 
 function readSubtask(arr, index) {
   const safeSubtasks = Array.isArray(arr[index]?.subtasks)
-    ? arr[index]?.subtasks
-    : [];
+    ? arr[index]?.subtasks: [];
   return safeSubtasks
     .map((content, subtaskIndex) =>
       taskDialogSubtasksTemplate(
         content,
         subtaskIndex,
-        isSubtaskChecked(arr[index]?.id, subtaskIndex),
-      ),
+        isSubtaskChecked(arr[index]?.id, subtaskIndex))
     )
     .join("");
 }
