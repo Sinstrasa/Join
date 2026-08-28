@@ -1,5 +1,7 @@
 const taskList = {};
 const subtaskProgressKey = "join-subtask-progress";
+let isSearch = false;
+let ticketAkku = [];
 let draggedTicket;
 
 // Funktionen, die nur für board gedacht sind
@@ -49,18 +51,21 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
   taskList.inProgress = inProgress;
   taskList.awaitFeedback = awaitFeedback;
   taskList.done = done;
-  updateColumn(taskList.toDo, 'toDo');
-  updateColumn(taskList.inProgress, 'inProgress');
-  updateColumn(taskList.awaitFeedback, 'awaitFeedback');
-  await updateColumn(taskList.done, 'done');
+  updateColumn(taskList.toDo, "toDo");
+  updateColumn(taskList.inProgress, "inProgress");
+  updateColumn(taskList.awaitFeedback, "awaitFeedback");
+  await updateColumn(taskList.done, "done");
   updateSubtaskProgress();
 }
 
 async function updateColumn(arr, id) {
   document.getElementById(id).innerHTML = ``;
   for (let index = 0; index < arr.length; index++) {
-    document.getElementById(id).innerHTML +=
-    await somethingTemplate(arr, index, id);
+    document.getElementById(id).innerHTML += await somethingTemplate(
+      arr,
+      index,
+      id,
+    );
   }
 }
 
@@ -81,20 +86,24 @@ function readPriority(priority) {
 
 function readAssigned(arr, index) {
   const safeAssigned = Array.isArray(arr[index]?.assigned)
-    ? arr[index].assigned: [];
+    ? arr[index].assigned
+    : [];
   return safeAssigned
-    .map((content) => taskDialogNamesTemplate(content)).join("");
+    .map((content) => taskDialogNamesTemplate(content))
+    .join("");
 }
 
 function readSubtask(arr, index) {
   const safeSubtasks = Array.isArray(arr[index]?.subtasks)
-    ? arr[index]?.subtasks: [];
+    ? arr[index]?.subtasks
+    : [];
   return safeSubtasks
     .map((content, subtaskIndex) =>
       taskDialogSubtasksTemplate(
         content,
         subtaskIndex,
-        isSubtaskChecked(arr[index]?.id, subtaskIndex))
+        isSubtaskChecked(arr[index]?.id, subtaskIndex),
+      ),
     )
     .join("");
 }
@@ -116,6 +125,44 @@ function checkAmount(id) {
   }
 }
 
+function validateSearch() {
+  isSearch = true;
+  let searchRef = document.getElementById("searchField").value;
+  switch (searchRef.length) {
+    case 0:
+      isSearch = false;
+      cardColumn();
+      break;
+    default:
+      search(searchRef);
+      break;
+  }
+}
+
+async function search(input) {
+  let myArray = await getTickets("/tickets");
+  ticketAkku = [];
+  for (let index = 0; index < myArray.length; index++) {
+    for (
+      let subindex = 0;
+      subindex < (await myArray[index].title.length);
+      subindex++
+    ) {
+      let compare = (await myArray[index].title).slice(
+        subindex, input.length + subindex,
+      );
+      if (input == compare) {
+        ticketAkku.push(myArray[index]);
+      }
+    }
+  }
+  await sort(ticketAkku);
+  checkAmount("toDo");
+  checkAmount("inProgress");
+  checkAmount("awaitFeedback");
+  checkAmount("done");
+}
+
 async function deleteTicket(path = "") {
   await fetch(baseUrl + path + ".json", { method: "DELETE" });
   await cardColumn();
@@ -132,7 +179,8 @@ function updateSubtaskProgress() {
     const tasks = taskList[column] || [];
     const cards = document.querySelectorAll(`#${column} .board_card`);
     tasks.forEach((task, index) =>
-      updateTaskSubtaskProgress(task, cards[index], progress));
+      updateTaskSubtaskProgress(task, cards[index], progress),
+    );
   });
 }
 
@@ -143,7 +191,9 @@ function updateTaskSubtaskProgress(task, card, progress) {
   const progressText = card?.querySelector(".sub_ladebalken > p");
   if (!progressSection || !progressBar || !progressText) return;
   const checkedCount = subtasks.reduce(
-    (count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0), 0);
+    (count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0),
+    0,
+  );
   progressSection.style.display = subtasks.length === 0 ? "none" : "";
   progressBar.style.width = `${subtasks.length ? (checkedCount / subtasks.length) * 100 : 0}px`;
   progressText.textContent = `${checkedCount}/${subtasks.length} Subtasks`;
