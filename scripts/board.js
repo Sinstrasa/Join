@@ -219,6 +219,9 @@ function saveSubtaskState(taskId, index, checked) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  document
+    .getElementById("searchField")
+    .addEventListener("input", validateSearch);
   updateSubtaskProgress();
   document.addEventListener("change", (event) => {
     if (!event.target.classList.contains("subtask_checkbox")) return;
