@@ -151,7 +151,10 @@ async function search(input) {
       let compare = (await myArray[index].title).slice(
         subindex, input.length + subindex,
       );
-      if (input == compare) {
+      if (
+        input == compare &&
+        !ticketAkku.some((ticket) => ticket.title === myArray[index].title)
+      ) {
         ticketAkku.push(myArray[index]);
       }
     }
