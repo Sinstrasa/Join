@@ -1,5 +1,7 @@
 const taskList = {};
 const subtaskProgressKey = "join-subtask-progress";
+let isSearch = false;
+let ticketAkku = [];
 let draggedTicket;
 
 // Funktionen, die nur für board gedacht sind
@@ -49,36 +51,22 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
   taskList.inProgress = inProgress;
   taskList.awaitFeedback = awaitFeedback;
   taskList.done = done;
-  document.getElementById("toDo").innerHTML = ``;
-  for (let index = 0; index < toDo.length; index++) {
-    document.getElementById("toDo").innerHTML += await somethingTemplate(
-      toDo,
-      index,
-      "toDo",
-    );
-  }
-  document.getElementById("inProgress").innerHTML = ``;
-  for (let index = 0; index < inProgress.length; index++) {
-    document.getElementById("inProgress").innerHTML += await somethingTemplate(
-      inProgress,
-      index,
-      "inProgress",
-    );
-  }
-  document.getElementById("awaitFeedback").innerHTML = ``;
-  for (let index = 0; index < awaitFeedback.length; index++) {
-    document.getElementById("awaitFeedback").innerHTML +=
-      await somethingTemplate(awaitFeedback, index, "awaitFeedback");
-  }
-  document.getElementById("done").innerHTML = ``;
-  for (let index = 0; index < done.length; index++) {
-    document.getElementById("done").innerHTML += await somethingTemplate(
-      done,
-      index,
-      "done",
-    );
-  }
+  updateColumn(taskList.toDo, "toDo");
+  updateColumn(taskList.inProgress, "inProgress");
+  updateColumn(taskList.awaitFeedback, "awaitFeedback");
+  await updateColumn(taskList.done, "done");
   updateSubtaskProgress();
+}
+
+async function updateColumn(arr, id) {
+  document.getElementById(id).innerHTML = ``;
+  for (let index = 0; index < arr.length; index++) {
+    document.getElementById(id).innerHTML += await somethingTemplate(
+      arr,
+      index,
+      id,
+    );
+  }
 }
 
 async function readDatabase(arr, index, information) {
@@ -137,6 +125,47 @@ function checkAmount(id) {
   }
 }
 
+function validateSearch() {
+  isSearch = true;
+  let searchRef = document.getElementById("searchField").value;
+  switch (searchRef.length) {
+    case 0:
+      isSearch = false;
+      cardColumn();
+      break;
+    default:
+      search(searchRef);
+      break;
+  }
+}
+
+async function search(input) {
+  let myArray = await getTickets("/tickets");
+  ticketAkku = [];
+  for (let index = 0; index < myArray.length; index++) {
+    for (
+      let subindex = 0;
+      subindex < (await myArray[index].title.length);
+      subindex++
+    ) {
+      let compare = (await myArray[index].title).slice(
+        subindex, input.length + subindex,
+      );
+      if (
+        input == compare &&
+        !ticketAkku.some((ticket) => ticket.title === myArray[index].title)
+      ) {
+        ticketAkku.push(myArray[index]);
+      }
+    }
+  }
+  await sort(ticketAkku);
+  checkAmount("toDo");
+  checkAmount("inProgress");
+  checkAmount("awaitFeedback");
+  checkAmount("done");
+}
+
 async function deleteTicket(path = "") {
   await fetch(baseUrl + path + ".json", { method: "DELETE" });
   await cardColumn();
@@ -153,7 +182,8 @@ function updateSubtaskProgress() {
     const tasks = taskList[column] || [];
     const cards = document.querySelectorAll(`#${column} .board_card`);
     tasks.forEach((task, index) =>
-      updateTaskSubtaskProgress(task, cards[index], progress));
+      updateTaskSubtaskProgress(task, cards[index], progress),
+    );
   });
 }
 
@@ -164,7 +194,9 @@ function updateTaskSubtaskProgress(task, card, progress) {
   const progressText = card?.querySelector(".sub_ladebalken > p");
   if (!progressSection || !progressBar || !progressText) return;
   const checkedCount = subtasks.reduce(
-    (count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0), 0);
+    (count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0),
+    0,
+  );
   progressSection.style.display = subtasks.length === 0 ? "none" : "";
   progressBar.style.width = `${subtasks.length ? (checkedCount / subtasks.length) * 100 : 0}px`;
   progressText.textContent = `${checkedCount}/${subtasks.length} Subtasks`;
@@ -190,6 +222,9 @@ function saveSubtaskState(taskId, index, checked) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  document
+    .getElementById("searchField")
+    .addEventListener("input", validateSearch);
   updateSubtaskProgress();
   document.addEventListener("change", (event) => {
     if (!event.target.classList.contains("subtask_checkbox")) return;
@@ -209,39 +244,19 @@ async function openTaskDialog(listKey, index) {
   dialogRef.dataset.taskId = arr[index].id;
   dialogRef.innerHTML = await taskDialogTemplate(arr, index);
   dialogRef.showModal();
-  dialogRef.classList.add("slide_in");
-  dialogRef.addEventListener(
-    "animationend",
-    () => dialogRef.classList.remove("slide_in"),
-    { once: true },
-  );
-  document.body.classList.toggle("dialog_open");
+  openAnimation(dialogRef);
+  document.body.classList.add("dialog_open");
 }
 
 async function openAddTaskDialog() {
   let dialogRef = document.getElementById("addTask");
   dialogRef.showModal();
-  dialogRef.classList.add("slide_in");
-  dialogRef.addEventListener(
-    "animationend",
-    () => dialogRef.classList.remove("slide_in"),
-    { once: true },
-  );
+  openAnimation(dialogRef);
 }
 
 async function closeSpecificDialog(reference) {
   let dialogRef = document.getElementById(reference);
-  if (dialogRef.classList.contains("slide_out")) return;
-  dialogRef.classList.add("slide_out");
-  dialogRef.addEventListener(
-    "animationend",
-    () => {
-      dialogRef.classList.remove("slide_out");
-      dialogRef.close();
-      document.body.classList.toggle("dialog_open");
-    },
-    { once: true },
-  );
+  closeAnimation(dialogRef);
 }
 
 // if (dialogRef.classList.contains("task_board_dialog")) {

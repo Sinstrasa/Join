@@ -355,22 +355,22 @@
 }
 
 .priority_urgent_active {
-    background-color: var(--urgent_color) !important;
-    color: white;
+  background-color: var(--urgent_color) !important;
+  color: white;
 }
 
 .priority_medium_active {
-    background-color: var(--medium_color) !important;
-    color: white;
+  background-color: var(--medium_color) !important;
+  color: white;
 }
 
 .priority_low_active {
-    background-color: var(--low_color) !important;
-    color: white;
+  background-color: var(--low_color) !important;
+  color: white;
 }
 
 .priority_urgent_active img,
 .priority_medium_active img,
 .priority_low_active img {
-    filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1);
 }

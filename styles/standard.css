@@ -202,3 +202,15 @@ header > p {
     background-color: #29abe2;
 }
 
+.slide_in {
+  animation: taskToCenter 250ms linear;
+}
+
+.slide_out {
+  animation: taskToCenter 250ms linear reverse;
+}
+
+@keyframes taskToCenter {
+  from {transform: translateX(100vw);}
+  to {transform: translateX(0vw);}
+}

@@ -60,19 +60,6 @@ h6 {
   border-radius: 30px;
 }
 
-.slide_in {
-  animation: taskToCenter 125ms linear;
-}
-
-.slide_out {
-  animation: taskToCenter 125ms linear reverse;
-}
-
-@keyframes taskToCenter {
-  from {transform: translateX(100vw);}
-  to {transform: translateX(0vw);}
-}
-
 .task_board_dialog::backdrop {
   background-color: var(--button_shadow);
 }
