@@ -34,3 +34,5 @@ function closeAnimation(reference) {
     { once: true },
   );
 }
+
+export {closeAnimation, openAnimation};

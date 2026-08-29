@@ -2,6 +2,7 @@ import { auth, database } from "./firebaseConfig.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 import { ref, push, set, get, remove, update } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { addContactDialogTemplate, editContactDialogTemplate, contactsListItemTemplate, contactDetailTemplate } from "./contactsTemplates.js";
+import { openAnimation, closeAnimation } from "./standard.js";
 
 // Shared state: holds the currently loaded contacts array
 const state = { contacts: []};
@@ -64,11 +65,11 @@ function handleEditContactSubmit(event) {
 function registerEditDialogListeners() {
   document.getElementById('editContactForm').addEventListener('submit', handleEditContactSubmit);
   document.getElementById('closeEditContactButton').addEventListener('click', () => {
-    document.getElementById('editContact').remove();
+    closeAnimation(document.getElementById('editContact'));
   });
   document.getElementById('deleteEditContactButton').addEventListener('click', (event) => {
     handleDeleteContact(event.target.dataset.contactId);
-    document.getElementById('editContact').remove();
+    closeAnimation(document.getElementById('editContact'));
   });
 }
 
@@ -187,6 +188,7 @@ function handleEditContact(contactId) {
   injectEditContactDialog(contact);
   registerEditDialogListeners();
   openDialog('editContact');
+  openAnimation(document.getElementById('editContact'));
 }
 
 // Handles clicks within the contact detail card (edit or delete buttons)
@@ -228,10 +230,16 @@ function handleAuthStateChange(user) {
 // Registers listeners for the add-contact dialog (open, close, cancel, submit)
 function registerDialogListeners() {
   document.getElementById('addContactForm').addEventListener('submit', handleAddContactSubmit);
-  document.getElementById('addContactButton').addEventListener('click', () => openDialog('addContact'));
-  document.getElementById('closeAddContactButton').addEventListener('click', () => closeDialog('addContact'));
-  document.getElementById('cancelAddContactButton').addEventListener('click', () => closeDialog('addContact'));
-  document.getElementById('addContact').addEventListener('click', () => closeDialog('addContact'));
+  document.getElementById('addContactButton').addEventListener('click', () => {
+    openDialog('addContact');
+    openAnimation(document.getElementById('addContact'));
+  });
+  document.getElementById('closeAddContactButton').addEventListener('click', () => {
+    closeAnimation(document.getElementById('addContact'));
+  });
+  document.getElementById('cancelAddContactButton').addEventListener('click', () => {
+    closeAnimation(document.getElementById('addContact'));
+  });
   document.querySelector('.add_contact').addEventListener('click', stopPropagation);
 }
 

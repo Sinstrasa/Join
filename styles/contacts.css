@@ -22,6 +22,12 @@ main{
   width: 90%;
 }
 
+#addContactButton{
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
 /* -----------Add Concat Dialog---------------------------- */
 
 .add_contact_dialog {
@@ -112,7 +118,7 @@ main{
  padding: 0px;
  justify-content: flex-start;
  width: 100%;
- 
+
 }
 
 .add_contact_content form {
@@ -186,15 +192,16 @@ main{
 }
 
 .footer_buttons .highlighted_button {
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
   background-color: var(--main_color);
   color: white;
   cursor: pointer;
   white-space: nowrap;
   width: 100%;
-  font-size: 24px;
-  font-weight: 400;
+  font-size: 21px;
+  font-weight: 700;
+  width: 214px;
 }
 
 .contacts_container {
@@ -228,7 +235,7 @@ main{
   font-weight: 600;
   color: var(--border_color);
    border-bottom: 1px solid var(--menu_color);
-  
+
 }
 
 .contact_item{
@@ -272,8 +279,8 @@ main{
 }
 
 .contact_name {
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 24px;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -303,6 +310,7 @@ main{
   justify-content: top;
   height: 100%;
   padding: 40px;
+  margin-left: 80px;
 }
 
 .contact_detail_header{
@@ -316,12 +324,14 @@ main{
 }
 
 .contact_detail_header h2{
-  font-size:64px;
+  font-size:61px;
   font-size: bold;
+  font-weight: 700;
 }
 
 .contact_detail_header p{
-  font-size: 40px;
+  font-size: 27px;
+  font-weight: 400;
 }
 
 .contact_card {
@@ -368,21 +378,24 @@ main{
 }
 
 .contact_buttons{
+  display: flex;
   font-size: 24px;
   border: none;
   background: transparent;
-  gap: 16px;
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
 }
 
 .contact_buttons:hover{
-  font-size: 30px;
-  font-weight: 400;
+  font-weight: bold;
 }
 
 .contact_buttons img{
   width: 24px;
   margin-right: 8px;
 }
+
 
 .contact_card_info .subtitle {
   font-weight: 500;
@@ -430,6 +443,36 @@ main{
   align-self: center;
   margin: 56px;
   margin-top: -20px;
+}
+
+@keyframes slide_in {
+  from {
+    transform: translate(-50%, -50%) translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide_out {
+  from {
+    transform: translate(-50%, -50%) translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, -50%) translateX(400px);
+    opacity: 0;
+  }
+}
+
+.slide_in {
+  animation: slide_in 0.3s ease-out;
+}
+
+.slide_out {
+  animation: slide_out 0.3s ease-in;
 }
 
 
