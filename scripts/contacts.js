@@ -1,10 +1,10 @@
 import { auth, database } from "./firebaseConfig.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { ref, push, set, get, remove } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-import { addContactDialogTemplate, contactsListItemTemplate, contactDetailTemplate } from "./contactsTemplates.js";
+import { ref, push, set, get, remove, update } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { addContactDialogTemplate, editContactDialogTemplate, contactsListItemTemplate, contactDetailTemplate } from "./contactsTemplates.js";
 
 // Shared state: holds the currently loaded contacts array
-const state = { contacts: [] };
+const state = { contacts: []};
 
 // Creates a new contact under the current user's contacts branch
 function createContact(uid, contactData) {
@@ -31,6 +31,44 @@ function generateContact(name, email, phone) {
     email: email,
     phone: phone,
     color: getRandomContactColor()
+  });
+}
+
+// Injects the edit-contact dialog markup, pre-filled with the contact's data
+function injectEditContactDialog(contact) {
+  document.querySelector('.main_content').insertAdjacentHTML('beforeend', editContactDialogTemplate(contact));
+}
+
+// Updates an existing contact's data in the database
+function updateContact(uid, contactId, contactData) {
+  return update(ref(database, 'users/' + uid + '/contacts/' + contactId), contactData);
+}
+
+// Handles the edit-contact form submission
+function handleEditContactSubmit(event) {
+  event.preventDefault();
+  const contactId = document.getElementById('editContactId').value;
+  const name = document.getElementById('editContactName').value;
+  const email = document.getElementById('editContactEmail').value;
+  const phone = document.getElementById('editContactPhone').value;
+
+  updateContact(auth.currentUser.uid, contactId, { name, email, phone }).then(() => {
+    document.getElementById('editContact').remove();
+    loadContacts(auth.currentUser.uid).then(() => {
+      showContactDetail(findContactById(state.contacts, contactId));
+    });
+  });
+}
+
+// Registers listeners for the freshly injected edit dialog
+function registerEditDialogListeners() {
+  document.getElementById('editContactForm').addEventListener('submit', handleEditContactSubmit);
+  document.getElementById('closeEditContactButton').addEventListener('click', () => {
+    document.getElementById('editContact').remove();
+  });
+  document.getElementById('deleteEditContactButton').addEventListener('click', (event) => {
+    handleDeleteContact(event.target.dataset.contactId);
+    document.getElementById('editContact').remove();
   });
 }
 
@@ -110,7 +148,7 @@ function renderContactsList(contacts) {
 
 // Fetches the current user's contacts from the database, stores and renders them
 function loadContacts(uid) {
-  get(ref(database, 'users/' + uid + '/contacts')).then((snapshot) => {
+  return get(ref(database, 'users/' + uid + '/contacts')).then((snapshot) => {
     state.contacts = mapContactsToArray(snapshot.val());
     renderContactsList(state.contacts);
   });
@@ -143,10 +181,12 @@ function handleDeleteContact(contactId) {
     loadContacts(auth.currentUser.uid);
   });
 }
-
-// Placeholder for the edit-contact feature, to be implemented
+// Opens the edit dialog for a specific contact, pre-filled with its data
 function handleEditContact(contactId) {
-  console.log('Edit contact:', contactId);
+  const contact = findContactById(state.contacts, contactId);
+  injectEditContactDialog(contact);
+  registerEditDialogListeners();
+  openDialog('editContact');
 }
 
 // Handles clicks within the contact detail card (edit or delete buttons)

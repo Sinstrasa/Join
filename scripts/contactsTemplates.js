@@ -49,6 +49,50 @@ function addContactDialogTemplate() {
   `;
 }
 
+function editContactDialogTemplate(contact) {
+  return `
+   <dialog class="add_contact_dialog" id="editContact">
+  <button class="close" type="button" id="closeEditContactButton">
+    <img src="../assets/img/general/close.svg" alt="Close Symbol" />
+  </button>
+  <article class="add_contact">
+    <section class="add_contact_header">
+      <img src="../assets/img/general/joinLogo.svg" alt="Join Logo" />
+      <h2>Edit contact</h2>
+      <div class="title_underline"></div>
+    </section>
+      <section class="contact_edit_color_spacer">
+        <div class="contact_card_color contact_edit_color" style="background-color: var(${contact.color});">${getInitials(contact.name)}</div>
+      </section>
+      <section class="add_contact_content">
+      <form id="editContactForm">
+        <input type="hidden" id="editContactId" value="${contact.id}">
+        <div class="form_group">
+          <label for="editContactName" class="sr_only">Name</label>
+          <input id="editContactName" name="editContactName" type="text" value="${contact.name}" required>
+          <img src="../assets/img/contacts/person.svg" alt="" class="field_icon">
+        </div>
+        <div class="form_group">
+          <label for="editContactEmail" class="sr_only">Email</label>
+          <input id="editContactEmail" name="editContactEmail" type="email" value="${contact.email}" required>
+          <img src="../assets/img/contacts/mail.svg" alt="" class="field_icon">
+        </div>
+        <div class="form_group">
+          <label for="editContactPhone" class="sr_only">Phone</label>
+          <input id="editContactPhone" name="editContactPhone" type="tel" value="${contact.phone}" required>
+          <img src="../assets/img/contacts/phone.svg" alt="" class="field_icon">
+        </div>
+        <div class="footer_buttons">
+           <button class="cancel" type="button" id="deleteEditContactButton" data-contact-id="${contact.id}">Delete</button>
+          <button class="highlighted_button" type="submit">Save ✓</button>
+        </div>
+      </form>
+    </section>
+  </article>
+</dialog>
+  `;
+}
+
 function contactsListItemTemplate(contact) {
   return `
     <li class="contact_item" data-contact-id="${contact.id}">
@@ -90,4 +134,4 @@ function contactDetailTemplate(contact) {
 }
 
 
-export { addContactDialogTemplate, contactsListItemTemplate, contactDetailTemplate};
+export { addContactDialogTemplate, editContactDialogTemplate, contactsListItemTemplate, contactDetailTemplate};
