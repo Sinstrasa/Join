@@ -168,7 +168,7 @@ async function search(input) {
 }
 
 async function deleteTicket(path = "") {
-  let myArray = await (await fetch(baseUrl + "/tickets.json")).json();
+  let myArray = await getTickets("/tickets");
   let myTicket = await (await fetch(baseUrl + path + ".json")).json();
   let akkumulator = myTicket.id;
   for (let index = akkumulator; index < myArray.length-1; index++) {
@@ -182,14 +182,14 @@ async function deleteTicket(path = "") {
     category: myArray[index+1].category,
     subtasks: myArray[index+1].subtasks,
     status: myArray[index+1].status,
-    }, index);
+    });
   }
   await fetch(baseUrl + "/tickets/" + (myArray.length-1) + ".json",
     {method: "DELETE"});
   await cardColumn();
 }
 
-async function putTicket(path = "", data = {}, index) {
+async function putTicket(path = "", data = {}) {
   await fetch(baseUrl + path + ".json", {
     method: "PUT",
     headers: {
@@ -197,6 +197,15 @@ async function putTicket(path = "", data = {}, index) {
     },
     body: JSON.stringify(data),
   });
+}
+
+async function reduceDescription(arr, index) {
+  if (await arr[index].description.length > 51) {
+    return await arr[index].description.slice(0, 50) + "...";    
+  } else {
+    console.log(await arr[index].description.length);
+    return await arr[index].description;
+  }
 }
 
 function stopPropagation(event) {
