@@ -24,7 +24,8 @@
     <dialog
       class="add_task_dialog"
       id="addTask"
-      onclick="closeSpecificDialog('addTask')">
+      onclick="closeSpecificDialog('addTask')"
+    >
       <article class="add_task" onclick="stopPropagation(event)">
         <section class="add_task_head">
           <h3>Add Task</h3>
@@ -38,14 +39,16 @@
                 id="taskTitle"
                 type="text"
                 placeholder="Enter a title"
-                required/>
+                required
+              />
             </div>
             <div class="add_task_input">
               <p>Description</p>
               <textarea
                 class="description"
                 id="description"
-                placeholder="Enter a Description">
+                placeholder="Enter a Description"
+              >
               </textarea>
             </div>
             <div class="add_task_input">
@@ -62,7 +65,8 @@
                   class="priority_button"
                   type="button"
                   data-priority="Urgent"
-                  onclick="setPriority('Urgent')">
+                  onclick="setPriority('Urgent')"
+                >
                   Urgent
                   <img
                     src="../assets/img/task/urgent.svg"
@@ -73,7 +77,8 @@
                   class="priority_button"
                   type="button"
                   data-priority="Medium"
-                  onclick="setPriority('Medium')">
+                  onclick="setPriority('Medium')"
+                >
                   Medium
                   <img
                     src="../assets/img/task/medium.svg"
@@ -84,7 +89,8 @@
                   class="priority_button"
                   type="button"
                   data-priority="Low"
-                  onclick="setPriority('Low')">
+                  onclick="setPriority('Low')"
+                >
                   Low
                   <img src="../assets/img/task/low.svg" alt="Low priority" />
                 </button>
@@ -96,7 +102,8 @@
                 <button
                   class="select_areas_toggle"
                   type="button"
-                  onclick="toggleCustomDropdown('assignedDropdown')">
+                  onclick="toggleCustomDropdown('assignedDropdown')"
+                >
                   <span class="select_areas_value">
                     Select contacts to assign
                   </span>
@@ -107,7 +114,8 @@
                     class="select_areas_option"
                     type="button"
                     data-value="Contact"
-                    onclick="selectCustomDropdown(this)">
+                    onclick="selectCustomDropdown(this)"
+                  >
                     Contact
                   </button>
                 </div>
@@ -120,7 +128,8 @@
                 <button
                   class="select_areas_toggle"
                   type="button"
-                  onclick="toggleCustomDropdown('categoryDropdown')">
+                  onclick="toggleCustomDropdown('categoryDropdown')"
+                >
                   <span class="select_areas_value"> Select task category </span>
                   <span class="select_areas_arrow"> ▾ </span>
                 </button>
@@ -129,14 +138,16 @@
                     class="select_areas_option"
                     type="button"
                     data-value="Technical Task"
-                    onclick="selectCustomDropdown(this)">
+                    onclick="selectCustomDropdown(this)"
+                  >
                     Technical Task
                   </button>
                   <button
                     class="select_areas_option"
                     type="button"
                     data-value="User Story"
-                    onclick="selectCustomDropdown(this)">
+                    onclick="selectCustomDropdown(this)"
+                  >
                     User Story
                   </button>
                 </div>
@@ -150,7 +161,8 @@
                   class="input_areas"
                   id="subtaskInput"
                   type="text"
-                  placeholder="Add new subtask"/>
+                  placeholder="Add new subtask"
+                />
                 <div class="subtask_validating">
                   <button type="button" onclick="removeInput()">
                     <img src="../assets/img/general/close.svg" alt="Clear" />
@@ -159,10 +171,12 @@
                   <button
                     class="subtask_check"
                     type="button"
-                    onclick="addInput()">
+                    onclick="addInput()"
+                  >
                     <img
                       src="../assets/img/summary/checkValidate.svg"
-                      alt="Add subtask"/>
+                      alt="Add subtask"
+                    />
                   </button>
                 </div>
               </section>
@@ -183,7 +197,8 @@
             <button
               class="highlighted_button"
               type="button"
-              onclick="createTask()">
+              onclick="createTask()"
+            >
               Create Task
               <img src="../assets/img/general/check.svg" alt="Create task" />
             </button>
@@ -253,7 +268,12 @@
           <h1>Board</h1>
           <div>
             <section class="search_wrapper">
-              <input class="search" id="searchField" type="text" placeholder="Find Task" />
+              <input
+                class="search"
+                id="searchField"
+                type="text"
+                placeholder="Find Task"
+              />
               <div class="search_button" aria-label="Search">
                 <button type="button">
                   <img
@@ -277,7 +297,7 @@
           >
             <div class="column_title">
               <h2>To do</h2>
-              <button class="adding_task" onclick="openDialog('addTask')">
+              <button class="adding_task" onclick="openAddTaskDialog()">
                 +
               </button>
             </div>
@@ -286,7 +306,7 @@
           <section class="column">
             <div class="column_title">
               <h2>In progress</h2>
-              <button class="adding_task" onclick="openDialog('addTask')">
+              <button class="adding_task" onclick="openAddTaskDialog()">
                 +
               </button>
             </div>
@@ -295,7 +315,7 @@
           <section class="column">
             <div class="column_title">
               <h2>Await Feedback</h2>
-              <button class="adding_task" onclick="openDialog('addTask')">
+              <button class="adding_task" onclick="openAddTaskDialog()">
                 +
               </button>
             </div>
