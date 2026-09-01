@@ -1,6 +1,3 @@
-const baseUrl =
-  "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
-
 function openDialog(reference) {
   let dialogRef = document.getElementById(reference);
   dialogRef.showModal();
@@ -23,16 +20,21 @@ function openAnimation(reference) {
 }
 
 function closeAnimation(reference) {
-  if (reference.classList.contains("slide_out")) return;
-  reference.classList.add("slide_out");
-  reference.addEventListener(
-    "animationend", () => {
-      reference.classList.remove("slide_out");
-      reference.close();
-      document.body.classList.remove("dialog_open");
-    },
-    { once: true },
-  );
+  return new Promise((resolve) => {
+    if (reference.classList.contains("slide_out")) {
+      resolve();
+      return;
+    }
+    reference.classList.add("slide_out");
+    reference.addEventListener(
+      "animationend", () => {
+        reference.classList.remove("slide_out");
+        reference.close();
+        resolve();
+      },
+      { once: true },
+    );
+  });
 }
 
-export {closeAnimation, openAnimation};
+// export {closeAnimation, openAnimation};

@@ -203,7 +203,6 @@ async function reduceDescription(arr, index) {
   if (await arr[index].description.length > 51) {
     return await arr[index].description.slice(0, 50) + "...";    
   } else {
-    console.log(await arr[index].description.length);
     return await arr[index].description;
   }
 }
@@ -219,8 +218,7 @@ function updateSubtaskProgress() {
     const tasks = taskList[column] || [];
     const cards = document.querySelectorAll(`#${column} .board_card`);
     tasks.forEach((task, index) =>
-      updateTaskSubtaskProgress(task, cards[index], progress),
-    );
+      updateTaskSubtaskProgress(task, cards[index], progress));
   });
 }
 
@@ -231,9 +229,7 @@ function updateTaskSubtaskProgress(task, card, progress) {
   const progressText = card?.querySelector(".sub_ladebalken > p");
   if (!progressSection || !progressBar || !progressText) return;
   const checkedCount = subtasks.reduce(
-    (count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0),
-    0,
-  );
+    (count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0), 0);
   progressSection.style.display = subtasks.length === 0 ? "none" : "";
   progressBar.style.width = `${subtasks.length ? (checkedCount / subtasks.length) * 100 : 0}px`;
   progressText.textContent = `${checkedCount}/${subtasks.length} Subtasks`;
@@ -266,111 +262,38 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("change", (event) => {
     if (!event.target.classList.contains("subtask_checkbox")) return;
     const dialog = event.target.closest("dialog");
-    saveSubtaskState(
-      dialog.dataset.taskId,
-      event.target.dataset.subtaskIndex,
-      event.target.checked,
-    );
+    saveSubtaskState(dialog.dataset.taskId,
+      event.target.dataset.subtaskIndex, event.target.checked);
     updateSubtaskProgress();
   });
 });
 
-async function openTaskDialog(listKey, index) {
-  let arr = taskList[listKey];
-  let dialogRef = document.getElementById("taskBoardDialog");
-  dialogRef.dataset.taskId = arr[index].id;
-  dialogRef.innerHTML = await taskDialogTemplate(arr, index);
+async function openSpecificDialog(listKey, index, reference) {
+  let dialogRef = document.getElementById("dialog");
+  dialogRef.innerHTML = ``;
+  if (reference == "taskBoardDialog") {
+    dialogRef.classList.add("task_board_dialog");
+    taskDialog(listKey, index, dialogRef);
+  } else {
+    dialogRef.classList.add("add_task_dialog");
+    dialogRef.innerHTML = await addTaskDialogTemplate();
+    initAddTask();
+  }
   dialogRef.showModal();
   openAnimation(dialogRef);
   document.body.classList.add("dialog_open");
 }
 
-async function openAddTaskDialog() {
-  let dialogRef = document.getElementById("addTask");
-  dialogRef.showModal();
-  openAnimation(dialogRef);
+async function taskDialog(listKey, index, dialogRef) {
+  let arr = taskList[listKey];
+  dialogRef.dataset.taskId = arr[index].id;
+  dialogRef.innerHTML = await taskDialogTemplate(arr, index);
 }
 
 async function closeSpecificDialog(reference) {
   let dialogRef = document.getElementById(reference);
-  closeAnimation(dialogRef);
+  await closeAnimation(dialogRef);
+  document.body.classList.remove("dialog_open");
+  dialogRef.classList.remove("task_board_dialog");
+  dialogRef.classList.remove("add_task_dialog");
 }
-
-// if (dialogRef.classList.contains("task_board_dialog")) {
-//     if (dialogRef.classList.contains("closing")) return;
-//     dialogRef.classList.add("closing");
-//     dialogRef.addEventListener(
-//       "animationend",
-//       () => {
-//         dialogRef.classList.remove("closing");
-//         dialogRef.close();
-//         document.body.classList.toggle("dialog_open");
-//       },
-//       { once: true },
-//     );
-//     return;
-// }
-
-// Funktion, die zu Add Task eigentlich gehört
-
-// function removeInput() {
-//   let inputRef = document.getElementById("subtaskInput");
-//   inputRef.value = "";
-// }
-
-// function addInput() {
-//   let inputRef = document.getElementById("subtaskInput");
-//   let subtasksRef = document.getElementById("subtasks");
-//   if (inputRef.value != "") {
-//     subtasksRef.innerHTML += `
-//       <li>
-//         <p class="subtask_text">${inputRef.value}</p>
-//         <button class="subtask_icon">
-//           <img src="../assets/img/summary/penValidate.svg" alt="Edit subtask" />
-//         </button>
-//         <div class="subtask_middle"></div>
-//         <button class="subtask_icon">
-//           <img src="../assets/img/general/delete.svg" alt="Delete subtask" />
-//         </button>
-//       </li>
-//     `;
-//   }
-//   removeInput();
-// }
-
-// function toggleCustomDropdown(id) {
-//   const dropdown = document.getElementById(id);
-//   if (!dropdown) return;
-
-//   document.querySelectorAll(".select_areas.open").forEach((openDropdown) => {
-//     if (openDropdown.id !== id) {
-//       openDropdown.classList.remove("open");
-//     }
-//   });
-
-//   dropdown.classList.toggle("open");
-// }
-
-// function selectCustomDropdown(optionButton) {
-//   const dropdown = optionButton.closest(".select_areas");
-//   const hiddenInput = dropdown.querySelector('input[type="hidden"]');
-//   const valueLabel = dropdown.querySelector(".select_areas_value");
-
-//   if (hiddenInput) {
-//     hiddenInput.value = optionButton.dataset.value;
-//   }
-
-//   if (valueLabel) {
-//     valueLabel.textContent = optionButton.textContent.trim();
-//   }
-
-//   dropdown.classList.remove("open");
-// }
-
-// document.addEventListener("click", (event) => {
-//   if (!event.target.closest(".select_areas")) {
-//     document.querySelectorAll(".select_areas.open").forEach((dropdown) => {
-//       dropdown.classList.remove("open");
-//     });
-//   }
-// });
