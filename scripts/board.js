@@ -18,7 +18,11 @@ async function getTickets(path = "") {
 
 async function cardColumn() {
   let myArray = await getTickets("/tickets");
-  await sort(myArray);
+  sortReference(myArray);
+}
+
+async function sortReference(reference) {
+  await sort(reference);
   checkAmount("toDo");
   checkAmount("inProgress");
   checkAmount("awaitFeedback");
@@ -149,7 +153,8 @@ async function search(input) {
       subindex++
     ) {
       let compare = (await myArray[index].title).slice(
-        subindex, input.length + subindex,
+        subindex,
+        input.length + subindex,
       );
       if (
         input == compare &&
@@ -159,16 +164,48 @@ async function search(input) {
       }
     }
   }
-  await sort(ticketAkku);
-  checkAmount("toDo");
-  checkAmount("inProgress");
-  checkAmount("awaitFeedback");
-  checkAmount("done");
+  await sortReference(ticketAkku);
 }
 
 async function deleteTicket(path = "") {
-  await fetch(baseUrl + path + ".json", { method: "DELETE" });
+  let myArray = await getTickets("/tickets");
+  let myTicket = await (await fetch(baseUrl + path + ".json")).json();
+  let akkumulator = myTicket.id;
+  for (let index = akkumulator; index < myArray.length-1; index++) {
+    putTicket("/tickets/"+(index), {
+    id: index,
+    title: myArray[index+1].title,
+    description: myArray[index+1].description,
+    date: myArray[index+1].date,
+    priority: myArray[index+1].priority,
+    assigned: myArray[index+1].assigned,
+    category: myArray[index+1].category,
+    subtasks: myArray[index+1].subtasks,
+    status: myArray[index+1].status,
+    });
+  }
+  await fetch(baseUrl + "/tickets/" + (myArray.length-1) + ".json",
+    {method: "DELETE"});
   await cardColumn();
+}
+
+async function putTicket(path = "", data = {}) {
+  await fetch(baseUrl + path + ".json", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+async function reduceDescription(arr, index) {
+  if (await arr[index].description.length > 51) {
+    return await arr[index].description.slice(0, 50) + "...";    
+  } else {
+    console.log(await arr[index].description.length);
+    return await arr[index].description;
+  }
 }
 
 function stopPropagation(event) {

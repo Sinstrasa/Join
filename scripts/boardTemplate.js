@@ -109,7 +109,7 @@ async function somethingTemplate(arr, index, listKey) {
             <h4>${await readDatabase(arr, index, "category")}</h4>
             <section class="card_text">
               <h5>${await readDatabase(arr, index, "title")}</h5>
-              <p>${await readDatabase(arr, index, "description")}</p>
+              <p>${await reduceDescription(arr, index)}</p>
             </section>
             <section class="sub_ladebalken">
               <div class="ladebalken_background"></div>
