@@ -58,3 +58,38 @@ async function handleLogout(event) {
 function redirectToLogin() {
   window.location.replace("../index.html");
 }
+
+// Provisiorisches Menü fix
+
+document.addEventListener("DOMContentLoaded", initProfileMenu);
+
+function initProfileMenu() {
+  const profileButton = document.getElementById("profileButton");
+  const navigation = document.getElementById("nav");
+  if (!profileButton || !navigation) return;
+  profileButton.addEventListener("click", openProfileMenu);
+  navigation.addEventListener("click", closeProfileMenu);
+  initSubnavigation();
+}
+
+function openProfileMenu() {
+  const navigation = document.getElementById("nav");
+  if (!navigation) return;
+  navigation.showModal();
+}
+
+function closeProfileMenu() {
+  const navigation = document.getElementById("nav");
+  if (!navigation) return;
+  navigation.close();
+}
+
+function initSubnavigation() {
+  const subnavigation = document.getElementById("subnavigation");
+  if (!subnavigation) return;
+  subnavigation.addEventListener("click", stopPropagation);
+}
+
+function stopPropagation(event) {
+  event.stopPropagation();
+}
