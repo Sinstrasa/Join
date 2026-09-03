@@ -78,7 +78,7 @@
                   <img src="../assets/img/general/pen.svg"/>
                 </div>
                 <div class="summary_tile_text">
-                  <p class="summary_number">1</p>
+                  <p class="summary_number" id="todoCount">1</p>
                   <p class="summary_label">To-do</p>
                 </div>
               </div>
@@ -87,7 +87,7 @@
                   <img src="../assets/img/general/check.svg"/>
                 </div>
                 <div class="summary_tile_text">
-                  <p class="summary_number">1</p>
+                  <p class="summary_number" id="doneCount">1</p>
                   <p class="summary_label">Done</p>
                </div>
               </div>
@@ -98,33 +98,34 @@
                   <img src="../assets/img/task/urgentValidate.svg"/>
                 </div>
                 <div class="summary_tile_text">
-                <p class="summary_number">1</p>
+                <p class="summary_number" id="urgentCount">1</p>
                 <p class="summary_label">Urgent</p>
                 </div>
               </div>
               <div class="summary_divider"></div>
                 <div class="summary_deadline">
-                <p class="summary_date">October 16, 2022</p>
+                <p class="summary_date" id="upcomingDeadline">October 16, 2022</p>
                 <p class="summary_label">Upcoming Deadline</p>
               </div>
             </div>
             <div class="summary_bottom_row">
               <div class="summary_tile summary_tile_medium">
-                <p class="summary_number">1</p>
+                <p class="summary_number" id="tasksInBoardCount">1</p>
                 <p class="summary_label">Tasks in Board</p>
               </div>
               <div class="summary_tile summary_tile_medium">
-                <p class="summary_number">1</p>
+                <p class="summary_number" id="tasksInProgressCount">1</p>
                 <p class="summary_label">Tasks In Progress</p>
               </div>
               <div class="summary_tile summary_tile_medium">
-                <p class="summary_number">1</p>
+                <p class="summary_number" id="awaitingFeedbackCount">1</p>
                 <p class="summary_label">Awaiting Feedback</p>
               </div>
             </div>
           </section>
          <section class="greeting_section">
-            <h1>Welcome back, <span id="greeting"></span></h1>
+            <p id="greeting"></p>
+            <p id="greetingName"></p>
           <button id="logoutButton" class="highlighted_button">Log out</button>
           </section>
         </div>
