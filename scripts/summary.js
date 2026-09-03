@@ -23,12 +23,17 @@ function countUrgentTickets(tickets) {
   return tickets.filter(ticket => ticket.priority === 'Urgent' && ticket.status !== 'done').length;
 }
 
-// Finds the next upcoming due date
+// Parses a date string in DD/MM/YYYY format into a Date object
+function parseGermanDate(dateString) {
+  const [day, month, year] = dateString.split('/');
+  return new Date(year, month - 1, day);
+}
+
 function findNextDueDate(tickets) {
-  const dates = tickets.map(ticket => new Date(ticket.date)).filter((date) =>!isNaN(date));
+  const dates = tickets.map(ticket => parseGermanDate(ticket.date)).filter((date) => !isNaN(date));
   if (dates.length === 0) return "No upcoming due dates";
   const nextDate = new Date(Math.min(...dates));
-  return nextDate.toLocaleDateString();
+  return nextDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 function countTicketsInBoard(tickets) {
