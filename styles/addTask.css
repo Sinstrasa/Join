@@ -13,6 +13,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 40px;
+    width: 100%;
 }
 
 .add_task_head h3 {
@@ -185,10 +186,31 @@
     z-index: 5;
     display: none;
     width: 100%;
-    overflow: hidden;
+    max-height: 280px;
+    overflow: auto;
     border-radius: 10px;
     background-color: white;
     box-shadow: 0 0 14px var(--profile_hover);
+}
+
+.assign {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.select_contacts_option {
+    width: 100%;
+    padding: 8px 16px;
+    border: none;
+    background-color: white;
+    text-align: left;
+    font-size: 20px;
+}
+
+.select_contacts_option:hover {
+    background-color: var(--menu_color);
 }
 
 .select_areas.open .select_areas_menu {

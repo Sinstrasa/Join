@@ -13,6 +13,8 @@ function initAddTask() {
   initPriorityButtons();
   initDropdownButtons();
   initDropdownOptions();
+  // selectionMenu();
+  addContactsToSelection();
   initActionButtons();
   setPriority("Medium");
 }
@@ -178,42 +180,6 @@ function renderSubtasks() {
   list.innerHTML = subtasks.map(createSubtaskTemplate).join("");
 }
 
-function createSubtaskTemplate(subtask, index) {
-  return `
-    <li>
-      <p class="subtask_text">${escapeHtml(subtask)}</p>
-
-      <button
-        class="subtask_icon"
-        type="button"
-        data-action="edit"
-        data-index="${index}"
-        aria-label="Edit subtask"
-      >
-        <img
-          src="../assets/img/summary/penValidate.svg"
-          alt="Edit subtask"
-        />
-      </button>
-
-      <div class="subtask_middle"></div>
-
-      <button
-        class="subtask_icon"
-        type="button"
-        data-action="delete"
-        data-index="${index}"
-        aria-label="Delete subtask"
-      >
-        <img
-          src="../assets/img/general/delete.svg"
-          alt="Delete subtask"
-        />
-      </button>
-    </li>
-  `;
-}
-
 function initSubtaskListEvents() {
   const list = document.getElementById("subtasks");
   if (!list) return;
@@ -345,6 +311,9 @@ function collectTaskData(id) {
 
 function getAssignedContacts() {
   const assigned = getInputValue("assigned");
+  // if (assigned.length >= 4) {
+  //   return [assigned[0], assigned[1], assigned[2]];
+  // }
   return assigned ? [assigned] : [];
 }
 
@@ -407,4 +376,19 @@ function setDropdownLabel(id, text) {
 function resetSubtasks() {
   subtasks = [];
   renderSubtasks();
+}
+
+// Mögliche Funktion
+
+async function addContactsToSelection() {
+  let contactRef = document.getElementById("contactList");
+  let contacts = await getData("/users");
+  let contactsArray = Object.keys(contacts);
+  let myArray = [];
+  for (let index = 0; index < contactsArray.length; index++) {
+    myArray.push(contacts[contactsArray[index]]);
+  }
+  for (let index = 0; index < myArray.length; index++) {
+    contactRef.innerHTML += await contactsTemplate(myArray[index]);
+  }
 }

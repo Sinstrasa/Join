@@ -88,14 +88,24 @@ function readPriority(priority) {
   }
 }
 
-function readAssigned(arr, index) {
-  const safeAssigned = Array.isArray(arr[index]?.assigned)
-    ? arr[index].assigned
-    : [];
-  return safeAssigned
-    .map((content) => taskDialogNamesTemplate(content))
-    .join("");
-}
+// async function readAssigned(arr, index) {
+//   const safeAssigned = Array.isArray(arr[index]?.assigned)
+//     ? arr[index].assigned : [];
+//   let htmlString = ``;
+//   for (let subindex = 0; subindex < safeAssigned.length; subindex++) {
+//     htmlString += await taskDialogNamesTemplate(safeAssigned[subindex]);
+//   }
+//   return htmlString;
+// }
+
+// async function addInitials(arr, index) {
+//   const safeAssigned = Array.isArray(arr[index]?.assigned)
+//     ? arr[index].assigned : [];
+//   let assignedRef = document.getElementById("assignedInitals");
+//   for (let subindex = 0; subindex < safeAssigned.length; subindex++) {
+//     assignedRef.innerHTML += await contactInitials(safeAssigned[subindex]);
+//   }
+// }
 
 function readSubtask(arr, index) {
   const safeSubtasks = Array.isArray(arr[index]?.subtasks)

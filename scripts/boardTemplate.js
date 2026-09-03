@@ -1,4 +1,5 @@
 async function taskDialogTemplate(arr, index) {
+  // ${await readAssigned(arr, index)}
   return `
     <article class="task_board" id="taskBoard" onclick="stopPropagation(event)">
       <section class="task_board_header">
@@ -25,7 +26,7 @@ async function taskDialogTemplate(arr, index) {
       <section class="task_board_contacts">
         <p class="subtitle">Assigned To:</p>
         <ul class="task_board_names">
-          ${readAssigned(arr, index, "assigned")}
+          
         </ul>
       </section>
       <section class="task_board_footer">
@@ -243,11 +244,12 @@ async function addTaskDialogTemplate() {
   `
 }
 
-function taskDialogNamesTemplate(content) {
+async function taskDialogNamesTemplate(contact) {
+  // <div class="contact_color" style="background-color: var(${await contact.color});">${getInitials(contact.name)}</div>
+  //     <p class="contact_name">${await contact.name}</p>
   return `
     <li>
-      <img src="../assets/img/board/search.svg" alt="" />
-      <p>${content}</p>
+      
     </li>
   `;
 }
@@ -288,6 +290,7 @@ function nothingDoneTemplate() {
 }
 
 async function somethingTemplate(arr, index, listKey) {
+  // <div id="assignedInitials">${await addInitials()}</div>
   return `
     <li>
       <section class="something" draggable="true" ondragstart="dragTicket(${await readDatabase(arr, index, "id")})">
@@ -304,7 +307,7 @@ async function somethingTemplate(arr, index, listKey) {
               <p></p>
             </section>
             <section class="card_footer">
-              <p>Contacts</p>
+              
               ${readPriority(await readDatabase(arr, index, "priority"))}
             </section>
           </div>
@@ -313,3 +316,9 @@ async function somethingTemplate(arr, index, listKey) {
     </li>
   `;
 }
+
+// async function contactInitials(contact) {
+//   return `
+//     <div class="contact_color" style="background-color: var(${await contact.color});">${getInitials(contact.name)}</div>
+//   `
+// }
