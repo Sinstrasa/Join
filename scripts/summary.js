@@ -33,7 +33,7 @@ function findNextDueDate(tickets) {
   const dates = tickets.map(ticket => parseGermanDate(ticket.date)).filter((date) => !isNaN(date));
   if (dates.length === 0) return "No upcoming due dates";
   const nextDate = new Date(Math.min(...dates));
-  return nextDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  return nextDate.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
 function countTicketsInBoard(tickets) {
