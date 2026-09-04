@@ -13,9 +13,8 @@ function initAddTask() {
   initPriorityButtons();
   initDropdownButtons();
   initDropdownOptions();
-  // selectionMenu();
   addContactsToSelection();
-  initActionButtons();
+  initActionButtons("toDo");
   setPriority("Medium");
 }
 
@@ -139,9 +138,9 @@ function getPriorityClass(priority) {
 
 /* Action Buttons */
 
-function initActionButtons() {
+function initActionButtons(stat) {
   addClickListener("clearTaskButton", clearTaskForm);
-  addClickListener("createTaskButton", createTask);
+  addClickListener("createTaskButton", () => createTask(stat));
   addClickListener("clearSubtaskButton", removeInput);
   addClickListener("addSubtaskButton", addInput);
 }
@@ -288,14 +287,14 @@ function getPutOptions(data) {
 
 /* Create Task */
 
-async function createTask() {
+async function createTask(stat) {
   if (!validateTask()) return showValidationError();
   const id = await getNextTaskId();
-  const task = collectTaskData(id);
+  const task = collectTaskData(id, stat);
   await saveTask(task);
 }
 
-function collectTaskData(id) {
+function collectTaskData(id, stat) {
   return {
     id: id,
     title: getInputValue("taskTitle"),
@@ -305,13 +304,13 @@ function collectTaskData(id) {
     assigned: getAssignedContacts(),
     category: getInputValue("category"),
     subtasks: [...subtasks],
-    status: "toDo",
+    status: stat,
   };
 }
 
 function getAssignedContacts() {
   const assigned = getInputValue("assigned");
-  // if (assigned.length >= 4) {
+  // if (assigned.length >= 4) { 
   //   return [assigned[0], assigned[1], assigned[2]];
   // }
   return assigned ? [assigned] : [];

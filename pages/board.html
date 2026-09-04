@@ -11,15 +11,12 @@
     <link rel="stylesheet" href="../styles/board.css" />
     <link rel="stylesheet" href="../styles/addTask.css" />
     <script src="../scripts/standard.js"></script>
+    <script src="../scripts/addTaskTemplate.js"></script>
     <script src="../scripts/addTask.js"></script>
     <!-- <script src="../scripts/contacts.js"></script> -->
     <script src="../scripts/boardTemplate.js"></script>
     <script src="../scripts/board.js"></script>
-    <link
-      rel="shortcut icon"
-      href="../assets/img/general/logoFavicon.svg"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="../assets/img/general/logoFavicon.svg" type="image/x-icon"/>
   </head>
   <body onload="initialise()">
     <dialog
@@ -99,7 +96,7 @@
                 </button>
               </div>
             </section>
-            <button class="new_task" onclick="openSpecificDialog(null, null, null)">
+            <button class="new_task" onclick="openSpecificDialog(null, null, 'toDo', null)">
               Add Task +
             </button>
           </div>
@@ -112,7 +109,7 @@
           >
             <div class="column_title">
               <h2>To do</h2>
-              <button class="adding_task" onclick="openAddTaskDialog()">
+              <button class="adding_task" onclick="openSpecificDialog(null, null, 'toDo', null)">
                 +
               </button>
             </div>
@@ -121,7 +118,7 @@
           <section class="column">
             <div class="column_title">
               <h2>In progress</h2>
-              <button class="adding_task" onclick="openAddTaskDialog()">
+              <button class="adding_task" onclick="openSpecificDialog(null, null, 'inProgress', null)">
                 +
               </button>
             </div>
@@ -130,7 +127,7 @@
           <section class="column">
             <div class="column_title">
               <h2>Await Feedback</h2>
-              <button class="adding_task" onclick="openAddTaskDialog()">
+              <button class="adding_task" onclick="openSpecificDialog(null, null, 'awaitFeedback', null)">
                 +
               </button>
             </div>

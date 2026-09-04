@@ -157,19 +157,15 @@ async function search(input) {
   let myArray = await getTickets("/tickets");
   ticketAkku = [];
   for (let index = 0; index < myArray.length; index++) {
-    for (
-      let subindex = 0;
-      subindex < (await myArray[index].title.length);
-      subindex++
-    ) {
-      let compare = (await myArray[index].title).slice(
-        subindex,
-        input.length + subindex,
-      );
-      if (
-        input == compare &&
-        !ticketAkku.some((ticket) => ticket.title === myArray[index].title)
-      ) {
+    for (let subindex = 0; subindex < (await myArray[index].title.length); subindex++) {
+      let compare = (await myArray[index].title).slice(subindex, input.length + subindex);
+      if (input == compare && !ticketAkku.some((ticket) => ticket.title === myArray[index].title)) {
+        ticketAkku.push(myArray[index]);
+      }
+    }
+    for (let subindex = 0; subindex < (await myArray[index].description.length); subindex++) {
+      let compare = (await myArray[index].description).slice(subindex, input.length + subindex);
+      if (input == compare && !ticketAkku.some((ticket) => ticket.description === myArray[index].description)) {
         ticketAkku.push(myArray[index]);
       }
     }
@@ -278,7 +274,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-async function openSpecificDialog(listKey, index, reference) {
+async function openSpecificDialog(listKey, index, stat, reference) {
   let dialogRef = document.getElementById("dialog");
   dialogRef.innerHTML = ``;
   if (reference == "taskBoardDialog") {
@@ -286,7 +282,8 @@ async function openSpecificDialog(listKey, index, reference) {
     taskDialog(listKey, index, dialogRef);
   } else {
     dialogRef.classList.add("add_task_dialog");
-    dialogRef.innerHTML = await addTaskDialogTemplate();
+    dialogRef.innerHTML = await addTaskDialogTemplate(stat);
+    initActionButtons(stat);
     initAddTask();
   }
   dialogRef.showModal();

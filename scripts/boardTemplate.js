@@ -57,7 +57,7 @@ async function taskDialogTemplate(arr, index) {
     `;
 }
 
-async function addTaskDialogTemplate() {
+async function addTaskDialogTemplate(stat) {
   return `
     <article class="add_task" onclick="stopPropagation(event)">
       <section class="add_task_head">
@@ -136,14 +136,7 @@ async function addTaskDialogTemplate() {
                 </span>
                 <span class="select_areas_arrow">▾</span>
               </button>
-              <div class="select_areas_menu">
-                <button
-                  class="select_areas_option"
-                  type="button"
-                  data-value="Contact">
-                  Contact
-                </button>
-              </div>
+              <div class="select_areas_menu" id="contactList"></div>
               <input
                 type="hidden"
                 id="assigned"
@@ -231,6 +224,7 @@ async function addTaskDialogTemplate() {
           <button
             class="highlighted_button"
             id="createTaskButton"
+            onclick="createTask('${stat}')"
             type="button">
             Create Task
             <img
@@ -294,7 +288,7 @@ async function somethingTemplate(arr, index, listKey) {
   return `
     <li>
       <section class="something" draggable="true" ondragstart="dragTicket(${await readDatabase(arr, index, "id")})">
-        <button class="board_card" id="card${+(await readDatabase(arr, index, "id"))}" onclick="openSpecificDialog('${listKey}', ${index}, 'taskBoardDialog')">
+        <button class="board_card" id="card${+(await readDatabase(arr, index, "id"))}" onclick="openSpecificDialog('${listKey}', ${index}, ${null}, 'taskBoardDialog')">
           <div class="board_card_content">
             <h4>${await readDatabase(arr, index, "category")}</h4>
             <section class="card_text">
