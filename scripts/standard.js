@@ -36,5 +36,3 @@ function closeAnimation(reference) {
     );
   });
 }
-
-// export {closeAnimation, openAnimation};

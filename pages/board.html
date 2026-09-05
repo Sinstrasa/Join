@@ -104,7 +104,7 @@
         <article class="kanban">
           <section
             class="column"
-            ondrop="changeStatus()"
+            ondrop="changeStatus('toDo')"
             ondragover="allowDrop(event)"
           >
             <div class="column_title">
@@ -115,7 +115,10 @@
             </div>
             <ul class="column_list" id="toDo"></ul>
           </section>
-          <section class="column">
+          <section
+            class="column"
+            ondrop="changeStatus('inProgress')"
+            ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>In progress</h2>
               <button class="adding_task" onclick="openSpecificDialog(null, null, 'inProgress', null)">
@@ -124,7 +127,10 @@
             </div>
             <ul class="column_list" id="inProgress"></ul>
           </section>
-          <section class="column">
+          <section
+            class="column"
+            ondrop="changeStatus('awaitFeedback')"
+            ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>Await Feedback</h2>
               <button class="adding_task" onclick="openSpecificDialog(null, null, 'awaitFeedback', null)">
@@ -133,7 +139,10 @@
             </div>
             <ul class="column_list" id="awaitFeedback"></ul>
           </section>
-          <section class="column">
+          <section
+            class="column"
+            ondrop="changeStatus('done')"
+            ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>Done</h2>
             </div>

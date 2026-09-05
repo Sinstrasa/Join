@@ -33,9 +33,20 @@ function dragTicket(id) {
   draggedTicket = id;
 }
 
-function changeStatus(listKey) {
-  let arr = taskList[listKey];
-  let index = arr.findIndex((findId) => findId.id == draggedTicket);
+async function changeStatus(listKey) {
+  let myArray = await getTickets("/tickets");
+  await putTicket("/tickets/" + draggedTicket, {
+    id: draggedTicket,
+    title: myArray[draggedTicket].title,
+    description: myArray[draggedTicket].description,
+    date: myArray[draggedTicket].date,
+    priority: myArray[draggedTicket].priority,
+    assigned: myArray[draggedTicket].assigned,
+    category: myArray[draggedTicket].category,
+    subtasks: myArray[draggedTicket].subtasks,
+    status: listKey,
+  });
+  await sortReference(myArray);
 }
 
 function allowDrop(event) {
@@ -65,11 +76,7 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
 async function updateColumn(arr, id) {
   document.getElementById(id).innerHTML = ``;
   for (let index = 0; index < arr.length; index++) {
-    document.getElementById(id).innerHTML += await somethingTemplate(
-      arr,
-      index,
-      id,
-    );
+    document.getElementById(id).innerHTML += await somethingTemplate(arr, index, id);
   }
 }
 
