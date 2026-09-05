@@ -1,7 +1,5 @@
-import { auth, database } from "./firebaseConfig.js";
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { ref, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-
+const baseUrl = "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
+const apiKey = "AIzaSyBBqXuaXjnWIvN5to5PuH5jif1FhT_9KKw";
 
 // Collects references to all form fields and error elements needed for validation
 function getFormFields() {
@@ -16,6 +14,7 @@ function getFormFields() {
     emailError: document.getElementById('emailError')
   };
 }
+
 // Validates all sign-up fields, updates error messages, and returns whether the form is valid overall
 function isFormValid() {
   const form = getFormFields();
@@ -48,30 +47,29 @@ function updateSubmitButtonState() {
   submitButton.disabled = !isFormValid();
 }
 
-// Registers all event listeners for the sign-up form and sets the initial button state
-function initSignUp() {
-  document.querySelector('.signUpForm').addEventListener('submit', handleSignUpSubmit);
-  document.getElementById('acceptPrivacy').addEventListener('change', updateSubmitButtonState);
-  document.getElementById('username').addEventListener('input', updateSubmitButtonState);
-  document.getElementById('email').addEventListener('input', updateSubmitButtonState);
-  document.getElementById('password').addEventListener('input', updateSubmitButtonState);
-  document.getElementById('confirmPassword').addEventListener('input', updateSubmitButtonState);
-
-  updateSubmitButtonState();
+// Picks a random contact color CSS variable name (--contact_color_1 to --contact_color_15)
+function getRandomContactColor() {
+  const randomColor = Math.floor(Math.random() * 15) + 1;
+  return '--contact_color_' + randomColor;
 }
 
-document.addEventListener('DOMContentLoaded', initSignUp);
+// Creates a new Firebase Auth account via REST and returns the parsed response
+function signUpUser(email, password) {
+  return fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`, {
+    method: 'POST',
+    body: JSON.stringify({ email: email, password: password, returnSecureToken: true })
+  }).then(response => response.json());
+}
 
-// Writes the new user's username and email to the Realtime Database under their uid
+// Writes the new user's username, email, and color to the database via REST
 function saveUserToDatabase(uid, username, email) {
-  return set(ref(database, 'users/' + uid), {
-    username: username,
-    email: email,
-    color: getRandomContactColor() // Assigns a random contact color to the user
+  return fetch(baseUrl + 'users/' + uid + '.json', {
+    method: 'PUT',
+    body: JSON.stringify({ username: username, email: email, color: getRandomContactColor() })
   });
 }
 
-// Handles form submission: validates, creates the Firebase Auth account, saves user data, then redirects
+// Handles form submission: validates, creates the account via REST, saves user data, then shows success
 function handleSignUpSubmit(event) {
   event.preventDefault();
   if (!isFormValid()) return;
@@ -81,15 +79,18 @@ function handleSignUpSubmit(event) {
   const password = document.getElementById('password').value;
   const emailError = document.getElementById('emailError');
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => saveUserToDatabase(userCredential.user.uid, username, email))
+  signUpUser(email, password)
+    .then((data) => {
+      if (data.error) throw data.error;
+      return saveUserToDatabase(data.localId, username, email);
+    })
     .then(() => showSuccessOverlay())
-    .catch((error) =>  handleSignUpError(error, emailError));
+    .catch((error) => handleSignUpError(error, emailError));
 }
 
 // Displays a specific error message for a duplicate email, logs other errors to the console
 function handleSignUpError(error, emailErrorElement) {
-  if (error.code === 'auth/email-already-in-use') {
+  if (error.message === 'EMAIL_EXISTS') {
     emailErrorElement.textContent = 'This email is already in use.';
   } else {
     console.error(error);
@@ -106,8 +107,16 @@ function showSuccessOverlay() {
   }, 2000);
 }
 
+// Registers all event listeners for the sign-up form and sets the initial button state
+function initSignUp() {
+  document.querySelector('.signUpForm').addEventListener('submit', handleSignUpSubmit);
+  document.getElementById('acceptPrivacy').addEventListener('change', updateSubmitButtonState);
+  document.getElementById('username').addEventListener('input', updateSubmitButtonState);
+  document.getElementById('email').addEventListener('input', updateSubmitButtonState);
+  document.getElementById('password').addEventListener('input', updateSubmitButtonState);
+  document.getElementById('confirmPassword').addEventListener('input', updateSubmitButtonState);
 
-function getRandomContactColor() {
-  const randomColor = Math.floor(Math.random() *15) + 1; // Generates a random number between 1 and 15
-  return '--contact_color_' + randomColor; // Returns the corresponding CSS variable name
+  updateSubmitButtonState();
 }
+
+// document.addEventListener('DOMContentLoaded', initSignUp);

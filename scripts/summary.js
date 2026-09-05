@@ -47,7 +47,7 @@ function renderSummaryTiles(tickets) {
   document.getElementById('upcomingDeadline').textContent = findNextDueDate(tickets);
   document.getElementById('tasksInBoardCount').textContent = countTicketsInBoard(tickets);
   document.getElementById('tasksInProgressCount').textContent = countTicketsByStatus(tickets, 'inProgress');
-  document.getElementById('awaitingFeedbackCount').textContent = countTicketsByStatus(tickets, 'AwaitFeedback');
+  document.getElementById('awaitingFeedbackCount').textContent = countTicketsByStatus(tickets, 'awaitFeedback');
 }
 
 // Loads the current user's data from the database and displays a greeting
