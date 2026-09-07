@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../styles/colors.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/boardResponsive.css" />
     <link rel="stylesheet" href="../styles/board_dialog.css" />
     <link rel="stylesheet" href="../styles/board.css" />
     <link rel="stylesheet" href="../styles/addTask.css" />
@@ -16,13 +17,20 @@
     <!-- <script src="../scripts/contacts.js"></script> -->
     <script src="../scripts/boardTemplate.js"></script>
     <script src="../scripts/board.js"></script>
-    <link rel="shortcut icon" href="../assets/img/general/logoFavicon.svg" type="image/x-icon"/>
+    <link
+      rel="shortcut icon"
+      href="../assets/img/general/logoFavicon.svg"
+      type="image/x-icon"
+    />
   </head>
   <body onload="initialise()">
-    <dialog
-      id="dialog"
-      onclick="closeSpecificDialog('dialog')">
-    </dialog>
+    <dialog class="verification" id="verifyDialog">
+        <article class="verification_content">
+          <p>Task added to Board</p>
+          <img src="../assets/img/aside/boardValidate.svg" alt="Board Icon" />
+        </article>
+      </dialog>
+    <dialog id="dialog" onclick="closeSpecificDialog('dialog')"></dialog>
     <aside>
       <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
       <article>
@@ -96,7 +104,10 @@
                 </button>
               </div>
             </section>
-            <button class="new_task" onclick="openSpecificDialog(null, null, 'toDo', null)">
+            <button
+              class="new_task"
+              onclick="openSpecificDialog(null, null, 'toDo', null)"
+            >
               Add Task +
             </button>
           </div>
@@ -109,7 +120,10 @@
           >
             <div class="column_title">
               <h2>To do</h2>
-              <button class="adding_task" onclick="openSpecificDialog(null, null, 'toDo', null)">
+              <button
+                class="adding_task"
+                onclick="openSpecificDialog(null, null, 'toDo', null)"
+              >
                 +
               </button>
             </div>
@@ -118,10 +132,14 @@
           <section
             class="column"
             ondrop="changeStatus('inProgress')"
-            ondragover="allowDrop(event)">
+            ondragover="allowDrop(event)"
+          >
             <div class="column_title">
               <h2>In progress</h2>
-              <button class="adding_task" onclick="openSpecificDialog(null, null, 'inProgress', null)">
+              <button
+                class="adding_task"
+                onclick="openSpecificDialog(null, null, 'inProgress', null)"
+              >
                 +
               </button>
             </div>
@@ -130,10 +148,14 @@
           <section
             class="column"
             ondrop="changeStatus('awaitFeedback')"
-            ondragover="allowDrop(event)">
+            ondragover="allowDrop(event)"
+          >
             <div class="column_title">
               <h2>Await Feedback</h2>
-              <button class="adding_task" onclick="openSpecificDialog(null, null, 'awaitFeedback', null)">
+              <button
+                class="adding_task"
+                onclick="openSpecificDialog(null, null, 'awaitFeedback', null)"
+              >
                 +
               </button>
             </div>
@@ -142,7 +164,8 @@
           <section
             class="column"
             ondrop="changeStatus('done')"
-            ondragover="allowDrop(event)">
+            ondragover="allowDrop(event)"
+          >
             <div class="column_title">
               <h2>Done</h2>
             </div>

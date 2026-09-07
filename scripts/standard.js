@@ -1,3 +1,6 @@
+const baseUrl =
+  "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
+
 function openDialog(reference) {
   let dialogRef = document.getElementById(reference);
   dialogRef.showModal();
