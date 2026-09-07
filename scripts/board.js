@@ -34,19 +34,12 @@ function dragTicket(id) {
 }
 
 async function changeStatus(listKey) {
-  let myArray = await getTickets("/tickets");
-  await putTicket("/tickets/" + draggedTicket, {
-    id: draggedTicket,
-    title: myArray[draggedTicket].title,
-    description: myArray[draggedTicket].description,
-    date: myArray[draggedTicket].date,
-    priority: myArray[draggedTicket].priority,
-    assigned: myArray[draggedTicket].assigned,
-    category: myArray[draggedTicket].category,
-    subtasks: myArray[draggedTicket].subtasks,
-    status: listKey,
-  });
-  await sortReference(myArray);
+  const myArray = await getTickets("/tickets");
+  const ticket = { ...myArray[draggedTicket], status: listKey };
+  await putTicket("/tickets/" + draggedTicket, ticket);
+  await sortReference(
+    myArray.map((item) => (item.id === draggedTicket ? ticket : item)),
+  );
 }
 
 function allowDrop(event) {
@@ -66,9 +59,9 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
   taskList.inProgress = inProgress;
   taskList.awaitFeedback = awaitFeedback;
   taskList.done = done;
-  updateColumn(taskList.toDo, "toDo");
-  updateColumn(taskList.inProgress, "inProgress");
-  updateColumn(taskList.awaitFeedback, "awaitFeedback");
+  await updateColumn(taskList.toDo, "toDo");
+  await updateColumn(taskList.inProgress, "inProgress");
+  await updateColumn(taskList.awaitFeedback, "awaitFeedback");
   await updateColumn(taskList.done, "done");
   updateSubtaskProgress();
 }
@@ -171,7 +164,8 @@ async function search(input) {
       }
     }
     for (let subindex = 0; subindex < (await myArray[index].description.length); subindex++) {
-      let compare = (await myArray[index].description).slice(subindex, input.length + subindex);
+      let compare =(await myArray[index].description)
+        .slice(subindex, input.length + subindex);
       if (input == compare && !ticketAkku.some((ticket) => ticket.description === myArray[index].description)) {
         ticketAkku.push(myArray[index]);
       }
@@ -184,21 +178,20 @@ async function deleteTicket(path = "") {
   let myArray = await getTickets("/tickets");
   let myTicket = await (await fetch(baseUrl + path + ".json")).json();
   let akkumulator = myTicket.id;
-  for (let index = akkumulator; index < myArray.length-1; index++) {
-    putTicket("/tickets/"+(index), {
-    id: index,
-    title: myArray[index+1].title,
-    description: myArray[index+1].description,
-    date: myArray[index+1].date,
-    priority: myArray[index+1].priority,
-    assigned: myArray[index+1].assigned,
-    category: myArray[index+1].category,
-    subtasks: myArray[index+1].subtasks,
-    status: myArray[index+1].status,
+  for (let index = akkumulator; index < myArray.length - 1; index++) {
+    putTicket("/tickets/" + index, {
+      id: index,
+      title: myArray[index + 1].title,
+      description: myArray[index + 1].description,
+      date: myArray[index + 1].date,
+      priority: myArray[index + 1].priority,
+      assigned: myArray[index + 1].assigned,
+      category: myArray[index + 1].category,
+      subtasks: myArray[index + 1].subtasks,
+      status: myArray[index + 1].status,
     });
   }
-  await fetch(baseUrl + "/tickets/" + (myArray.length-1) + ".json",
-    {method: "DELETE"});
+  await fetch(baseUrl + "/tickets/" + (myArray.length - 1) + ".json", {method: "DELETE"});
   await cardColumn();
 }
 
@@ -213,8 +206,8 @@ async function putTicket(path = "", data = {}) {
 }
 
 async function reduceDescription(arr, index) {
-  if (await arr[index].description.length > 51) {
-    return await arr[index].description.slice(0, 50) + "...";    
+  if ((await arr[index].description.length) > 51) {
+    return (await arr[index].description.slice(0, 50)) + "...";
   } else {
     return await arr[index].description;
   }
@@ -231,7 +224,8 @@ function updateSubtaskProgress() {
     const tasks = taskList[column] || [];
     const cards = document.querySelectorAll(`#${column} .board_card`);
     tasks.forEach((task, index) =>
-      updateTaskSubtaskProgress(task, cards[index], progress));
+      updateTaskSubtaskProgress(task, cards[index], progress),
+    );
   });
 }
 
@@ -275,8 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("change", (event) => {
     if (!event.target.classList.contains("subtask_checkbox")) return;
     const dialog = event.target.closest("dialog");
-    saveSubtaskState(dialog.dataset.taskId,
-      event.target.dataset.subtaskIndex, event.target.checked);
+    saveSubtaskState(dialog.dataset.taskId, event.target.dataset.subtaskIndex, event.target.checked);
     updateSubtaskProgress();
   });
 });
