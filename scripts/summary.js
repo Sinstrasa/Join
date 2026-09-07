@@ -1,19 +1,16 @@
-import { auth, database } from "./firebaseConfig.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { ref, get } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-import { signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+const baseUrl = "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
 
-
-// Fetches all tasks from the database as an array
+// Fetches all tickets from the database as an array
 function loadTasks() {
-  return get(ref(database, 'tickets')).then((snapshot) => {
-    const data = snapshot.val();
-    if (!data) return [];
-    return Object.keys(data).map((key) => ({ id: key, ...data[key] }));
-  });
+  return fetch(baseUrl + 'tickets.json')
+    .then(response => response.json())
+    .then((data) => {
+      if (!data) return [];
+      return Object.keys(data).map((key) => ({ id: key, ...data[key] }));
+    });
 }
 
-//Counts tickets matching given status
+// Counts tickets matching given status
 function countTicketsByStatus(tickets, status) {
   return tickets.filter(ticket => ticket.status === status).length;
 }
@@ -52,10 +49,9 @@ function renderSummaryTiles(tickets) {
 
 // Loads the current user's data from the database and displays a greeting
 function loadUserGreeting(uid) {
-  get(ref(database, 'users/' + uid)).then((snapshot) => {
-    const userData = snapshot.val();
-    displayGreeting(userData);
-  });
+  fetch(baseUrl + 'users/' + uid + '.json')
+    .then(response => response.json())
+    .then((userData) => displayGreeting(userData));
 }
 
 // Returns a time-appropriate greeting word based on the current hour
@@ -77,32 +73,32 @@ function displayGreeting(userData) {
   displayProfileIcon(userData);
 }
 
-// Entry point: waits for Firebase to confirm the logged-in user, then loads their data
-function initSummary() {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      loadUserGreeting(user.uid);
-      loadTasks().then((tickets) => renderSummaryTiles(tickets));
-    } else {
-      window.location.href = '../pages/index.html';
-    }
-  });
-
-  document.getElementById('logoutButton').addEventListener('click', handleLogout);
-}
-
 // Fills the profile icon with the user's first initial
 function displayProfileIcon(userData) {
   const profileIcon = document.getElementById('userInitial');
   profileIcon.textContent = userData.username.charAt(0).toUpperCase();
 }
 
-// Signs the current user out and redirects to the login page
+// Signs the current user out by clearing the stored session and redirects to login
 function handleLogout(event) {
-    event.preventDefault();
-  signOut(auth).then(() => {
-    window.location.href = '../index.html';
-  });
+  event.preventDefault();
+  localStorage.removeItem('uid');
+  localStorage.removeItem('idToken');
+  window.location.href = '../index.html';
 }
 
-document.addEventListener('DOMContentLoaded', initSummary);
+// Entry point: checks for a logged-in user via localStorage, then loads their data
+function initSummary() {
+  const uid = localStorage.getItem('uid');
+
+  if (!uid) {
+    window.location.href = '../index.html';
+    return;
+  }
+
+  loadUserGreeting(uid);
+  loadTasks().then((tickets) => renderSummaryTiles(tickets));
+  document.getElementById('logoutButton').addEventListener('click', handleLogout);
+}
+
+// document.addEventListener('DOMContentLoaded', initSummary);
