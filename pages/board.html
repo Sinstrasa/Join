@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="../styles/colors.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
-    <link rel="stylesheet" href="../styles/boardResponsive.css" />
     <link rel="stylesheet" href="../styles/board_dialog.css" />
     <link rel="stylesheet" href="../styles/board.css" />
+    <link rel="stylesheet" href="../styles/boardResponsive.css" />
     <link rel="stylesheet" href="../styles/addTask.css" />
     <script src="../scripts/standard.js"></script>
     <script src="../scripts/addTaskTemplate.js"></script>
@@ -65,6 +65,7 @@
     <article class="main_content">
       <header>
         <p>Kanban Project Management Tool</p>
+        <img src="../assets/img/general/logoFavicon.svg" alt="Logo">
         <section class="header_right">
           <a href="../pages/help.html">
             <img src="../assets/img/general/help.svg" alt="Help Button" />
@@ -92,38 +93,49 @@
                 class="search"
                 id="searchField"
                 type="text"
-                placeholder="Find Task"
-              />
+                placeholder="Find Task"/>
               <div class="search_button" aria-label="Search">
                 <button type="button">
                   <img
                     class="search_icon"
                     src="../assets/img/board/search.svg"
-                    alt="Search icon"
-                  />
+                    alt="Search icon"/>
                 </button>
               </div>
             </section>
             <button
               class="new_task"
-              onclick="openSpecificDialog(null, null, 'toDo', null)"
-            >
-              Add Task +
+              onclick="openSpecificDialog(null, null, 'toDo', null)">
+              <p class="desktop">Add Task +</p>
+              <p class="mobile">+</p>
             </button>
           </div>
         </section>
+        <section class="search_wrapper">
+              <input
+                class="search"
+                id="searchField"
+                type="text"
+                placeholder="Find Task"/>
+              <div class="search_button" aria-label="Search">
+                <button type="button">
+                  <img
+                    class="search_icon"
+                    src="../assets/img/board/search.svg"
+                    alt="Search icon"/>
+                </button>
+              </div>
+            </section>
         <article class="kanban">
           <section
             class="column"
             ondrop="changeStatus('toDo')"
-            ondragover="allowDrop(event)"
-          >
+            ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>To do</h2>
               <button
                 class="adding_task"
-                onclick="openSpecificDialog(null, null, 'toDo', null)"
-              >
+                onclick="openSpecificDialog(null, null, 'toDo', null)">
                 +
               </button>
             </div>
@@ -132,14 +144,12 @@
           <section
             class="column"
             ondrop="changeStatus('inProgress')"
-            ondragover="allowDrop(event)"
-          >
+            ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>In progress</h2>
               <button
                 class="adding_task"
-                onclick="openSpecificDialog(null, null, 'inProgress', null)"
-              >
+                onclick="openSpecificDialog(null, null, 'inProgress', null)">
                 +
               </button>
             </div>
@@ -148,14 +158,12 @@
           <section
             class="column"
             ondrop="changeStatus('awaitFeedback')"
-            ondragover="allowDrop(event)"
-          >
+            ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>Await Feedback</h2>
               <button
                 class="adding_task"
-                onclick="openSpecificDialog(null, null, 'awaitFeedback', null)"
-              >
+                onclick="openSpecificDialog(null, null, 'awaitFeedback', null)">
                 +
               </button>
             </div>
@@ -164,8 +172,7 @@
           <section
             class="column"
             ondrop="changeStatus('done')"
-            ondragover="allowDrop(event)"
-          >
+            ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>Done</h2>
             </div>

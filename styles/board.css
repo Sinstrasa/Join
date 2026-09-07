@@ -91,8 +91,11 @@ main {
   height: 48px;
   border: none;
   border-radius: 10px;
-  color: white;
   background-color: var(--main_color);
+}
+
+.new_task > p {
+  color: white;
   font-size: 21px;
   font-weight: 700;
 }
@@ -177,6 +180,7 @@ h2 {
   width: 252px;
   border: none;
   border-radius: 24px;
+  /* box-shadow: 0px 0px 10px 3px var(--board_card_shadow); */
 }
 
 .board_card_content {
@@ -266,6 +270,14 @@ h5 {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.desktop {
+  display: flex;
+}
+
+.mobile {
+  display: none;
 }
 
 /* von anderen CSS kopiert */

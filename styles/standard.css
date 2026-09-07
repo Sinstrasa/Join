@@ -113,6 +113,11 @@ header > p {
   font-size: 20px;
 }
 
+header > img {
+  display: none;
+  width: 32px;
+}
+
 .header_right {
   display: flex;
   align-items: center;

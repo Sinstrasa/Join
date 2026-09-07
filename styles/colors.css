@@ -10,6 +10,7 @@
   --add_hover: rgb(41, 171, 226);
   --button_shadow: rgba(0, 0, 0, 0.4);
   --button_shadow_hover: rgba(0, 0, 0, 0.25);
+  --board_card_shadow: rgba(0, 0, 0, 0.08);
   --urgent_color: rgb(255, 61, 0);
   --medium_color: rgb(255, 168, 0);
   --low_color: rgb(122, 226, 41);
