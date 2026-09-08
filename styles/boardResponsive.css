@@ -8,9 +8,6 @@
   body {
     overflow: auto;
   }
-  aside {
-    display: none;
-  }
   .main_content {
     display: flex;
     flex-direction: column;
@@ -46,11 +43,21 @@
   .profile_icon > p {
     font-size: 20px;
   }
+  .navigation {
+    top: 80px;
+  }
   .main_title {
     padding: 48px 16px 40px 16px;
   }
   .search_wrapper {
     display: none;
+  }
+  .search_mobile {
+    padding: 0px 16px;
+  }
+  .search_wrapper_mobile {
+    display: inline-flex;
+    width: 100%;
   }
   .new_task {
     display: flex;
@@ -67,7 +74,7 @@
   .kanban {
     flex-direction: column;
     justify-content: space-between;
-    padding: 0px 16px;
+    padding: 24px 16px 80px 16px;
   }
   .column {
     align-items: start;
@@ -81,5 +88,26 @@
     width: 100%;
     height: auto;
     overflow-x: auto;
+  }
+  .nothing {
+    width: 100%;
+  }
+  footer {
+    justify-content: space-evenly;
+    position: sticky;
+    bottom: 0px;
+    height: 80px;
+    background-color: var(--main_color);
+  }
+  .another_page,
+  .current_page {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin-top: 2px;
+    width: 80px;
+    height: 76px;
+    border-radius: 16px;
   }
 }

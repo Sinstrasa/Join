@@ -265,8 +265,8 @@ function taskDialogSubtasksTemplate(content, index, checked) {
 
 function nothingTemplate() {
   return `
-    <li>
-      <div class="nothing">
+    <li class="nothing">
+      <div>
         <p>No tasks to do</p>
       </div>
     </li>
@@ -275,8 +275,8 @@ function nothingTemplate() {
 
 function nothingDoneTemplate() {
   return `
-    <li>
-      <div class="nothing">
+    <li class="nothing">
+      <div>
         <p>No tasks Done</p>
       </div>
     </li>

@@ -25,7 +25,8 @@ main {
   gap: 32px;
 }
 
-.search_wrapper {
+.search_wrapper,
+.search_wrapper_mobile {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -33,6 +34,10 @@ main {
   border: 1px solid var(--border_color);
   border-radius: 10px;
   background-color: white;
+}
+
+.search_wrapper_mobile {
+  display: none;
 }
 
 .search_wrapper:hover {
