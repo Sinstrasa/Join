@@ -239,48 +239,47 @@ form {
 /* Logo Animation */
 
 .signup_logo {
-    position: fixed;
-    top: 64px;
-    left: 80px;
-    width: 100px;
-    z-index: 100;
-    animation: Logo_Intro 1200ms ease-in-out forwards;
+  position: fixed;
+  top: 64px;
+  left: 80px;
+  width: 100px;
+  z-index: 100;
+  animation: Logo_Intro 2200ms ease-in-out forwards;
 }
 
 @keyframes Logo_Intro {
-    0% {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(1.6);
-    }
+  0% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.6);
+  }
 
-    50% {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(1.6);
-    }
+  55% {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.6);
+  }
 
-    100% {
-        top: 64px;
-        left: 80px;
-        transform: translate(0, 0) scale(1);
-    }
+  100% {
+    top: 64px;
+    left: 80px;
+    transform: translate(0, 0) scale(1);
+  }
 }
-
 
 /* Login Animation */
 
 .login_fade {
-    opacity: 0;
-    animation: Login_Fade_In 400ms ease-out 950ms forwards;
+  opacity: 0;
+  animation: Login_Fade_In 500ms ease-out 1800ms forwards;
 }
 
 @keyframes Login_Fade_In {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
