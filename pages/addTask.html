@@ -9,14 +9,20 @@
     <link rel="stylesheet" href="../styles/colors.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
-    <link rel="stylesheet" href="../styles/contacts.css">
+    <link rel="stylesheet" href="../styles/contacts.css" />
     <link rel="stylesheet" href="../styles/board.css" />
     <link rel="stylesheet" href="../styles/board_dialog.css" />
     <link rel="stylesheet" href="../styles/addTask.css" />
+
+    <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-database-compat.js"></script>
+
+    <script src="../scripts/firebaseConfig.js"></script>
     <script src="../scripts/standard.js"></script>
-    <script src="../scripts/loadUser.js" type="module"></script>
+    <script src="../scripts/loadUser.js"></script>
     <script src="../scripts/addTaskTemplate.js"></script>
-    <script src="../scripts/addTask.js" type="module"></script>
+    <script src="../scripts/addTask.js"></script>
 
     <link
       rel="shortcut icon"
@@ -25,7 +31,7 @@
     />
   </head>
 
-  <body>
+  <body onload="initAddTaskPage()">
     <aside>
       <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
 
@@ -124,12 +130,7 @@
             <div class="add_task_input">
               <p>Due Date<span>*</span></p>
 
-              <input
-                class="input_areas"
-                id="dueDate"
-                type="date"
-                required
-              />
+              <input class="input_areas" id="dueDate" type="date" required />
             </div>
           </section>
 
@@ -173,10 +174,7 @@
                 >
                   Low
 
-                  <img
-                    src="../assets/img/task/low.svg"
-                    alt="Low priority"
-                  />
+                  <img src="../assets/img/task/low.svg" alt="Low priority" />
                 </button>
               </section>
             </div>
@@ -185,10 +183,7 @@
               <p>Assigned To</p>
 
               <div class="select_areas" id="assignedDropdown">
-                <button
-                  class="select_areas_toggle"
-                  type="button"
-                >
+                <button class="select_areas_toggle" type="button">
                   <span class="select_areas_value">
                     Select contacts to assign
                   </span>
@@ -197,13 +192,8 @@
                 </button>
 
                 <div class="select_areas_menu" id="contactList"></div>
-                
-                <input
-                  type="hidden"
-                  id="assigned"
-                  name="assigned"
-                  value=""
-                />
+
+                <input type="hidden" id="assigned" name="assigned" value="" />
               </div>
             </div>
 
@@ -211,13 +201,8 @@
               <p>Category<span>*</span></p>
 
               <div class="select_areas" id="categoryDropdown">
-                <button
-                  class="select_areas_toggle"
-                  type="button"
-                >
-                  <span class="select_areas_value">
-                    Select task category
-                  </span>
+                <button class="select_areas_toggle" type="button">
+                  <span class="select_areas_value"> Select task category </span>
 
                   <span class="select_areas_arrow">▾</span>
                 </button>
@@ -240,12 +225,7 @@
                   </button>
                 </div>
 
-                <input
-                  type="hidden"
-                  id="category"
-                  name="category"
-                  value=""
-                />
+                <input type="hidden" id="category" name="category" value="" />
               </div>
             </div>
 
@@ -261,14 +241,8 @@
                 />
 
                 <div class="subtask_validating">
-                  <button
-                    id="clearSubtaskButton"
-                    type="button"
-                  >
-                    <img
-                      src="../assets/img/general/close.svg"
-                      alt="Clear"
-                    />
+                  <button id="clearSubtaskButton" type="button">
+                    <img src="../assets/img/general/close.svg" alt="Clear" />
                   </button>
 
                   <div class="subtask_middle"></div>
@@ -297,17 +271,10 @@
           <p><span>*</span>This field is required</p>
 
           <div class="footer_buttons">
-            <button
-              class="cancel"
-              id="clearTaskButton"
-              type="button"
-            >
+            <button class="cancel" id="clearTaskButton" type="button">
               Clear
 
-              <img
-                src="../assets/img/general/close.svg"
-                alt="Clear"
-              />
+              <img src="../assets/img/general/close.svg" alt="Clear" />
             </button>
 
             <button
@@ -317,14 +284,12 @@
             >
               Create Task
 
-              <img
-                src="../assets/img/general/check.svg"
-                alt="Create task"
-              />
+              <img src="../assets/img/general/check.svg" alt="Create task" />
             </button>
           </div>
         </section>
       </main>
     </article>
+    <div class="task_message" id="taskMessage">Task added to board</div>
   </body>
 </html>
