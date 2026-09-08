@@ -1,6 +1,3 @@
-import{getInitials} from "./contacts.js";
-
-
 //-----------------Add Contact Dialog Template-----------------//
 function addContactDialogTemplate() {
   return `
@@ -133,5 +130,12 @@ function contactDetailTemplate(contact) {
   `;
 }
 
+// Extracts initials from a full name — first letter of the first and last word
+function getInitials(name) {
+  const parts = name.trim().split(' ').filter((part) => part !== '');
+  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
 
-export { addContactDialogTemplate, editContactDialogTemplate, contactsListItemTemplate, contactDetailTemplate};
+  const firstInitial = parts[0].charAt(0).toUpperCase();
+  const lastInitial = parts[parts.length - 1].charAt(0).toUpperCase();
+  return firstInitial + lastInitial;
+}

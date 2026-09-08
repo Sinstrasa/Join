@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/contacts.css" />
-    <script src="../scripts/contacts.js" type="module"></script>
+    <script src="../scripts/standard.js" defer></script>
+    <script src="../scripts/contacts.js" defer></script>
+    <script src="../scripts/contactsTemplates.js" defer></script>
     <link rel="shortcut icon" href="../assets/img/general/logoFavicon.svg" type="image/x-icon" />
   </head>
-  <body>
+  <body onload="initContacts()">
     <aside>
       <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
       <article>

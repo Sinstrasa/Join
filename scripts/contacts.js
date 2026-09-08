@@ -1,22 +1,18 @@
-import { auth, database } from "./firebaseConfig.js";
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { ref, push, set, get, remove, update } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-import { addContactDialogTemplate, editContactDialogTemplate, contactsListItemTemplate, contactDetailTemplate } from "./contactsTemplates.js";
-import { openAnimation, closeAnimation } from "./standard.js";
-
-// Shared state: holds the currently loaded contacts array
-const state = { contacts: []};
+const state = { contacts: [] };
 
 // Creates a new contact under the current user's contacts branch
 function createContact(uid, contactData) {
-  const contactsRef = ref(database, 'users/' + uid + '/contacts');
-  const newContactRef = push(contactsRef);
-  return set(newContactRef, contactData);
+  return fetch(baseUrl + 'users/' + uid + '/contacts.json', {
+    method: 'POST',
+    body: JSON.stringify(contactData)
+  });
 }
 
 // Deletes a contact from the current user's contacts branch
 function deleteContact(uid, contactId) {
-  return remove(ref(database, 'users/' + uid + '/contacts/' + contactId));
+  return fetch(baseUrl + 'users/' + uid + '/contacts/' + contactId + '.json', {
+    method: 'DELETE'
+  });
 }
 
 // Picks a random contact color CSS variable name (--contact_color_1 to --contact_color_15)
@@ -27,7 +23,8 @@ function getRandomContactColor() {
 
 // Generates a new Contact object with a random color and saves it to the database
 function generateContact(name, email, phone) {
-  return createContact(auth.currentUser.uid, {
+  const uid = localStorage.getItem('uid');
+  return createContact(uid, {
     name: name,
     email: email,
     phone: phone,
@@ -37,25 +34,31 @@ function generateContact(name, email, phone) {
 
 // Injects the edit-contact dialog markup, pre-filled with the contact's data
 function injectEditContactDialog(contact) {
+  const existingDialog = document.getElementById('editContact');
+  if (existingDialog) existingDialog.remove();
   document.querySelector('.main_content').insertAdjacentHTML('beforeend', editContactDialogTemplate(contact));
 }
 
 // Updates an existing contact's data in the database
 function updateContact(uid, contactId, contactData) {
-  return update(ref(database, 'users/' + uid + '/contacts/' + contactId), contactData);
+  return fetch(baseUrl + 'users/' + uid + '/contacts/' + contactId + '.json', {
+    method: 'PATCH',
+    body: JSON.stringify(contactData)
+  });
 }
 
 // Handles the edit-contact form submission
 function handleEditContactSubmit(event) {
   event.preventDefault();
+  const uid = localStorage.getItem('uid');
   const contactId = document.getElementById('editContactId').value;
   const name = document.getElementById('editContactName').value;
   const email = document.getElementById('editContactEmail').value;
   const phone = document.getElementById('editContactPhone').value;
 
-  updateContact(auth.currentUser.uid, contactId, { name, email, phone }).then(() => {
+  updateContact(uid, contactId, { name, email, phone }).then(() => {
     document.getElementById('editContact').remove();
-    loadContacts(auth.currentUser.uid).then(() => {
+    loadContacts(uid).then(() => {
       showContactDetail(findContactById(state.contacts, contactId));
     });
   });
@@ -117,16 +120,6 @@ function groupContactsByLetter(contacts) {
   return groups;
 }
 
-// Extracts initials from a full name — first letter of the first and last word
-function getInitials(name) {
-  const parts = name.trim().split(' ').filter((part) => part !== '');
-  if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
-
-  const firstInitial = parts[0].charAt(0).toUpperCase();
-  const lastInitial = parts[parts.length - 1].charAt(0).toUpperCase();
-  return firstInitial + lastInitial;
-}
-
 // Returns the HTML markup for a group header (the divider letter)
 function contactGroupHeaderTemplate(letter) {
   return `<li class="contact_group_header">${letter}</li>`;
@@ -149,10 +142,12 @@ function renderContactsList(contacts) {
 
 // Fetches the current user's contacts from the database, stores and renders them
 function loadContacts(uid) {
-  return get(ref(database, 'users/' + uid + '/contacts')).then((snapshot) => {
-    state.contacts = mapContactsToArray(snapshot.val());
-    renderContactsList(state.contacts);
-  });
+  return fetch(baseUrl + 'users/' + uid + '/contacts.json')
+    .then(response => response.json())
+    .then((data) => {
+      state.contacts = mapContactsToArray(data);
+      renderContactsList(state.contacts);
+    });
 }
 
 // Finds a contact by its id within the currently loaded contacts array
@@ -177,11 +172,13 @@ function handleContactClick(event) {
 
 // Deletes the contact and clears the detail view
 function handleDeleteContact(contactId) {
-  deleteContact(auth.currentUser.uid, contactId).then(() => {
+  const uid = localStorage.getItem('uid');
+  deleteContact(uid, contactId).then(() => {
     document.getElementById('contactCard').innerHTML = '<p>Select a contact to see details.</p>';
-    loadContacts(auth.currentUser.uid);
+    loadContacts(uid);
   });
 }
+
 // Opens the edit dialog for a specific contact, pre-filled with its data
 function handleEditContact(contactId) {
   const contact = findContactById(state.contacts, contactId);
@@ -206,6 +203,7 @@ function handleContactCardClick(event) {
 // Handles the add-contact form submission
 function handleAddContactSubmit(event) {
   event.preventDefault();
+  const uid = localStorage.getItem('uid');
 
   const name = document.getElementById('contactName').value;
   const email = document.getElementById('contactEmail').value;
@@ -214,17 +212,8 @@ function handleAddContactSubmit(event) {
   generateContact(name, email, phone).then(() => {
     document.getElementById('addContactForm').reset();
     closeDialog('addContact');
-    loadContacts(auth.currentUser.uid);
+    loadContacts(uid);
   });
-}
-
-// Redirects to login if no user is signed in, otherwise loads their contacts
-function handleAuthStateChange(user) {
-  if (user) {
-    loadContacts(user.uid);
-  } else {
-    window.location.href = '../index.html';
-  }
 }
 
 // Registers listeners for the add-contact dialog (open, close, cancel, submit)
@@ -249,13 +238,19 @@ function registerContactListeners() {
   document.getElementById('contactCard').addEventListener('click', handleContactCardClick);
 }
 
-// Entry point: injects the dialog markup, sets up auth handling, and registers listeners
+// Entry point: checks for a logged-in user, injects dialog markup, and registers listeners
 function initContacts() {
+  const uid = localStorage.getItem('uid');
+
+  if (!uid) {
+    window.location.href = '../index.html';
+    return;
+  }
+
   injectAddContactDialog();
-  onAuthStateChanged(auth, handleAuthStateChange);
+  loadContacts(uid);
   registerDialogListeners();
   registerContactListeners();
 }
 
 document.addEventListener('DOMContentLoaded', initContacts);
-export{getInitials};
