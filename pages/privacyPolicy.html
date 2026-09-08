@@ -46,19 +46,22 @@
     <main class="Information_Content">
       <header>
         <p>Kanban Project Management Tool</p>
+
         <section class="header_right">
-          <a href="">
+          <a href="../pages/help.html">
             <img src="../assets/img/general/help.svg" alt="Help Button" />
           </a>
+
           <section>
-            <button class="profile_icon" onclick="openDialog('nav')">
-              <p>G</p>
+            <button class="profile_icon" id="profileButton" type="button">
+              <p id="userInitial"></p>
             </button>
-            <dialog class="navigation" id="nav" onclick="closeDialog('nav')">
-              <div class="subnavigation">
+
+            <dialog class="navigation" id="nav">
+              <div class="subnavigation" id="subnavigation">
                 <a href="../pages/legalNotice.html">Legal Notice</a>
                 <a href="../pages/privacyPolicy.html">Privacy Policy</a>
-                <a href="../index.html">Log out</a>
+                <a href="../index.html" id="logoutButton">Log out</a>
               </div>
             </dialog>
           </section>
