@@ -1,5 +1,3 @@
-const baseUrl = "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
-
 // Fetches all tickets from the database as an array
 function loadTasks() {
   return fetch(baseUrl + 'tickets.json')
