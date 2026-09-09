@@ -260,3 +260,25 @@ h6 {
 .verification_content > p {
   font-size: 20px;
 }
+
+.card_navigation {
+  text-align: start;
+  gap: 5px;
+  position: fixed;
+  padding: 0px;
+  border: none;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: white;
+}
+
+.swap_dialog > p {
+  margin-bottom: 11px;
+}
+
+.swap_dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

@@ -291,6 +291,16 @@ async function openSpecificDialog(listKey, index, stat, reference) {
   document.body.classList.add("dialog_open");
 }
 
+async function openSwapDialog(reference) {
+  let dialogRef = document.getElementById('cardNav');
+  const liRef = document.getElementById(reference);
+  const rect = liRef.getBoundingClientRect();
+  dialogRef.style.top = `${rect.top + 16}px`;
+  dialogRef.style.left = `${rect.right - 175}px`;
+  dialogRef.showModal();
+  document.body.classList.toggle("dialog_open");
+}
+
 async function taskDialog(listKey, index, dialogRef) {
   let arr = taskList[listKey];
   dialogRef.dataset.taskId = arr[index].id;
