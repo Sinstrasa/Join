@@ -70,11 +70,13 @@
   .new_task > p {
     font-size: 36px;
   }
-
   .kanban {
     flex-direction: column;
     justify-content: space-between;
     padding: 24px 16px 80px 16px;
+  }
+  h2 {
+    font-size: 27px;
   }
   .column {
     align-items: start;
@@ -90,6 +92,11 @@
     overflow-x: auto;
   }
   .nothing {
+    width: 100%;
+  }
+  .board_card_header {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
   }
   footer {
@@ -109,5 +116,24 @@
     width: 80px;
     height: 76px;
     border-radius: 16px;
+  }
+  .task_board {
+    padding: 32px 24px;
+  }
+  h6 {
+    font-size: 36px;
+  }
+  .task_board p {
+  font-size: 1rem;
+  }
+  .swap_mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 27px;
+    padding: 2px 3px;
+    border: 2px solid var(--main_color);
+    border-radius: 6px;
   }
 }

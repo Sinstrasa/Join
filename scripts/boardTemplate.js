@@ -286,11 +286,25 @@ function nothingDoneTemplate() {
 async function somethingTemplate(arr, index, listKey) {
   // <div id="assignedInitials">${await addInitials()}</div>
   return `
-    <li>
-      <section class="something" draggable="true" ondragstart="dragTicket(${await readDatabase(arr, index, "id")})">
+    <li class="relative" id="li${+(await readDatabase(arr, index, "id"))}">
+      <article class="something" draggable="true" ondragstart="dragTicket(${await readDatabase(arr, index, "id")})">
         <button class="board_card" id="card${+(await readDatabase(arr, index, "id"))}" onclick="openSpecificDialog('${listKey}', ${index}, ${null}, 'taskBoardDialog')">
           <div class="board_card_content">
-            <h4>${await readDatabase(arr, index, "category")}</h4>
+            <section class="board_card_header">
+              <dialog class="card_navigation" id="cardNav" onclick="stopPropagation(event); closeDialog('cardNav')">
+                <div class="subnavigation swap_dialog" onclick="stopPropagation(event)">
+                  <p>Move to</p>
+                  <div role="button" onclick="closeDialog('cardNav'); changeStatus('toDo')">To Do</div>
+                  <div role="button" onclick="closeDialog('cardNav'); changeStatus('inProgress')">In Progress</div>
+                  <div role="button" onclick="closeDialog('cardNav'); changeStatus('awaitFeedback')">Await Feedback</div>
+                  <div role="button" onclick="closeDialog('cardNav'); changeStatus('done')">Done</div>
+                </div>
+              </dialog>
+              <h4>${await readDatabase(arr, index, "category")}</h4>
+              <div class="swap_mobile mobile" role="button" onclick="stopPropagation(event); openSwapDialog('li${+(await readDatabase(arr, index, "id"))}'); dragTicket(${await readDatabase(arr, index, "id")})">
+                <img src="../assets/img/mobile/swap.svg" alt="Swap Icon">
+              </div>
+            </section>
             <section class="card_text">
               <h5>${await readDatabase(arr, index, "title")}</h5>
               <p>${await reduceDescription(arr, index)}</p>
@@ -306,7 +320,7 @@ async function somethingTemplate(arr, index, listKey) {
             </section>
           </div>
         </button>
-      </section>
+      </article>
     </li>
   `;
 }
