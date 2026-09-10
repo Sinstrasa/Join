@@ -3,48 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Privacy Policy</title>
+
     <link rel="stylesheet" href="../styles/colors.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/information.css" />
     <link rel="stylesheet" href="../styles/board.css" />
-    <script src="../scripts/board.js"></script>
-    <title>Privacy Policy</title>
+    <link rel="stylesheet" href="../styles/informationResponsive.css" />
+
+    <script src="../scripts/loadUser.js"></script>
   </head>
-  <body>
-    <aside>
+
+  <body onload="initInformationPage()">
+    <aside class="desktop">
       <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
+
       <article>
         <section class="menu">
           <a class="another_page" href="../pages/summary.html">
             <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
             <p>Summary</p>
           </a>
+
           <a class="another_page" href="../pages/addTask.html">
             <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
             <p>Add Task</p>
           </a>
+
           <a class="another_page" href="../pages/board.html">
             <img src="../assets/img/aside/boardValidate.svg" alt="Board Icon" />
             <p>Board</p>
           </a>
+
           <a class="another_page" href="../pages/contacts.html">
             <img src="../assets/img/aside/contacts.svg" alt="Contacts Icon" />
             <p>Contacts</p>
           </a>
         </section>
+
         <section class="legal_necessities">
           <a class="current_page policies" href="../pages/privacyPolicy.html">
             <p>Privacy Policy</p>
           </a>
+
           <a class="another_page policies" href="../pages/legalNotice.html">
             <p>Legal Notice</p>
           </a>
         </section>
       </article>
     </aside>
+
     <main class="Information_Content">
       <header>
+        <img
+          class="mobile_header_logo"
+          src="../assets/img/general/logoFavicon.svg"
+          alt="Join Logo"
+        />
+
         <p>Kanban Project Management Tool</p>
 
         <section class="header_right">
@@ -67,13 +85,24 @@
           </section>
         </section>
       </header>
+
       <div class="Information_Text">
-        <h1>Privacy Policy</h1>
+        <div class="information_title_row">
+          <h1>Privacy Policy</h1>
+
+          <button class="back_button" type="button" onclick="history.back()">
+            <img
+              src="../assets/img/general/arrow.svg"
+              alt="Go back"
+            />
+          </button>
+        </div>
 
         <section class="Privacy_Section">
           <h2>1. Privacy at a Glance</h2>
 
           <h3>General Information</h3>
+
           <p>
             The following information provides a simple overview of what happens
             to your personal data when you visit this website. Personal data is
@@ -83,6 +112,7 @@
           <h3>Data Collection on This Website</h3>
 
           <h4>Who is responsible for data collection on this website?</h4>
+
           <p>
             Data processing on this website is carried out by the website
             operator. The operator's contact details can be found in the section
@@ -90,6 +120,7 @@
           </p>
 
           <h4>How do we collect your data?</h4>
+
           <p>
             Some data is collected when you provide it to us. This may, for
             example, be data that you enter into a contact form.
@@ -103,6 +134,7 @@
           </p>
 
           <h4>What do we use your data for?</h4>
+
           <p>
             Some data is collected to ensure that the website functions
             correctly. Other data may be used to analyze how visitors use the
@@ -110,6 +142,7 @@
           </p>
 
           <h4>What rights do you have regarding your data?</h4>
+
           <p>
             You have the right to request information about your stored personal
             data, its origin, recipients, and purpose. You also have the right
@@ -121,6 +154,7 @@
           <h2>2. General Information and Mandatory Information</h2>
 
           <h3>Data Protection</h3>
+
           <p>
             The operators of this website take the protection of your personal
             data very seriously. We treat your personal data confidentially and
@@ -134,7 +168,10 @@
           </p>
 
           <h3>Information on the Responsible Party</h3>
-          <p>The responsible party for data processing on this website is:</p>
+
+          <p>
+            The responsible party for data processing on this website is:
+          </p>
 
           <p>
             Example Company<br />
@@ -145,10 +182,13 @@
           <p>
             Phone: +49 (0) 123 44 55 66<br />
             Email:
-            <a href="mailto:info@beispielfirma.de"> info@beispielfirma.de </a>
+            <a href="mailto:info@beispielfirma.de">
+              info@beispielfirma.de
+            </a>
           </p>
 
           <h3>Storage Duration</h3>
+
           <p>
             Unless a more specific storage period has been specified, your
             personal data will remain stored until the purpose for processing
@@ -156,6 +196,7 @@
           </p>
 
           <h3>Revocation of Your Consent to Data Processing</h3>
+
           <p>
             Many data processing operations are only possible with your explicit
             consent. You may revoke consent that you have already given at any
@@ -163,6 +204,7 @@
           </p>
 
           <h3>Right to Lodge a Complaint</h3>
+
           <p>
             In the event of violations of applicable data protection law,
             affected persons have the right to lodge a complaint with the
@@ -170,6 +212,7 @@
           </p>
 
           <h3>Information, Correction and Deletion</h3>
+
           <p>
             You have the right to receive information about your stored personal
             data and, where applicable, the right to request correction or
@@ -177,6 +220,7 @@
           </p>
 
           <h3>SSL or TLS Encryption</h3>
+
           <p>
             This website uses SSL or TLS encryption for security reasons and to
             protect the transmission of confidential content.
@@ -187,6 +231,7 @@
           <h2>3. Data Collection on This Website</h2>
 
           <h3>Contact Form</h3>
+
           <p>
             If you contact us via a contact form, the information you provide,
             including your contact details, will be stored for the purpose of
@@ -200,6 +245,7 @@
           <h2>4. Plugins and Tools</h2>
 
           <h3>Google Fonts (Local Hosting)</h3>
+
           <p>
             This website uses Google Fonts to ensure consistent font display.
             The Google Fonts are installed locally. No connection to Google's
@@ -219,5 +265,35 @@
         </section>
       </div>
     </main>
+
+    <footer class="mobile">
+      <section>
+        <a class="another_page" href="../pages/summary.html">
+          <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
+          <p>Summary</p>
+        </a>
+      </section>
+
+      <section>
+        <a class="another_page" href="../pages/addTask.html">
+          <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
+          <p>Add Task</p>
+        </a>
+      </section>
+
+      <section>
+        <a class="another_page" href="../pages/board.html">
+          <img src="../assets/img/aside/board.svg" alt="Board Icon" />
+          <p>Board</p>
+        </a>
+      </section>
+
+      <section>
+        <a class="another_page" href="../pages/contacts.html">
+          <img src="../assets/img/aside/contacts.svg" alt="Contacts Icon" />
+          <p>Contacts</p>
+        </a>
+      </section>
+    </footer>
   </body>
 </html>

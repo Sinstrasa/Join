@@ -1,0 +1,358 @@
+.mobile {
+  display: none;
+}
+
+.mobile_header_logo {
+  display: none;
+}
+
+.back_button {
+  display: none;
+}
+
+/* Tablet */
+
+@media screen and (max-width: 1200px) {
+  aside.desktop {
+    position: sticky;
+    top: 0;
+    flex-shrink: 0;
+    height: 100vh;
+    min-height: 100vh;
+  }
+
+  aside.desktop > article {
+    min-height: 0;
+  }
+
+  .Information_Text {
+    padding: 48px 40px;
+  }
+}
+
+/* Mobile */
+
+@media screen and (max-width: 900px) {
+  body > aside {
+    display: none !important;
+  }
+
+  footer.mobile {
+    display: flex;
+  }
+
+  body {
+    overflow: auto;
+  }
+
+  .Information_Content,
+  .main_content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 80px;
+    padding: 12px 16px;
+    background-color: white;
+  }
+
+  header > p {
+    display: none;
+  }
+
+  .mobile_header_logo {
+  display: block;
+  width: 40px;
+  height: 48px;
+  object-fit: contain;
+}
+
+  .header_right {
+    padding: 0;
+  }
+
+  .header_right > a {
+    display: none;
+  }
+
+  .header_right > section,
+  .profile_icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .profile_icon {
+    border: 2px solid var(--main_color);
+  }
+
+  .profile_icon > p {
+    font-size: 20px;
+  }
+
+  .navigation {
+    top: 80px;
+  }
+
+  .Information_Text {
+    width: 100%;
+    max-width: none;
+    padding: 32px 16px 120px;
+  }
+
+  .information_title_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .Information_Text h1 {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.1;
+  }
+
+  .back_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+
+  .back_button img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .Information_Text h2 {
+    margin-bottom: 12px;
+    font-size: 24px;
+  }
+
+  .Information_Text h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  .Information_Text p {
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+
+  .Information_Text ul,
+  .Information_Text ol {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    padding-left: 20px;
+    font-size: 14px;
+  }
+
+  .Information_Text li {
+    margin-bottom: 6px;
+  }
+
+  .Help_Intro {
+    margin-bottom: 24px;
+  }
+
+  .Help_Step {
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .Help_Number {
+    min-width: 28px;
+    font-size: 22px;
+  }
+
+  .Help_Step_Content {
+    flex: 1;
+  }
+
+  .Privacy_Section,
+  .Legal_Section {
+    margin-bottom: 24px;
+  }
+
+  footer.mobile {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background-color: var(--main_color);
+  }
+
+  footer.mobile > section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  footer.mobile .another_page,
+  footer.mobile .current_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 76px;
+    margin-top: 2px;
+    padding: 0;
+    border-radius: 16px;
+  }
+
+  footer.mobile .another_page p,
+  footer.mobile .current_page p {
+    font-size: 14px;
+  }
+}
+
+.prelogin_mobile_logo {
+  display: none;
+}
+
+
+/* PreLogin Mobile */
+
+@media screen and (max-width: 900px) {
+  .prelogin_page {
+    padding-bottom: 80px;
+  }
+
+  .prelogin_page > aside {
+    display: none !important;
+  }
+
+  .prelogin_page .Information_Content {
+    width: 100%;
+    min-height: 100dvh;
+  }
+
+  .prelogin_page .prelogin_header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    padding: 12px 16px;
+    background-color: white;
+  }
+
+  .prelogin_page .prelogin_header > p {
+    display: none;
+  }
+
+  .prelogin_mobile_logo {
+    display: block;
+    width: 40px;
+    height: 48px;
+    object-fit: contain;
+  }
+
+  .prelogin_page .Information_Text {
+    width: 100%;
+    max-width: none;
+    padding: 32px 16px 110px;
+  }
+
+  .prelogin_page .information_title_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .prelogin_page .Information_Text h1 {
+    margin: 0;
+    font-size: 40px;
+    line-height: 1.1;
+  }
+
+  .prelogin_page .back_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+
+  .prelogin_page .back_button img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .prelogin_footer.mobile {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    width: 100%;
+    height: 80px;
+    padding: 0 8px;
+    background-color: var(--main_color);
+  }
+
+  .prelogin_footer_link {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    max-width: 140px;
+    padding: 8px;
+    border-radius: 16px;
+    color: var(--menu_color);
+    text-align: center;
+  }
+
+  .prelogin_footer_link img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .prelogin_footer_link p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .prelogin_footer_link:hover {
+    background-color: var(--button_hover);
+  }
+
+  .prelogin_footer_current {
+    background-color: var(--validate_color);
+  }
+}
