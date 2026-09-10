@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../styles/board.css" />
     <link rel="stylesheet" href="../styles/board_dialog.css" />
     <link rel="stylesheet" href="../styles/addTask.css" />
+    <link rel="stylesheet" href="../styles/addTaskResponsive.css" />
 
     <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-auth-compat.js"></script>
@@ -32,7 +33,7 @@
   </head>
 
   <body onload="initAddTaskPage()">
-    <aside>
+    <aside class="desktop">
       <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
 
       <article>
@@ -75,6 +76,12 @@
 
     <article class="main_content">
       <header>
+        <img
+          class="mobile_header_logo"
+          src="../assets/img/general/logoFavicon.svg"
+          alt="Join Logo"
+        />
+        
         <p>Kanban Project Management Tool</p>
 
         <section class="header_right">
@@ -291,5 +298,31 @@
       </main>
     </article>
     <div class="task_message" id="taskMessage">Task added to board</div>
+    <footer class="mobile">
+      <section>
+        <a class="another_page" href="../pages/summary.html">
+          <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
+          <p>Summary</p>
+        </a>
+      </section>
+      <section>
+        <a class="current_page" href="../pages/addTask.html">
+          <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
+          <p>Add Task</p>
+        </a>
+      </section>
+      <section>
+        <a class="another_page" href="../pages/board.html">
+          <img src="../assets/img/aside/boardValidate.svg" alt="Board Icon" />
+          <p>Board</p>
+        </a>
+      </section>
+      <section>
+        <a class="another_page" href="../pages/contacts.html">
+          <img src="../assets/img/aside/contacts.svg" alt="Contacts Icon" />
+          <p>Contacts</p>
+        </a>
+      </section>
+    </footer>
   </body>
 </html>

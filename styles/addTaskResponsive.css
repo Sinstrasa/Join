@@ -1,0 +1,277 @@
+.mobile {
+  display: none;
+}
+
+.mobile_header_logo {
+  display: none;
+}
+
+
+/* Tablet / kleiner Desktop */
+
+@media screen and (max-width: 1200px) {
+  aside.desktop {
+    position: sticky;
+    top: 0;
+    flex-shrink: 0;
+    height: 100vh;
+    min-height: 100vh;
+  }
+
+  aside.desktop > article {
+    min-height: 0;
+  }
+
+  .add_task_main {
+    flex-direction: column;
+    gap: 24px;
+    max-width: 700px;
+  }
+
+  .add_task_left,
+  .add_task_right {
+    width: 100%;
+  }
+
+  .add_task_middle {
+    display: none;
+  }
+
+  .add_task_footer {
+    max-width: 700px;
+  }
+}
+
+
+/* Mobile */
+
+@media screen and (max-width: 900px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+  }
+
+  .mobile_header_logo {
+    display: block;
+    width: 32px;
+    height: auto;
+  }
+
+  body {
+    overflow: auto;
+  }
+
+  .main_content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 0;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 80px;
+    padding: 0 16px;
+    background-color: white;
+  }
+
+  header > p {
+    display: none;
+  }
+
+  .header_right {
+    padding: 0;
+  }
+
+  .header_right > a {
+    display: none;
+  }
+
+  .header_right > section,
+  .profile_icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .profile_icon {
+    border: 2px solid var(--main_color);
+  }
+
+  .profile_icon > p {
+    font-size: 20px;
+  }
+
+  .navigation {
+    top: 80px;
+  }
+
+  .add_task_page {
+    width: 100%;
+    max-width: none;
+    padding: 32px 16px 120px;
+  }
+
+  .add_task_head {
+    width: 100%;
+    margin-bottom: 32px;
+  }
+
+  .add_task_head h3 {
+    font-size: 47px;
+  }
+
+  .add_task_main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: none;
+  }
+
+  .add_task_left,
+  .add_task_right {
+    width: 100%;
+    min-width: 0;
+    gap: 24px;
+  }
+
+  .add_task_middle {
+    display: none;
+  }
+
+  .add_task_input {
+    width: 100%;
+  }
+
+  .add_task_input > p {
+    font-size: 16px;
+  }
+
+  .input_areas,
+  .select_areas_toggle {
+    width: 100%;
+    height: 48px;
+    font-size: 16px;
+  }
+
+  .input_areas,
+  .description,
+  .select_areas_value {
+    font-size: 16px;
+  }
+
+  .description {
+    width: 100%;
+    height: 104px;
+  }
+
+  .priority {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .priority > button {
+    flex: 1;
+    height: 48px;
+    padding: 12px 8px;
+    font-size: 16px;
+  }
+
+  .priority > button img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .select_areas {
+    width: 100%;
+  }
+
+  .select_areas_menu {
+    width: 100%;
+  }
+
+  .subtask_wrapper {
+    width: 100%;
+  }
+
+  .subtasks_displayer {
+    min-height: 0;
+  }
+
+  .add_task_footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    margin-top: 24px;
+  }
+
+  .add_task_footer > p {
+    display: none;
+  }
+
+  .footer_buttons {
+    display: flex;
+    margin-left: auto;
+    gap: 12px;
+  }
+
+  .cancel {
+    height: 48px;
+    padding: 0 14px;
+    font-size: 16px;
+  }
+
+  .add_task_footer .highlighted_button {
+    width: auto;
+    height: 48px;
+    padding: 0 14px;
+    font-size: 16px;
+  }
+
+  footer.mobile {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background-color: var(--main_color);
+  }
+
+  footer.mobile > section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  footer.mobile .another_page,
+  footer.mobile .current_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 76px;
+    margin-top: 2px;
+    padding: 0;
+    border-radius: 16px;
+  }
+
+  footer.mobile .another_page p,
+  footer.mobile .current_page p {
+    font-size: 14px;
+  }
+}
