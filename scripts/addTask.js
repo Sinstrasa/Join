@@ -1,4 +1,3 @@
-(function () {
   const addTaskBaseUrl =
     "https://joindb-ccbc2-default-rtdb.europe-west1.firebasedatabase.app/";
 
@@ -197,7 +196,7 @@ function getTodayDate() {
 
   function handleSubtaskAction(button) {
     const index = Number(button.dataset.index);
-    if (button.dataset.action === "edit") editSubtask(index);
+    if (button.dataset.action === "edit") beforeEditSubtask(index);
     if (button.dataset.action === "delete") deleteSubtask(index);
   }
 
@@ -206,18 +205,39 @@ function getTodayDate() {
     renderSubtasks();
   }
 
-  function editSubtask(index) {
-    const newValue = prompt("Edit subtask:", subtasks[index]);
+  function beforeEditSubtask(index) {
+    const subtaskRef = document.getElementById('subtaskListItem'+index)
+    const subtext = document.getElementById('subtaskName'+index).innerText;
+    subtaskRef.innerHTML = subtaskEditTemplate(subtext, index);
+  }
+
+  function editSubtask(subtext, index) {
+    const newValue = document.getElementById(subtext).value;
     if (newValue === null) return;
     updateSubtask(index, newValue);
   }
 
+  // function editSubtask(index) {
+  //   const newValue = prompt("Edit subtask:", subtasks[index]);
+  //   if (newValue === null) return;
+  //   updateSubtask(index, newValue);
+  // }
+
   function updateSubtask(index, value) {
+    let subtaskRef = document.getElementById('subtaskListItem'+index);
     const trimmedValue = value.trim();
     if (!trimmedValue) return;
     subtasks[index] = trimmedValue;
+    subtaskRef.innerHTML = recreateSubtaskTemplate();
     renderSubtasks();
   }
+
+  // function updateSubtask(index, value) {
+  //   const trimmedValue = value.trim();
+  //   if (!trimmedValue) return;
+  //   subtasks[index] = trimmedValue;
+  //   renderSubtasks();
+  // }
 
   function escapeHtml(value) {
     const div = document.createElement("div");
@@ -407,4 +427,3 @@ function hideTaskMessage() {
   }
 
   window.initAddTask = initAddTask;
-})();

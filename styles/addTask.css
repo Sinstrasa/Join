@@ -309,23 +309,67 @@
 .subtasks_list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 12px;
   padding: 0;
   list-style: none;
-}
-
-.subtasks_list li {
-  display: flex;
-  align-items: center;
-  min-height: 32px;
-  padding: 4px 16px;
-  border-radius: 10px;
 }
 
 .subtasks_list li:hover {
   background-color: var(--menu_color);
 }
 
+.subtasks_list_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 32px;
+  padding: 4px 16px;
+  border-radius: 10px;
+}
+
+.subtasks_list_item > div {
+  display: flex;
+  gap: 4px;
+}
+
+.subtask_icon {
+  padding: 0px;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: none;
+}
+
+.subtask_icon > img {
+  height: 18px;
+}
+
+.edit_wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-bottom: 1px solid var(--contact_color_11);
+  background-color: white;
+}
+
+.edit_wrapper > div {
+  display: flex;
+  gap: 4px;
+}
+
+.edit {
+  flex: 1;
+  padding: 4px 16px;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+}
+
+.edit:focus {
+  outline: none;
+}
 
 /* Footer */
 

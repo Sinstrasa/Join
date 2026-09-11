@@ -169,11 +169,6 @@ h6 {
   gap: 8px;
 }
 
-.subtask_middle {
-  border: 1px solid var(--border_color);
-  height: 24px;
-}
-
 .checklist_subtask {
   display: flex;
   flex-direction: column;
