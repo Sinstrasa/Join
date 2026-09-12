@@ -98,5 +98,3 @@ function initSummary() {
   loadTasks().then((tickets) => renderSummaryTiles(tickets));
   document.getElementById('logoutButton').addEventListener('click', handleLogout);
 }
-
-// document.addEventListener('DOMContentLoaded', initSummary);

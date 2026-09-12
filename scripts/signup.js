@@ -118,5 +118,3 @@ function initSignUp() {
 
   updateSubmitButtonState();
 }
-
-// document.addEventListener('DOMContentLoaded', initSignUp);
