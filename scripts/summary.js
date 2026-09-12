@@ -71,12 +71,6 @@ function displayGreeting(userData) {
   displayProfileIcon(userData);
 }
 
-// Fills the profile icon with the user's first initial
-function displayProfileIcon(userData) {
-  const profileIcon = document.getElementById('userInitial');
-  profileIcon.textContent = userData.username.charAt(0).toUpperCase();
-}
-
 // Signs the current user out by clearing the stored session and redirects to login
 function handleLogout(event) {
   event.preventDefault();
@@ -96,5 +90,4 @@ function initSummary() {
 
   loadUserGreeting(uid);
   loadTasks().then((tickets) => renderSummaryTiles(tickets));
-  document.getElementById('logoutButton').addEventListener('click', handleLogout);
 }

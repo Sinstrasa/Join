@@ -241,16 +241,15 @@ function registerContactListeners() {
 // Entry point: checks for a logged-in user, injects dialog markup, and registers listeners
 function initContacts() {
   const uid = localStorage.getItem('uid');
-
   if (!uid) {
     window.location.href = '../index.html';
     return;
   }
 
+  loadOwnProfile(uid);
   injectAddContactDialog();
   loadContacts(uid);
   registerDialogListeners();
   registerContactListeners();
 }
 
-document.addEventListener('DOMContentLoaded', initContacts);

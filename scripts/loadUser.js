@@ -66,6 +66,13 @@ async function handleLogout(event) {
 }
 
 function initInformationPage() {
+  const uid = localStorage.getItem('uid');
+  if (!uid) {
+    window.location.href = '../index.html';
+    return;
+  }
+
+  loadOwnProfile(uid);
   initProfileMenu();
   setupLogoutButton();
   setupBackButton();

@@ -129,11 +129,12 @@ header > img {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
   background-color: white;
   border: 3px solid var(--main_color);
   border-radius: 50%;
+  text-align: center;
 }
 
 .profile_icon:hover {

@@ -5,6 +5,12 @@
   let subtasks = [];
 
   function initAddTask() {
+    const uid = localStorage.getItem('uid');
+  if (!uid) {
+    window.location.href = '../index.html';
+    return;
+  }
+   loadOwnProfile(uid);
   setupOutsideClick();
   initPriorityButtons();
   initDropdownButtons();

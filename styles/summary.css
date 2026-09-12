@@ -8,7 +8,7 @@ main{
     flex: 1;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     padding-left:  96px;
     padding-top: 96px;
@@ -18,9 +18,10 @@ main{
 .summary_header{
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: flex-start;
     align-items: center;
     gap: 24px;
+    transform: translateX(-250px);
 }
 
 .summary_header h2{
@@ -35,8 +36,8 @@ main{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    height: 100%;
+    height:fit-content;
+    margin-top: 48px;
 
 }
 
@@ -95,8 +96,8 @@ main{
 }
 
 .summary_icon {
-  width: 56px;
-  height: 56px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -124,7 +125,7 @@ main{
 }
 
 .summary_number {
-  font-size: 40px;
+  font-size: 56px;
   font-weight: 600;
   margin: 0;
 }
@@ -132,6 +133,7 @@ main{
 .summary_label {
   font-size: 16px;
   margin: 0;
+  text-align: center;
 }
 
 .summary_urgent {
@@ -148,6 +150,9 @@ main{
 
 .summary_deadline {
   text-align: left;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
 .summary_date {
@@ -174,11 +179,11 @@ main{
 }
 
 #greetingName{
-    font-size: 61px;
+    font-size: 72px;
     font-weight: 600;
 }
 
 .greeting_section h1{
-    font-size: 61px;
+    font-size: 72px;
     font-weight: 600;
 }

@@ -39,3 +39,24 @@ function closeAnimation(reference) {
     );
   });
 }
+
+// Fills the profile icon with the user's initials (first and last name)
+function displayProfileIcon(userData) {
+  const profileIcon = document.getElementById('userInitial');
+  const nameParts = userData.username.trim().split(' ').filter((part) => part !== '');
+
+  if (nameParts.length === 1) {
+    profileIcon.textContent = nameParts[0].charAt(0).toUpperCase();
+  } else {
+    const firstInitial = nameParts[0].charAt(0).toUpperCase();
+    const lastInitial = nameParts[nameParts.length - 1].charAt(0).toUpperCase();
+    profileIcon.textContent = firstInitial + lastInitial;
+  }
+}
+
+// Loads the current user's own data and fills their profile icon
+function loadOwnProfile(uid) {
+  fetch(baseUrl + 'users/' + uid + '.json')
+    .then(response => response.json())
+    .then((userData) => displayProfileIcon(userData));
+}
