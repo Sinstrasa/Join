@@ -220,3 +220,7 @@ header > img {
   from {transform: translateX(100vw);}
   to {transform: translateX(0vw);}
 }
+
+.mobile {
+  display: none;
+}

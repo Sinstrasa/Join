@@ -24,7 +24,7 @@ function subtaskEditTemplate(subtext, index){
           <img src="../assets/img/summary/checkValidate.svg" alt="Edited Subtask">
         </button>
         <div class="subtask_middle"></div>
-        <button class="subtask_icon">
+        <button class="subtask_icon" data-action="delete">
           <img src="../assets/img/general/delete.svg" alt="Delete Subtask">
         </button>
       </div>
