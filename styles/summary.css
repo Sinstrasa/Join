@@ -1,11 +1,4 @@
-body{
-    display: flex;
-    overflow: hidden;
-}
-
 main{
-    background-color: var(--bg_color);
-    flex: 1;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -48,7 +41,6 @@ main{
   flex-direction: column;
   gap: 24px;
   width: 50%;
-  margin: 0,auto;
   
 }
 

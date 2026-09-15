@@ -1,16 +1,5 @@
 body {
-  display: flex;
-  overflow: hidden;
   height: 100dvh;
-}
-
-h1 {
-  font-size: 61px;
-}
-
-main {
-  background-color: var(--bg_color);
-  flex: 1;
 }
 
 .main_title {
@@ -109,10 +98,6 @@ main {
 .new_task:hover {
   background-color: var(--add_hover);
   box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
-}
-
-h2 {
-  font-size: 20px;
 }
 
 .kanban {
@@ -257,11 +242,7 @@ h5 {
 
 .ladebalken {
   width: 0;
-  background: linear-gradient(
-    90deg,
-    var(--contact_color_11) 0%,
-    var(--contact_color_11) 100%
-  );
+  background: linear-gradient(90deg, var(--contact_color_11) 0%, var(--contact_color_11) 100%);
   transition: width 0.2s ease-in-out;
   overflow: hidden;
   z-index: 1;
@@ -284,21 +265,4 @@ h5 {
 
 .desktop {
   display: flex;
-}
-
-/* von anderen CSS kopiert */
-
-.contact_color {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  border: 3px solid white;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }

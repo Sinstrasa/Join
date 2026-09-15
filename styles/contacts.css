@@ -1,11 +1,4 @@
-body{
-    display: flex;
-    overflow: hidden;
-}
-
 main{
-    background-color: var(--bg_color);
-    flex: 1;
     display: flex;
     align-items: center;
 }
@@ -198,7 +191,6 @@ main{
   color: white;
   cursor: pointer;
   white-space: nowrap;
-  width: 100%;
   font-size: 21px;
   font-weight: 700;
 }
@@ -214,8 +206,6 @@ main{
   background-color: white;
    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
-
-
 
 .contacts_list {
   flex: 1;
@@ -253,21 +243,6 @@ main{
   box-shadow: 0px 4px 4px 0px var(--button_shadow_hover);
   border-radius: 10px;
   cursor: pointer;
-}
-
-.contact_color {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  border: 3px solid white;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .contact_info {
@@ -473,8 +448,3 @@ main{
 .slide_out {
   animation: slide_out 0.3s ease-in;
 }
-
-
-
-
-
