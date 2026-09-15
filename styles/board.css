@@ -1,6 +1,7 @@
 body {
   display: flex;
   overflow: hidden;
+  height: 100dvh;
 }
 
 h1 {

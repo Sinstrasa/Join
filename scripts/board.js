@@ -268,6 +268,30 @@ function saveSubtaskState(taskId, index, checked) {
   localStorage.setItem(subtaskProgressKey, JSON.stringify(progress));
 }
 
+async function editTaskDialog(listKey, index) {
+  let arr = taskList[listKey];
+  const dialogRef = document.getElementById('dialog');
+  dialogRef.classList.remove("task_board_dialog");
+  dialogRef.classList.add("add_task_dialog");
+  dialogRef.innerHTML = await addTaskDialogTemplateTest(arr, index, await readDatabase(arr, index, 'status'));
+  setPriority(await readDatabase(arr, index, 'priority'));
+  hideButtons();
+}
+
+async function editedTask(arr, index) {
+  const dialogRef = document.getElementById('dialog');
+  dialogRef.innerHTML = await taskDialogTemplate(arr, index);
+}
+
+function hideButtons() {
+  const clearRef = document.getElementById('clearTaskButton');
+  const createRef = document.getElementById('createTaskButton');
+  const editRef = document.getElementById('editTaskButton');
+  clearRef.classList.add('hide');
+  createRef.classList.add('hide');
+  editRef.classList.remove('hide');
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("searchField")
@@ -311,7 +335,7 @@ async function openSwapDialog(reference) {
 async function taskDialog(listKey, index, dialogRef) {
   let arr = taskList[listKey];
   dialogRef.dataset.taskId = arr[index].id;
-  dialogRef.innerHTML = await taskDialogTemplate(arr, index);
+  dialogRef.innerHTML = await taskDialogTemplate(arr, index, listKey);
 }
 
 async function closeSpecificDialog(reference) {

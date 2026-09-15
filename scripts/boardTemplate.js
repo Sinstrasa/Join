@@ -1,4 +1,4 @@
-async function taskDialogTemplate(arr, index) {
+async function taskDialogTemplate(arr, index, listKey) {
   // ${await readAssigned(arr, index)}
   return `
     <article class="task_board" id="taskBoard" onclick="stopPropagation(event)">
@@ -43,12 +43,9 @@ async function taskDialogTemplate(arr, index) {
           </div>
         </button>
         <div class="subtask_middle"></div>
-        <button class="task_board_buttons">
+        <button class="task_board_buttons" onclick="editTaskDialog('${listKey}', ${index})">
           <div>
-            <img
-              src="../assets/img/summary/penValidate.svg"
-              alt="Pen Symbol"
-            />
+            <img src="../assets/img/summary/penValidate.svg" alt="Pen Symbol"/>
             <p>Edit</p>
           </div>
         </button>
@@ -67,28 +64,15 @@ async function addTaskDialogTemplate(stat) {
         <section class="add_task_left">
           <div class="add_task_input">
             <p>Title<span>*</span></p>
-            <input
-              class="input_areas"
-              id="taskTitle"
-              type="text"
-              placeholder="Enter a title"
-              required/>
+            <input class="input_areas" id="taskTitle" type="text" placeholder="Enter a title" required/>
           </div>
           <div class="add_task_input">
             <p>Description</p>
-            <textarea
-              class="description"
-              id="description"
-              placeholder="Enter a Description"
-            ></textarea>
+            <textarea class="description" id="description" placeholder="Enter a Description"></textarea>
           </div>
           <div class="add_task_input">
             <p>Due Date<span>*</span></p>
-            <input
-              class="input_areas"
-              id="dueDate"
-              type="date"
-              required/>
+            <input class="input_areas" id="dueDate" type="date" required/>
           </div>
         </section>
         <div class="add_task_middle"></div>
@@ -96,52 +80,29 @@ async function addTaskDialogTemplate(stat) {
           <div class="add_task_input">
             <p>Priority</p>
             <section class="priority">
-              <button
-                class="priority_button"
-                type="button"
-                data-priority="Urgent">
-                Urgent
-                <img
-                  src="../assets/img/task/urgent.svg"
-                  alt="Urgent priority"/>
+              <button class="priority_button" type="button" data-priority="Urgent">
+                Urgent <img src="../assets/img/task/urgent.svg" alt="Urgent priority"/>
               </button>
-              <button
-                class="priority_button"
-                type="button"
-                data-priority="Medium">
+              <button class="priority_button" type="button" data-priority="Medium">
                 Medium
-                <img
-                  src="../assets/img/task/medium.svg"
-                  alt="Medium priority"/>
+                <img src="../assets/img/task/medium.svg" alt="Medium priority"/>
               </button>
-              <button
-                class="priority_button"
-                type="button"
-                data-priority="Low">
-                Low
-                <img
-                  src="../assets/img/task/low.svg"
-                  alt="Low priority"/>
+              <button class="priority_button" type="button" data-priority="Low">
+                Low <img src="../assets/img/task/low.svg" alt="Low priority"/>
               </button>
             </section>
           </div>
           <div class="add_task_input">
             <p>Assigned To</p>
             <div class="select_areas" id="assignedDropdown">
-              <button
-                class="select_areas_toggle"
-                type="button">
+              <button class="select_areas_toggle" type="button">
                 <span class="select_areas_value">
                   Select contacts to assign
                 </span>
                 <span class="select_areas_arrow">▾</span>
               </button>
               <div class="select_areas_menu" id="contactList"></div>
-              <input
-                type="hidden"
-                id="assigned"
-                name="assigned"
-                value=""/>
+              <input type="hidden" id="assigned" name="assigned" value=""/>
             </div>
           </div>
           <div class="add_task_input">
@@ -156,50 +117,27 @@ async function addTaskDialogTemplate(stat) {
                 <span class="select_areas_arrow">▾</span>
               </button>
               <div class="select_areas_menu">
-                <button
-                  class="select_areas_option"
-                  type="button"
-                  data-value="Technical Task">
+                <button class="select_areas_option" type="button" data-value="Technical Task">
                   Technical Task
                 </button>
-                <button
-                  class="select_areas_option"
-                  type="button"
-                  data-value="User Story">
+                <button class="select_areas_option" type="button" data-value="User Story">
                   User Story
                 </button>
               </div>
-              <input
-                type="hidden"
-                id="category"
-                name="category"
-                value=""/>
+              <input type="hidden" id="category" name="category" value=""/>
             </div>
           </div>
           <div class="add_task_input">
             <p>Subtasks</p>
             <section class="subtask_wrapper">
-              <input
-                class="input_areas"
-                id="subtaskInput"
-                type="text"
-                placeholder="Add new subtask"/>
+              <input class="input_areas" id="subtaskInput" type="text" placeholder="Add new subtask"/>
               <div class="subtask_validating">
-                <button
-                  id="clearSubtaskButton"
-                  type="button">
-                  <img
-                    src="../assets/img/general/close.svg"
-                    alt="Clear"/>
+                <button id="clearSubtaskButton" type="button">
+                  <img src="../assets/img/general/close.svg" alt="Clear"/>
                 </button>
                 <div class="subtask_middle"></div>
-                <button
-                  class="subtask_check"
-                  id="addSubtaskButton"
-                  type="button">
-                  <img
-                    src="../assets/img/summary/checkValidate.svg"
-                    alt="Add subtask"/>
+                <button class="subtask_check" id="addSubtaskButton" type="button">
+                  <img src="../assets/img/summary/checkValidate.svg" alt="Add subtask"/>
                 </button>
               </div>
             </section>
@@ -212,25 +150,14 @@ async function addTaskDialogTemplate(stat) {
       <section class="add_task_footer">
         <p><span>*</span>This field is required</p>
         <div class="footer_buttons">
-          <button
-            class="cancel"
-            id="clearTaskButton"
-            type="button">
-            Clear
-            <img
-              src="../assets/img/general/close.svg"
-              alt="Clear"/>
+          <button class="cancel" id="clearTaskButton" type="button">
+            Clear <img src="../assets/img/general/close.svg" alt="Clear"/>
           </button>
-          <button
-            class="highlighted_button"
-            id="createTaskButton"
-            onclick="createTask('${stat}')"
-            type="button">
-            Create Task
-            <img
-              src="../assets/img/general/check.svg"
-              alt="Create task"
-            />
+          <button class="highlighted_button" id="createTaskButton" onclick="createTask('${stat}')" type="button">
+            Create Task <img src="../assets/img/general/check.svg" alt="Create task"/>
+          </button>
+          <button class="highlighted_button, hide" id="editTaskButton" onclick="" type="button">
+            Ok <img src="../assets/img/general/check.svg" alt="Editing Task">
           </button>
         </div>
       </section>
