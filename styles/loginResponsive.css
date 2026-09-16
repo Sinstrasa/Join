@@ -1,0 +1,258 @@
+/* Mobile Login */
+/* Desktop beginnt ab 1024px */
+
+@media screen and (max-width: 1023px) {
+  body {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .page_shell {
+    position: relative;
+    width: 100%;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .content_limit {
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Header */
+
+  .site_header {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 110px;
+    padding: 16px 24px;
+  }
+
+  /* Logo nach der Animation */
+
+  .signup_logo {
+    position: fixed;
+    top: 16px;
+    left: 24px;
+    z-index: 1001;
+    width: 48px;
+    height: 58px;
+    object-fit: contain;
+    animation: Mobile_Logo_Intro 1600ms ease-in-out forwards;
+  }
+
+  /* Login Bereich */
+
+  .main_content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-height: auto;
+    padding: 20px 16px 0;
+  }
+
+  .login_card {
+    width: 100%;
+    max-width: 396px;
+    padding: 32px 24px;
+    border-radius: 30px;
+  }
+
+  .title_block {
+    margin-bottom: 24px;
+  }
+
+  .title_block h1 {
+    font-size: 47px;
+  }
+
+  .title_underline {
+    width: 88px;
+  }
+
+  form {
+    width: 100%;
+  }
+
+  .form_group {
+    width: 100%;
+  }
+
+  .input_wrap {
+    width: 100%;
+  }
+
+  .input_wrap input {
+    width: 100%;
+  }
+
+  .form_actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .form_actions .button {
+    width: auto;
+    min-width: 180px;
+  }
+
+  /* Sign-up unter Login Card */
+
+  .signup_area {
+    position: fixed;
+    right: auto;
+    top: auto;
+    left: 50%;
+    bottom: 140px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    width: max-content;
+    transform: translateX(-50%);
+  }
+
+  /* Footer */
+
+  .footer {
+    position: fixed;
+    right: 0;
+    bottom: 20px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .footer p {
+    display: none;
+  }
+
+  /* Inhalt erst nach Intro einblenden */
+
+  .login_fade {
+    opacity: 0;
+    animation: Mobile_Login_Fade 400ms ease-out 1250ms forwards;
+  }
+}
+
+/* Mobile Logo Intro */
+
+@keyframes Mobile_Logo_Intro {
+  0% {
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 122px;
+    transform: translate(-50%, -50%);
+    filter: brightness(0) invert(1);
+  }
+
+  55% {
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 122px;
+    transform: translate(-50%, -50%);
+    filter: brightness(0) invert(1);
+  }
+
+  100% {
+    top: 16px;
+    left: 24px;
+    width: 48px;
+    height: 58px;
+    transform: translate(0, 0);
+    filter: none;
+  }
+}
+
+/* Dunkelblauer Intro-Hintergrund */
+
+@media screen and (max-width: 1023px) {
+  .page_shell::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background-color: var(--main_color);
+    pointer-events: none;
+    animation: Mobile_Background_Fade 1600ms ease-in-out forwards;
+  }
+}
+
+@keyframes Mobile_Background_Fade {
+  0% {
+    opacity: 1;
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes Mobile_Login_Fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Kleine Smartphones */
+
+@media screen and (max-width: 480px) {
+  .site_header {
+    height: 96px;
+    padding: 16px;
+  }
+
+  .signup_logo {
+    top: 16px;
+    left: 16px;
+    width: 40px;
+    height: 48px;
+  }
+
+  .main_content {
+    padding: 12px 16px 0;
+  }
+
+  .login_card {
+    max-width: 396px;
+    padding: 28px 20px;
+  }
+
+  .title_block h1 {
+    font-size: 40px;
+  }
+
+  .signup_area {
+    bottom: 140px;
+    gap: 16px;
+  }
+
+  .signup_area span {
+    font-size: 16px;
+  }
+
+  .footer {
+    bottom: 16px;
+  }
+}

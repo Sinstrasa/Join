@@ -1,51 +1,29 @@
-.mobile_header_logo {
+.mobile {
   display: none;
 }
 
-
-/* Tablet / kleiner Desktop */
-
-@media screen and (max-width: 1200px) {
-  aside.desktop {
-    position: sticky;
-    top: 0;
-    flex-shrink: 0;
-    height: 100vh;
-    min-height: 100vh;
-  }
-
-  aside.desktop > article {
-    min-height: 0;
-  }
-
-  .add_task_main {
-    flex-direction: column;
-    gap: 24px;
-    max-width: 700px;
-  }
-
-  .add_task_left,
-  .add_task_right {
-    width: 100%;
-  }
-
-  .add_task_middle {
-    display: none;
-  }
-
-  .add_task_footer {
-    max-width: 700px;
-  }
+.mobile_header_logo {
+  display: none;
 }
 
 
 /* Mobile */
 
 @media screen and (max-width: 1023px) {
-  .mobile_header_logo {
-    display: block;
-    width: 32px;
-    height: auto;
+  body > aside.desktop {
+    display: none !important;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+  }
+
+  body {
+    overflow: auto;
   }
 
   .main_content {
@@ -58,13 +36,49 @@
   }
 
   header {
+    position: sticky;
+    top: 0;
     z-index: 100;
-    padding: 0 16px;
+    height: 80px;
+    padding: 12px 16px;
     background-color: white;
+  }
+
+  header > p {
+    display: none;
+  }
+
+  .mobile_header_logo {
+    display: block;
+    width: 40px;
+    height: 48px;
+    object-fit: contain;
   }
 
   .header_right {
     padding: 0;
+  }
+
+  .header_right > a {
+    display: none;
+  }
+
+  .header_right > section,
+  .profile_icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .profile_icon {
+    border: 2px solid var(--main_color);
+  }
+
+  .profile_icon > p {
+    font-size: 20px;
+  }
+
+  .navigation {
+    top: 80px;
   }
 
   .add_task_page {
@@ -145,14 +159,8 @@
     height: 18px;
   }
 
-  .select_areas {
-    width: 100%;
-  }
-
-  .select_areas_menu {
-    width: 100%;
-  }
-
+  .select_areas,
+  .select_areas_menu,
   .subtask_wrapper {
     width: 100%;
   }
@@ -199,6 +207,7 @@
     right: 0;
     bottom: 0;
     z-index: 100;
+    display: flex;
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
