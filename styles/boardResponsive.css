@@ -32,7 +32,7 @@
   .kanban {
     flex-direction: column;
     justify-content: space-between;
-    padding: 24px 16px 80px 16px;
+    padding: 24px 16px 160px 16px;
   }
   h2 {
     font-size: 27px;
@@ -58,6 +58,12 @@
     justify-content: space-between;
     width: 100%;
   }
+  .task_board_dialog,
+  .add_task_dialog {
+    min-width: 234px;
+    max-width: 353px;
+    height: 640px;
+  }
   .task_board {
     padding: 32px 24px;
   }
@@ -77,6 +83,12 @@
     border: 2px solid var(--main_color);
     border-radius: 6px;
   }
+  .add_task {
+    padding: 32px 16px;
+  }
+  .add_task_head{
+    display: none;
+  }
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1439px) {
@@ -93,7 +105,6 @@
   .search_wrapper {
     width: auto;
   }
-
   .kanban {
     justify-content: space-between;
     flex-wrap: wrap;
@@ -101,5 +112,8 @@
   }
   .column_list {
     height: 475px;
+  }
+  .add_task {
+    padding: 32px 32px;
   }
 }

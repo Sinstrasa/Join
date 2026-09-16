@@ -153,7 +153,7 @@ async function addTaskDialogTemplate(stat) {
           <button class="cancel" id="clearTaskButton" type="button">
             Clear <img src="../assets/img/general/close.svg" alt="Clear"/>
           </button>
-          <button class="highlighted_button" id="createTaskButton" onclick="createTask('${stat}')" type="button">
+          <button class="highlighted_button" id="createTaskButton" type="button" onclick="closeSpecificDialog('dialog'); openDialog('verifyDialog')">
             Create Task <img src="../assets/img/general/check.svg" alt="Create task"/>
           </button>
         </div>

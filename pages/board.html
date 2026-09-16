@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="../styles/colors.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/addTask.css" />
+    <link rel="stylesheet" href="../styles/addTaskResponsive.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/standardClasses.css" />
     <link rel="stylesheet" href="../styles/board.css" />
     <link rel="stylesheet" href="../styles/standardResponsive.css">
-    <link rel="stylesheet" href="../styles/boardResponsive.css" />
     <link rel="stylesheet" href="../styles/board_dialog.css" />
+    <link rel="stylesheet" href="../styles/boardResponsive.css" />
     <script src="../scripts/standard.js"></script>
     <script src="../scripts/addTaskTemplate.js"></script>
     <script src="../scripts/addTask.js"></script>
@@ -23,7 +24,7 @@
     <link rel="shortcut icon" href="../assets/img/general/logoFavicon.svg" type="image/x-icon"/>
   </head>
   <body onload="initialise()">
-    <dialog class="verification" id="verifyDialog">
+    <dialog class="verification" id="verifyDialog" onclick="closeDialog('verifyDialog')">
       <article class="verification_content">
         <p>Task added to Board</p>
         <img src="../assets/img/aside/boardValidate.svg" alt="Board Icon" />
@@ -89,26 +90,14 @@
           <h1>Board</h1>
           <div>
             <section class="search_wrapper">
-              <input
-                class="search"
-                id="searchField"
-                type="text"
-                placeholder="Find Task"
-              />
+              <input class="search" id="searchField" type="text" placeholder="Find Task"/>
               <div class="search_button" aria-label="Search">
                 <button type="button">
-                  <img
-                    class="search_icon"
-                    src="../assets/img/board/search.svg"
-                    alt="Search icon"
-                  />
+                  <img class="search_icon" src="../assets/img/board/search.svg" alt="Search icon"/>
                 </button>
               </div>
             </section>
-            <button
-              class="new_task"
-              onclick="openSpecificDialog(null, null, 'toDo', null)"
-            >
+            <button class="new_task" onclick="openSpecificDialog(null, null, 'toDo', null)">
               <p class="desktop">Add Task +</p>
               <p class="mobile">+</p>
             </button>
@@ -134,59 +123,34 @@
           </section>
         </div>
         <article class="kanban">
-          <section
-            class="column"
-            ondrop="changeStatus('toDo')"
-            ondragover="allowDrop(event)"
-          >
+          <section class="column" ondrop="changeStatus('toDo')" ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>To do</h2>
-              <button
-                class="adding_task"
-                onclick="openSpecificDialog(null, null, 'toDo', null)"
-              >
+              <button class="adding_task" onclick="openSpecificDialog(null, null, 'toDo', null)">
                 +
               </button>
             </div>
             <ul class="column_list" id="toDo"></ul>
           </section>
-          <section
-            class="column"
-            ondrop="changeStatus('inProgress')"
-            ondragover="allowDrop(event)"
-          >
+          <section class="column" ondrop="changeStatus('inProgress')" ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>In progress</h2>
-              <button
-                class="adding_task"
-                onclick="openSpecificDialog(null, null, 'inProgress', null)"
-              >
+              <button class="adding_task" onclick="openSpecificDialog(null, null, 'inProgress', null)">
                 +
               </button>
             </div>
             <ul class="column_list" id="inProgress"></ul>
           </section>
-          <section
-            class="column"
-            ondrop="changeStatus('awaitFeedback')"
-            ondragover="allowDrop(event)"
-          >
+          <section class="column" ondrop="changeStatus('awaitFeedback')" ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>Await Feedback</h2>
-              <button
-                class="adding_task"
-                onclick="openSpecificDialog(null, null, 'awaitFeedback', null)"
-              >
+              <button class="adding_task" onclick="openSpecificDialog(null, null, 'awaitFeedback', null)">
                 +
               </button>
             </div>
             <ul class="column_list" id="awaitFeedback"></ul>
           </section>
-          <section
-            class="column"
-            ondrop="changeStatus('done')"
-            ondragover="allowDrop(event)"
-          >
+          <section class="column" ondrop="changeStatus('done')" ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>Done</h2>
             </div>
