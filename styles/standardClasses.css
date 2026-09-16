@@ -145,23 +145,6 @@
   background-color: #29abe2;
 }
 
-.slide_in {
-  animation: taskToCenter 250ms linear;
-}
-
-.slide_out {
-  animation: taskToCenter 250ms linear reverse;
-}
-
-@keyframes taskToCenter {
-  from {
-    transform: translateX(100vw);
-  }
-  to {
-    transform: translateX(0vw);
-  }
-}
-
 .contact_color {
   width: 40px;
   height: 40px;

@@ -2,7 +2,7 @@ async function addTaskDialogTemplateTest(arr, index, stat) {
   return `
     <article class="add_task" onclick="stopPropagation(event)">
       <section class="add_task_head">
-        <h3>Add Task</h3>
+        <h1>Add Task</h1>
       </section>
       <article class="add_task_main">
         <section class="add_task_left">
@@ -71,27 +71,14 @@ async function addTaskDialogTemplateTest(arr, index, stat) {
           <div class="add_task_input">
             <p>Subtasks</p>
             <section class="subtask_wrapper">
-              <input
-                class="input_areas"
-                id="subtaskInput"
-                type="text"
-                placeholder="Add new subtask"/>
+              <input class="input_areas" id="subtaskInput" type="text" placeholder="Add new subtask"/>
               <div class="subtask_validating">
-                <button
-                  id="clearSubtaskButton"
-                  type="button">
-                  <img
-                    src="../assets/img/general/close.svg"
-                    alt="Clear"/>
+                <button id="clearSubtaskButton" type="button">
+                  <img src="../assets/img/general/close.svg" alt="Clear"/>
                 </button>
                 <div class="subtask_middle"></div>
-                <button
-                  class="subtask_check"
-                  id="addSubtaskButton"
-                  type="button">
-                  <img
-                    src="../assets/img/summary/checkValidate.svg"
-                    alt="Add subtask"/>
+                <button class="subtask_check" id="addSubtaskButton" type="button">
+                  <img src="../assets/img/summary/checkValidate.svg" alt="Add subtask"/>
                 </button>
               </div>
             </section>
@@ -110,7 +97,7 @@ async function addTaskDialogTemplateTest(arr, index, stat) {
           <button class="highlighted_button" id="createTaskButton" onclick="createTask('${stat}')" type="button">
             Create Task <img src="../assets/img/general/check.svg" alt="Create task"/>
           </button>
-          <button class="highlighted_button, hide" id="editTaskButton" onclick="createTask('${stat}')" type="button">
+          <button class="highlighted_button hide" id="editTaskButton" onclick="editedTask(${index}, '${stat}')" type="button">
             Ok <img src="../assets/img/general/check.svg" alt="Editing Task">
           </button>
         </div>
