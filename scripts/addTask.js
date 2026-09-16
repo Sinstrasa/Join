@@ -278,12 +278,6 @@ function validateDueDate() {
     return document.getElementById(id)?.value.trim() || "";
   }
 
-  function formatDate(date) {
-    if (!date) return "";
-    const [year, month, day] = date.split("-");
-    return `${day}/${month}/${year}`;
-  }
-
   async function getAddTaskData(path = "") {
     const response = await fetch(addTaskBaseUrl + path + ".json");
     if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
@@ -331,7 +325,7 @@ function validateDueDate() {
       id: id,
       title: getInputValue("taskTitle"),
       description: getInputValue("description"),
-      date: formatDate(getInputValue("dueDate")),
+      date: getInputValue("dueDate"),
       priority: selectedPriority,
       assigned: getAssignedContacts(),
       category: getInputValue("category"),
