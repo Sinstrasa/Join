@@ -156,9 +156,6 @@ async function addTaskDialogTemplate(stat) {
           <button class="highlighted_button" id="createTaskButton" onclick="createTask('${stat}')" type="button">
             Create Task <img src="../assets/img/general/check.svg" alt="Create task"/>
           </button>
-          <button class="highlighted_button, hide" id="editTaskButton" onclick="" type="button">
-            Ok <img src="../assets/img/general/check.svg" alt="Editing Task">
-          </button>
         </div>
       </section>
     </article>

@@ -182,7 +182,7 @@ async function search(input) {
 }
 
 async function deleteTicket(path = "") {
-  let myArray = await getTickets("/tickets");
+  const myArray = await getTickets("/tickets");
   let myTicket = await (await fetch(baseUrl + path + ".json")).json();
   let akkumulator = myTicket.id;
   for (let index = akkumulator; index < myArray.length - 1; index++) {
@@ -275,21 +275,56 @@ async function editTaskDialog(listKey, index) {
   dialogRef.classList.add("add_task_dialog");
   dialogRef.innerHTML = await addTaskDialogTemplateTest(arr, index, await readDatabase(arr, index, 'status'));
   setPriority(await readDatabase(arr, index, 'priority'));
+  setCategory(arr, index);
+  const list = document.getElementById("subtasks");
+  for (let subindex = 0; subindex < arr[index]['subtasks'].length; subindex++) {
+    list.innerHTML += createSubtaskTemplate(arr[index]['subtasks'][subindex], subindex);
+  }
+  initialiseAddTask(listKey);
   hideButtons();
 }
 
-async function editedTask(arr, index) {
+async function editedTask(index, listkey) {
+  const arr = taskList[listkey];
   const dialogRef = document.getElementById('dialog');
-  dialogRef.innerHTML = await taskDialogTemplate(arr, index);
+  if (!validateTask()) return showValidationError();
+  const id = arr[index]['id'];
+  const task = collectTaskData(id, listkey);
+  await saveTask(task);
+  dialogRef.innerHTML = await taskDialogTemplate(arr, index, listkey);
+  dialogRef.classList.add("task_board_dialog");
+  dialogRef.classList.remove("add_task_dialog");
+}
+
+function initialiseAddTask(listKey) {
+  setupOutsideClick();
+  initPriorityButtons();
+  initDropdownButtons();
+  initDropdownOptions();
+  initSubtaskListEvents();
+  addContactsToSelection();
+  initActionButtons(listKey);
+  setMinimumDueDate();
+}
+
+async function setCategory(arr, index) {
+  const categoryDropdown = document.getElementById("categoryDropdown");
+  const categoryOption = categoryDropdown?.querySelector(
+    `[data-value="${await readDatabase(arr, index, "category")}"]`,
+  );
+  if (categoryDropdown && categoryOption) {
+    updateDropdownValue(categoryDropdown, categoryOption);
+  }
 }
 
 function hideButtons() {
   const clearRef = document.getElementById('clearTaskButton');
   const createRef = document.getElementById('createTaskButton');
   const editRef = document.getElementById('editTaskButton');
-  clearRef.classList.add('hide');
-  createRef.classList.add('hide');
-  editRef.classList.remove('hide');
+  clearRef.classList.toggle('hide');
+  createRef.classList.toggle('hide');
+  createRef.classList.toggle('highlighted_button');
+  editRef.classList.toggle('hide');
 }
 
 document.addEventListener("DOMContentLoaded", () => {
