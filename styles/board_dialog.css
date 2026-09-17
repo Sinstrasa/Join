@@ -164,6 +164,7 @@ h6 {
 
 .task_board_names > li {
   display: flex;
+  align-items: center;
   gap: 16px;
   padding: 7px 16px;
 }

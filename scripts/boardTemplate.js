@@ -1,5 +1,4 @@
 async function taskDialogTemplate(arr, index, listKey) {
-  // ${await readAssigned(arr, index)}
   return `
     <article class="task_board" id="taskBoard" onclick="stopPropagation(event)">
       <section class="task_board_header">
@@ -26,7 +25,7 @@ async function taskDialogTemplate(arr, index, listKey) {
       <section class="task_board_contacts">
         <p class="subtitle">Assigned To:</p>
         <ul class="task_board_names">
-          
+          ${await readAssigned(arr, index)}
         </ul>
       </section>
       <section class="task_board_footer">
@@ -54,7 +53,7 @@ async function taskDialogTemplate(arr, index, listKey) {
     `;
 }
 
-async function addTaskDialogTemplate(stat) {
+async function addTaskDialogTemplate() {
   return `
     <article class="add_task" onclick="stopPropagation(event)">
       <section class="add_task_head">
@@ -163,11 +162,10 @@ async function addTaskDialogTemplate(stat) {
 }
 
 async function taskDialogNamesTemplate(contact) {
-  // <div class="contact_color" style="background-color: var(${await contact.color});">${getInitials(contact.name)}</div>
-  //     <p class="contact_name">${await contact.name}</p>
   return `
     <li>
-      
+      <div class="contact_color" style="background-color: var(${await contact.color});">${getInitials(contact.name)}</div>
+      <p class="contact_name">${await contact.name}</p>
     </li>
   `;
 }
@@ -175,10 +173,7 @@ async function taskDialogNamesTemplate(contact) {
 function taskDialogSubtasksTemplate(content, index, checked) {
   return `
     <li class="subtask">
-      <label
-        class="subtask_checkbox_label"
-        aria-label="Mark task as done"
-      >
+      <label class="subtask_checkbox_label" aria-label="Mark task as done">
         <input type="checkbox" class="subtask_checkbox" data-subtask-index="${index}" ${checked ? "checked" : ""} />
         <span class="subtask_checkbox_custom"></span>
       </label>

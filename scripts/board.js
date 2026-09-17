@@ -93,15 +93,11 @@ function readPriority(priority) {
   }
 }
 
-// async function readAssigned(arr, index) {
-//   const safeAssigned = Array.isArray(arr[index]?.assigned)
-//     ? arr[index].assigned : [];
-//   let htmlString = ``;
-//   for (let subindex = 0; subindex < safeAssigned.length; subindex++) {
-//     htmlString += await taskDialogNamesTemplate(safeAssigned[subindex]);
-//   }
-//   return htmlString;
-// }
+async function readAssigned(arr, index) {
+  const assignedArray = Array.isArray(arr[index]?.assigned) ? arr[index]?.assigned : [];
+  let assArr = await Promise.all(assignedArray.map(async (contact) => await taskDialogNamesTemplate(contact)));
+  return assArr.join("");
+}
 
 // async function addInitials(arr, index) {
 //   const safeAssigned = Array.isArray(arr[index]?.assigned)
@@ -340,7 +336,7 @@ async function openSpecificDialog(listKey, index, stat, reference) {
     taskDialog(listKey, index, dialogRef);
   } else {
     dialogRef.classList.add("add_task_dialog");
-    dialogRef.innerHTML = await addTaskDialogTemplate(stat);
+    dialogRef.innerHTML = await addTaskDialogTemplate();
     initActionButtons(stat);
     setPriority("Medium");
     initialiseAddTask();
