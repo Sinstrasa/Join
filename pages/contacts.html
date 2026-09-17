@@ -3,91 +3,259 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Contacts</title>
+
     <link rel="stylesheet" href="../styles/colors.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/standardClasses.css" />
     <link rel="stylesheet" href="../styles/contacts.css" />
+    <link rel="stylesheet" href="../styles/contactsResponsive.css" />
+
     <script src="../scripts/standard.js" defer></script>
     <script src="../scripts/contacts.js" defer></script>
     <script src="../scripts/contactsTemplates.js" defer></script>
-    <link rel="shortcut icon" href="../assets/img/general/logoFavicon.svg" type="image/x-icon" />
+
+    <link
+      rel="shortcut icon"
+      href="../assets/img/general/logoFavicon.svg"
+      type="image/x-icon"
+    />
   </head>
+
   <body onload="initContacts()">
-    <aside>
-      <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
+    <aside class="desktop">
+      <img
+        src="../assets/img/general/joinLogo.svg"
+        alt="Logo of Join"
+      />
+
       <article>
         <section class="menu">
           <a class="another_page" href="summary.html">
-            <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
+            <img
+              src="../assets/img/aside/summary.svg"
+              alt="Summary Icon"
+            />
             <p>Summary</p>
           </a>
+
           <a class="another_page" href="addTask.html">
-            <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
+            <img
+              src="../assets/img/aside/addTask.svg"
+              alt="Task Icon"
+            />
             <p>Add Task</p>
           </a>
+
           <a class="another_page" href="board.html">
-            <img src="../assets/img/aside/board.svg" alt="Board Icon" />
+            <img
+              src="../assets/img/aside/board.svg"
+              alt="Board Icon"
+            />
             <p>Board</p>
           </a>
+
           <a class="current_page" href="contacts.html">
-            <img src="../assets/img/aside/contactsValidate.svg" alt="Contacts Icon" />
+            <img
+              src="../assets/img/aside/contactsValidate.svg"
+              alt="Contacts Icon"
+            />
             <p>Contacts</p>
           </a>
         </section>
+
         <section class="legal_necessities">
-          <a class="policies" href="">
+          <a
+            class="policies"
+            href="../pages/privacyPolicy.html"
+          >
             <p>Privacy Policy</p>
           </a>
-          <a class="policies" href="">
+
+          <a
+            class="policies"
+            href="../pages/legalNotice.html"
+          >
             <p>Legal Notice</p>
           </a>
         </section>
       </article>
     </aside>
+
     <article class="main_content">
       <header>
+        <img
+          class="mobile_header_logo"
+          src="../assets/img/general/logoFavicon.svg"
+          alt="Join Logo"
+        />
+
         <p>Kanban Project Management Tool</p>
+
         <section class="header_right">
-           <a href="../pages/help.html">
-            <img src="../assets/img/general/help.svg" alt="Help Button" />
+          <a href="../pages/help.html">
+            <img
+              src="../assets/img/general/help.svg"
+              alt="Help Button"
+            />
           </a>
+
           <section>
-            <button class="profile_icon" onclick="openDialog('nav')">
+            <button
+              class="profile_icon"
+              type="button"
+              onclick="openDialog('nav')"
+            >
               <p id="userInitial"></p>
             </button>
-            <dialog class="navigation" id="nav" onclick="closeDialog('nav')">
-              <div class="subnavigation" onclick="stopPropagation(event)">
-                <a href="../pages/legalNotice.html">Legal Notice</a>
-                <a href="../pages/privacyPolicy.html">Privacy Policy</a>
-                <a href="../index.html" id="logoutButton">Log out</a>
+
+            <dialog
+              class="navigation"
+              id="nav"
+              onclick="closeDialog('nav')"
+            >
+              <div
+                class="subnavigation"
+                onclick="stopPropagation(event)"
+              >
+                <a href="../pages/legalNotice.html">
+                  Legal Notice
+                </a>
+
+                <a href="../pages/privacyPolicy.html">
+                  Privacy Policy
+                </a>
+
+                <a href="../index.html" id="logoutButton">
+                  Log out
+                </a>
               </div>
             </dialog>
           </section>
         </section>
       </header>
+
       <main>
         <section class="contacts_container">
-        <div class="new_contact">
-  <button class="highlighted_button" id="addContactButton">
-    Add new contact
-    <img src="../assets/img/contacts/personAdd.svg">
-    </button>
-        </div>
-  <ul class="contacts_list" id="contactsList"></ul>
-</section>
+          <div class="new_contact">
+            <button
+              class="highlighted_button"
+              id="addContactButton"
+              type="button"
+            >
+              Add new contact
+
+              <img
+                src="../assets/img/contacts/personAdd.svg"
+                alt=""
+              />
+            </button>
+          </div>
+
+          <ul
+            class="contacts_list"
+            id="contactsList"
+          ></ul>
+
+          <button
+            class="mobile_add_contact"
+            id="mobileAddContactButton"
+            type="button"
+            aria-label="Add contact"
+          >
+            <img
+              src="../assets/img/contacts/personAdd.svg"
+              alt=""
+            />
+          </button>
+        </section>
+
         <section class="contact_details_container">
           <div class="contact_detail_header">
-            <h2>Contacs</h2>
-            <div class="seperator_line"></div>
+            <div class="contact_title_row">
+              <h2>Contacts</h2>
+
+              <button
+                class="mobile_contact_back"
+                type="button"
+                onclick="closeMobileContactDetail()"
+                aria-label="Back to contacts"
+              >
+                <img
+                  src="../assets/img/general/arrow.svg"
+                  alt="Back"
+                />
+              </button>
+            </div>
+
             <p>Better with a team</p>
+            <div class="seperator_line"></div>
           </div>
-          <div class="contact_card" id="contactCard">
-          <p>Select a contact to see details.</p>
+
+          <div
+            class="contact_card"
+            id="contactCard"
+          >
+            <p>Select a contact to see details.</p>
           </div>
         </section>
       </main>
     </article>
+
+    <footer class="mobile">
+      <section>
+        <a
+          class="another_page"
+          href="summary.html"
+        >
+          <img
+            src="../assets/img/aside/summary.svg"
+            alt="Summary Icon"
+          />
+          <p>Summary</p>
+        </a>
+      </section>
+
+      <section>
+        <a
+          class="another_page"
+          href="addTask.html"
+        >
+          <img
+            src="../assets/img/aside/addTask.svg"
+            alt="Add Task Icon"
+          />
+          <p>Add Task</p>
+        </a>
+      </section>
+
+      <section>
+        <a
+          class="another_page"
+          href="board.html"
+        >
+          <img
+            src="../assets/img/aside/board.svg"
+            alt="Board Icon"
+          />
+          <p>Board</p>
+        </a>
+      </section>
+
+      <section>
+        <a
+          class="current_page"
+          href="contacts.html"
+        >
+          <img
+            src="../assets/img/aside/contactsValidate.svg"
+            alt="Contacts Icon"
+          />
+          <p>Contacts</p>
+        </a>
+      </section>
+    </footer>
   </body>
 </html>

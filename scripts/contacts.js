@@ -1,255 +1,407 @@
-const state = { contacts: [] };
+const state = {
+  contacts: [],
+};
 
-// Creates a new contact under the current user's contacts branch
 function createContact(uid, contactData) {
-  return fetch(baseUrl + 'users/' + uid + '/contacts.json', {
-    method: 'POST',
-    body: JSON.stringify(contactData)
+  return fetch(baseUrl + "users/" + uid + "/contacts.json", {
+    method: "POST",
+    body: JSON.stringify(contactData),
   });
 }
 
-// Deletes a contact from the current user's contacts branch
 function deleteContact(uid, contactId) {
-  return fetch(baseUrl + 'users/' + uid + '/contacts/' + contactId + '.json', {
-    method: 'DELETE'
+  const path = "users/" + uid + "/contacts/" + contactId + ".json";
+  return fetch(baseUrl + path, {
+    method: "DELETE",
   });
 }
 
-// Picks a random contact color CSS variable name (--contact_color_1 to --contact_color_15)
+function updateContact(uid, contactId, contactData) {
+  const path = "users/" + uid + "/contacts/" + contactId + ".json";
+  return fetch(baseUrl + path, {
+    method: "PATCH",
+    body: JSON.stringify(contactData),
+  });
+}
+
 function getRandomContactColor() {
   const randomIndex = Math.floor(Math.random() * 15) + 1;
-  return '--contact_color_' + randomIndex;
+  return "--contact_color_" + randomIndex;
 }
 
-// Generates a new Contact object with a random color and saves it to the database
 function generateContact(name, email, phone) {
-  const uid = localStorage.getItem('uid');
+  const uid = localStorage.getItem("uid");
+
   return createContact(uid, {
-    name: name,
-    email: email,
-    phone: phone,
-    color: getRandomContactColor()
+    name,
+    email,
+    phone,
+    color: getRandomContactColor(),
   });
 }
 
-// Injects the edit-contact dialog markup, pre-filled with the contact's data
+function injectAddContactDialog() {
+  const mainContent = document.querySelector(".main_content");
+  mainContent.insertAdjacentHTML("beforeend", addContactDialogTemplate());
+}
+
 function injectEditContactDialog(contact) {
-  const existingDialog = document.getElementById('editContact');
-  if (existingDialog) existingDialog.remove();
-  document.querySelector('.main_content').insertAdjacentHTML('beforeend', editContactDialogTemplate(contact));
+  removeExistingEditDialog();
+
+  const mainContent = document.querySelector(".main_content");
+  mainContent.insertAdjacentHTML("beforeend", editContactDialogTemplate(contact));
 }
 
-// Updates an existing contact's data in the database
-function updateContact(uid, contactId, contactData) {
-  return fetch(baseUrl + 'users/' + uid + '/contacts/' + contactId + '.json', {
-    method: 'PATCH',
-    body: JSON.stringify(contactData)
-  });
+function removeExistingEditDialog() {
+  const dialog = document.getElementById("editContact");
+  if (dialog) dialog.remove();
 }
 
-// Handles the edit-contact form submission
-function handleEditContactSubmit(event) {
-  event.preventDefault();
-  const uid = localStorage.getItem('uid');
-  const contactId = document.getElementById('editContactId').value;
-  const name = document.getElementById('editContactName').value;
-  const email = document.getElementById('editContactEmail').value;
-  const phone = document.getElementById('editContactPhone').value;
-
-  updateContact(uid, contactId, { name, email, phone }).then(() => {
-    document.getElementById('editContact').remove();
-    loadContacts(uid).then(() => {
-      showContactDetail(findContactById(state.contacts, contactId));
-    });
-  });
-}
-
-// Registers listeners for the freshly injected edit dialog
-function registerEditDialogListeners() {
-  document.getElementById('editContactForm').addEventListener('submit', handleEditContactSubmit);
-  document.getElementById('closeEditContactButton').addEventListener('click', () => {
-    closeAnimation(document.getElementById('editContact'));
-  });
-  document.getElementById('deleteEditContactButton').addEventListener('click', (event) => {
-    handleDeleteContact(event.target.dataset.contactId);
-    closeAnimation(document.getElementById('editContact'));
-  });
-}
-
-// Opens a dialog by its id
 function openDialog(id) {
-  document.getElementById(id).showModal();
+  const dialog = document.getElementById(id);
+  if (!dialog) return;
+  dialog.showModal();
 }
 
-// Closes a dialog by its id
 function closeDialog(id) {
-  document.getElementById(id).close();
+  const dialog = document.getElementById(id);
+  if (!dialog) return;
+  dialog.close();
 }
 
-// Prevents a click inside the dialog content from bubbling up and closing the dialog
 function stopPropagation(event) {
   event.stopPropagation();
 }
 
-// Inserts the add-contact dialog markup into the page
-function injectAddContactDialog() {
-  document.querySelector('.main_content').insertAdjacentHTML('beforeend', addContactDialogTemplate());
-}
-
-// Converts the raw contacts object from the database into an array with id fields
 function mapContactsToArray(contactsData) {
   if (!contactsData) return [];
+
   return Object.keys(contactsData).map((key) => {
-    return { id: key, ...contactsData[key] };
+    return {
+      id: key,
+      ...contactsData[key],
+    };
   });
 }
 
-// Sorts contacts alphabetically by name
 function sortContactsByName(contacts) {
-  return [...contacts].sort((a, b) => a.name.localeCompare(b.name));
+  return [...contacts].sort((a, b) => {
+    return a.name.localeCompare(b.name);
+  });
 }
 
-// Groups sorted contacts by their first letter into an object like { A: [...], B: [...] }
 function groupContactsByLetter(contacts) {
   const groups = {};
+
   contacts.forEach((contact) => {
-    const letter = contact.name.charAt(0).toUpperCase();
-    if (!groups[letter]) groups[letter] = [];
-    groups[letter].push(contact);
+    addContactToGroup(groups, contact);
   });
+
   return groups;
 }
 
-// Returns the HTML markup for a group header (the divider letter)
+function addContactToGroup(groups, contact) {
+  const letter = contact.name.charAt(0).toUpperCase();
+  if (!groups[letter]) groups[letter] = [];
+  groups[letter].push(contact);
+}
+
 function contactGroupHeaderTemplate(letter) {
   return `<li class="contact_group_header">${letter}</li>`;
 }
 
-// Renders the grouped, sorted contacts list into the contactsList element
 function renderContactsList(contacts) {
-  const contactsList = document.getElementById('contactsList');
+  const list = document.getElementById("contactsList");
   const sorted = sortContactsByName(contacts);
   const grouped = groupContactsByLetter(sorted);
 
-  const html = Object.keys(grouped).sort().map((letter) => {
-    const header = contactGroupHeaderTemplate(letter);
-    const items = grouped[letter].map((contact) => contactsListItemTemplate(contact)).join('');
-    return header + items;
-  }).join('');
-
-  contactsList.innerHTML = html;
+  list.innerHTML = createContactsListHtml(grouped);
 }
 
-// Fetches the current user's contacts from the database, stores and renders them
+function createContactsListHtml(grouped) {
+  return Object.keys(grouped)
+    .sort()
+    .map((letter) => createContactGroupHtml(letter, grouped[letter]))
+    .join("");
+}
+
+function createContactGroupHtml(letter, contacts) {
+  const header = contactGroupHeaderTemplate(letter);
+  const items = contacts.map(contactsListItemTemplate).join("");
+  return header + items;
+}
+
 function loadContacts(uid) {
-  return fetch(baseUrl + 'users/' + uid + '/contacts.json')
-    .then(response => response.json())
-    .then((data) => {
-      state.contacts = mapContactsToArray(data);
-      renderContactsList(state.contacts);
-    });
+  const url = baseUrl + "users/" + uid + "/contacts.json";
+
+  return fetch(url)
+    .then((response) => response.json())
+    .then(saveAndRenderContacts);
 }
 
-// Finds a contact by its id within the currently loaded contacts array
+function saveAndRenderContacts(data) {
+  state.contacts = mapContactsToArray(data);
+  renderContactsList(state.contacts);
+}
+
 function findContactById(contacts, id) {
   return contacts.find((contact) => contact.id === id);
 }
 
-// Renders the detail view for a specific contact
 function showContactDetail(contact) {
-  const contactCard = document.getElementById('contactCard');
-  contactCard.innerHTML = contactDetailTemplate(contact);
+  if (!contact) return;
+
+  const card = document.getElementById("contactCard");
+  card.innerHTML = contactDetailTemplate(contact);
 }
 
-// Handles a click on a contact list item and shows its details
 function handleContactClick(event) {
-  const item = event.target.closest('.contact_item');
+  const item = event.target.closest(".contact_item");
   if (!item) return;
 
   const contact = findContactById(state.contacts, item.dataset.contactId);
   showContactDetail(contact);
+  openMobileContactDetail();
 }
 
-// Deletes the contact and clears the detail view
+function openMobileContactDetail() {
+  if (window.innerWidth >= 1024) return;
+
+  const list = document.querySelector(".contacts_container");
+  const details = document.querySelector(".contact_details_container");
+
+  list.classList.add("mobile_detail_hidden");
+  details.classList.add("mobile_detail_open");
+}
+
+function closeMobileContactDetail() {
+  const list = document.querySelector(".contacts_container");
+  const details = document.querySelector(".contact_details_container");
+
+  list.classList.remove("mobile_detail_hidden");
+  details.classList.remove("mobile_detail_open");
+}
+
 function handleDeleteContact(contactId) {
-  const uid = localStorage.getItem('uid');
+  const uid = localStorage.getItem("uid");
+
   deleteContact(uid, contactId).then(() => {
-    document.getElementById('contactCard').innerHTML = '<p>Select a contact to see details.</p>';
+    clearContactDetail();
+    closeMobileContactDetail();
     loadContacts(uid);
   });
 }
 
-// Opens the edit dialog for a specific contact, pre-filled with its data
+function clearContactDetail() {
+  const card = document.getElementById("contactCard");
+  card.innerHTML = "<p>Select a contact to see details.</p>";
+}
+
 function handleEditContact(contactId) {
   const contact = findContactById(state.contacts, contactId);
+  if (!contact) return;
+
   injectEditContactDialog(contact);
   registerEditDialogListeners();
-  openDialog('editContact');
-  openAnimation(document.getElementById('editContact'));
+  openEditContactDialog();
 }
 
-// Handles clicks within the contact detail card (edit or delete buttons)
+function openEditContactDialog() {
+  const dialog = document.getElementById("editContact");
+  openDialog("editContact");
+  openAnimation(dialog);
+}
+
 function handleContactCardClick(event) {
-  const deleteButton = event.target.closest('#deleteContactButton');
-  const editButton = event.target.closest('#editContactButton');
-
-  if (deleteButton) {
-    handleDeleteContact(deleteButton.dataset.contactId);
-  } else if (editButton) {
-    handleEditContact(editButton.dataset.contactId);
-  }
-}
-
-// Handles the add-contact form submission
-function handleAddContactSubmit(event) {
-  event.preventDefault();
-  const uid = localStorage.getItem('uid');
-
-  const name = document.getElementById('contactName').value;
-  const email = document.getElementById('contactEmail').value;
-  const phone = document.getElementById('contactPhone').value;
-
-  generateContact(name, email, phone).then(() => {
-    document.getElementById('addContactForm').reset();
-    closeDialog('addContact');
-    loadContacts(uid);
-  });
-}
-
-// Registers listeners for the add-contact dialog (open, close, cancel, submit)
-function registerDialogListeners() {
-  document.getElementById('addContactForm').addEventListener('submit', handleAddContactSubmit);
-  document.getElementById('addContactButton').addEventListener('click', () => {
-    openDialog('addContact');
-    openAnimation(document.getElementById('addContact'));
-  });
-  document.getElementById('closeAddContactButton').addEventListener('click', () => {
-    closeAnimation(document.getElementById('addContact'));
-  });
-  document.getElementById('cancelAddContactButton').addEventListener('click', () => {
-    closeAnimation(document.getElementById('addContact'));
-  });
-  document.querySelector('.add_contact').addEventListener('click', stopPropagation);
-}
-
-// Registers listeners for the contacts list and detail card
-function registerContactListeners() {
-  document.getElementById('contactsList').addEventListener('click', handleContactClick);
-  document.getElementById('contactCard').addEventListener('click', handleContactCardClick);
-}
-
-// Entry point: checks for a logged-in user, injects dialog markup, and registers listeners
-function initContacts() {
-  const uid = localStorage.getItem('uid');
-  if (!uid) {
-    window.location.href = '../index.html';
+  const actionButton = event.target.closest("[data-action]");
+  if (actionButton) {
+    handleMobileContactAction(actionButton);
     return;
   }
 
+  handleDesktopContactAction(event);
+}
+
+function handleDesktopContactAction(event) {
+  const editButton = event.target.closest("#editContactButton");
+  const deleteButton = event.target.closest("#deleteContactButton");
+
+  if (editButton) handleEditContact(editButton.dataset.contactId);
+  if (deleteButton) handleDeleteContact(deleteButton.dataset.contactId);
+}
+
+function handleMobileContactAction(button) {
+  const action = button.dataset.action;
+
+  if (action === "toggle-menu") toggleMobileContactMenu();
+  if (action === "edit-mobile") openMobileEdit(button);
+  if (action === "delete-mobile") deleteMobileContact(button);
+}
+
+function toggleMobileContactMenu() {
+  const menu = document.querySelector(".contact_mobile_menu");
+  if (!menu) return;
+
+  menu.classList.toggle("contact_mobile_menu_open");
+}
+
+function closeMobileContactMenu() {
+  const menu = document.querySelector(".contact_mobile_menu");
+  if (!menu) return;
+
+  menu.classList.remove("contact_mobile_menu_open");
+}
+
+function openMobileEdit(button) {
+  closeMobileContactMenu();
+  handleEditContact(button.dataset.contactId);
+}
+
+function deleteMobileContact(button) {
+  closeMobileContactMenu();
+  handleDeleteContact(button.dataset.contactId);
+}
+
+function handleAddContactSubmit(event) {
+  event.preventDefault();
+
+  const uid = localStorage.getItem("uid");
+  const data = getAddContactFormData();
+
+  generateContact(data.name, data.email, data.phone).then(() => {
+    finishAddContact(uid);
+  });
+}
+
+function getAddContactFormData() {
+  return {
+    name: document.getElementById("contactName").value,
+    email: document.getElementById("contactEmail").value,
+    phone: document.getElementById("contactPhone").value,
+  };
+}
+
+function finishAddContact(uid) {
+  document.getElementById("addContactForm").reset();
+  closeDialog("addContact");
+  loadContacts(uid);
+}
+
+function handleEditContactSubmit(event) {
+  event.preventDefault();
+
+  const uid = localStorage.getItem("uid");
+  const data = getEditContactFormData();
+
+  updateContact(uid, data.id, data.contact).then(() => {
+    finishEditContact(uid, data.id);
+  });
+}
+
+function getEditContactFormData() {
+  return {
+    id: document.getElementById("editContactId").value,
+    contact: {
+      name: document.getElementById("editContactName").value,
+      email: document.getElementById("editContactEmail").value,
+      phone: document.getElementById("editContactPhone").value,
+    },
+  };
+}
+
+function finishEditContact(uid, contactId) {
+  document.getElementById("editContact").remove();
+
+  loadContacts(uid).then(() => {
+    const contact = findContactById(state.contacts, contactId);
+    showContactDetail(contact);
+  });
+}
+
+function registerEditDialogListeners() {
+  const form = document.getElementById("editContactForm");
+  const close = document.getElementById("closeEditContactButton");
+  const remove = document.getElementById("deleteEditContactButton");
+
+  form.addEventListener("submit", handleEditContactSubmit);
+  close.addEventListener("click", closeEditContactDialog);
+  remove.addEventListener("click", handleEditDelete);
+}
+
+function closeEditContactDialog() {
+  const dialog = document.getElementById("editContact");
+  closeAnimation(dialog);
+}
+
+function handleEditDelete(event) {
+  const contactId = event.currentTarget.dataset.contactId;
+
+  handleDeleteContact(contactId);
+  closeAnimation(document.getElementById("editContact"));
+}
+
+function registerDialogListeners() {
+  registerAddContactForm();
+  registerAddContactButtons();
+  registerCloseContactButtons();
+}
+
+function registerAddContactForm() {
+  const form = document.getElementById("addContactForm");
+  form.addEventListener("submit", handleAddContactSubmit);
+}
+
+function registerAddContactButtons() {
+  const desktop = document.getElementById("addContactButton");
+  const mobile = document.getElementById("mobileAddContactButton");
+
+  desktop.addEventListener("click", openAddContactDialog);
+  mobile.addEventListener("click", openAddContactDialog);
+}
+
+function openAddContactDialog() {
+  const dialog = document.getElementById("addContact");
+
+  openDialog("addContact");
+  openAnimation(dialog);
+}
+
+function registerCloseContactButtons() {
+  const close = document.getElementById("closeAddContactButton");
+  const cancel = document.getElementById("cancelAddContactButton");
+
+  close.addEventListener("click", closeAddContactDialog);
+  cancel.addEventListener("click", closeAddContactDialog);
+}
+
+function closeAddContactDialog() {
+  const dialog = document.getElementById("addContact");
+  closeAnimation(dialog);
+}
+
+function registerContactListeners() {
+  const list = document.getElementById("contactsList");
+  const card = document.getElementById("contactCard");
+
+  list.addEventListener("click", handleContactClick);
+  card.addEventListener("click", handleContactCardClick);
+}
+
+function initContacts() {
+  const uid = localStorage.getItem("uid");
+
+  if (!uid) {
+    window.location.href = "../index.html";
+    return;
+  }
+
+  initializeContactsPage(uid);
+}
+
+function initializeContactsPage(uid) {
   loadOwnProfile(uid);
   injectAddContactDialog();
   loadContacts(uid);
   registerDialogListeners();
   registerContactListeners();
 }
-
