@@ -2,135 +2,404 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
     <title>Summary</title>
+
     <link rel="stylesheet" href="../styles/colors.css" />
     <link rel="stylesheet" href="../styles/fonts.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/standardClasses.css" />
     <link rel="stylesheet" href="../styles/summary.css" />
+    <link rel="stylesheet" href="../styles/summaryResponsive.css" />
+
     <script src="../scripts/standard.js" defer></script>
-    <script src="../scripts/summary.js"></script>
-    <link rel="shortcut icon" href="../assets/img/general/logoFavicon.svg" type="image/x-icon" />
+    <script src="../scripts/summary.js" defer></script>
+
+    <link
+      rel="shortcut icon"
+      href="../assets/img/general/logoFavicon.svg"
+      type="image/x-icon"
+    />
   </head>
+
   <body onload="initSummary()">
-    <aside>
-      <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
+    <aside class="desktop">
+      <img
+        src="../assets/img/general/joinLogo.svg"
+        alt="Logo of Join"
+      />
+
       <article>
         <section class="menu">
-          <a class="current_page" href="../pages/summary.html">
-            <img src="../assets/img/aside/summaryValidate.svg" alt="Summary Icon" />
+          <a
+            class="current_page"
+            href="../pages/summary.html"
+          >
+            <img
+              src="../assets/img/aside/summaryValidate.svg"
+              alt="Summary Icon"
+            />
             <p>Summary</p>
           </a>
-          <a class="another_page" href="../pages/addTask.html">
-            <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
+
+          <a
+            class="another_page"
+            href="../pages/addTask.html"
+          >
+            <img
+              src="../assets/img/aside/addTask.svg"
+              alt="Task Icon"
+            />
             <p>Add Task</p>
           </a>
-          <a class="another_page" href="../pages/board.html">
-            <img src="../assets/img/aside/board.svg" alt="Board Icon" />
+
+          <a
+            class="another_page"
+            href="../pages/board.html"
+          >
+            <img
+              src="../assets/img/aside/board.svg"
+              alt="Board Icon"
+            />
             <p>Board</p>
           </a>
-          <a class="another_page" href="../pages/contacts.html">
-            <img src="../assets/img/aside/contacts.svg" alt="Contacts Icon" />
+
+          <a
+            class="another_page"
+            href="../pages/contacts.html"
+          >
+            <img
+              src="../assets/img/aside/contacts.svg"
+              alt="Contacts Icon"
+            />
             <p>Contacts</p>
           </a>
         </section>
+
         <section class="legal_necessities">
-          <a class="policies" href="../pages/privacyPolicy.html">
+          <a
+            class="policies"
+            href="../pages/privacyPolicy.html"
+          >
             <p>Privacy Policy</p>
           </a>
-          <a class="policies" href="../pages/legalNotice.html">
+
+          <a
+            class="policies"
+            href="../pages/legalNotice.html"
+          >
             <p>Legal Notice</p>
           </a>
         </section>
       </article>
     </aside>
+
     <article class="main_content">
       <header>
+        <img
+          class="mobile_header_logo"
+          src="../assets/img/general/logoFavicon.svg"
+          alt="Join Logo"
+        />
+
         <p>Kanban Project Management Tool</p>
+
         <section class="header_right">
           <a href="../pages/help.html">
-            <img src="../assets/img/general/help.svg" alt="Help Button" />
+            <img
+              src="../assets/img/general/help.svg"
+              alt="Help Button"
+            />
           </a>
+
           <section>
-            <button class="profile_icon" onclick="openDialog('nav')">
+            <button
+              class="profile_icon"
+              type="button"
+              onclick="openDialog('nav')"
+              aria-label="Open profile menu"
+            >
               <p id="userInitial"></p>
             </button>
-            <dialog class="navigation" id="nav" onclick="closeDialog('nav')">
-              <div class="subnavigation" onclick="stopPropagation(event)">
-                <a href="../pages/legalNotice.html">Legal Notice</a>
-                <a href="../pages/privacyPolicy.html">Privacy Policy</a>
-                <a href="../index.html">Log out</a>
+
+            <dialog
+              class="navigation"
+              id="nav"
+              onclick="closeDialog('nav')"
+            >
+              <div
+                class="subnavigation"
+                onclick="stopPropagation(event)"
+              >
+                <a
+                  class="mobile"
+                  href="../pages/help.html"
+                >
+                  Help
+                </a>
+
+                <a href="../pages/legalNotice.html">
+                  Legal Notice
+                </a>
+
+                <a href="../pages/privacyPolicy.html">
+                  Privacy Policy
+                </a>
+
+                <a
+                  href="../index.html"
+                  onclick="handleLogout(event)"
+                >
+                  Log out
+                </a>
               </div>
             </dialog>
           </section>
         </section>
       </header>
+
       <main>
-        <div class="summary_header">
-          <h1>Join 360</h1>
-        <div class="seperator_line"></div>
+        <section
+          class="mobile_greeting"
+          id="mobileGreeting"
+        >
+          <div class="mobile_greeting_content">
+            <p id="mobileGreetingText"></p>
+            <p id="mobileGreetingName"></p>
+          </div>
+        </section>
+
+        <section
+          class="summary_page"
+          id="summaryPage"
+        >
+          <div class="summary_header">
+            <h1>Join 360</h1>
+
+            <div class="seperator_line"></div>
+
             <p>Key Metrics at a Glance</p>
-        </div>    
-        <div class="summary_content">
-          <section class="summary_tiles">
-            <div class="summary_top_row">
-              <div class="summary_tile summary_tile_small">
-                <div class="summary_icon summary_icon_dark">
-                  <img src="../assets/img/general/pen.svg"/>
+          </div>
+
+          <div class="summary_content">
+            <section class="summary_tiles">
+              <div class="summary_top_row">
+                <div
+                  class="summary_tile summary_tile_small"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div class="summary_icon summary_icon_dark">
+                    <img
+                      src="../assets/img/general/pen.svg"
+                      alt=""
+                    />
+                  </div>
+
+                  <div class="summary_tile_text">
+                    <p
+                      class="summary_number"
+                      id="todoCount"
+                    >
+                      0
+                    </p>
+
+                    <p class="summary_label">
+                      To-do
+                    </p>
+                  </div>
                 </div>
-                <div class="summary_tile_text">
-                  <p class="summary_number" id="todoCount">1</p>
-                  <p class="summary_label">To-do</p>
+
+                <div
+                  class="summary_tile summary_tile_small"
+                  role="button"
+                  tabindex="0"
+                >
+                  <div class="summary_icon summary_icon_dark">
+                    <img
+                      src="../assets/img/general/check.svg"
+                      alt=""
+                    />
+                  </div>
+
+                  <div class="summary_tile_text">
+                    <p
+                      class="summary_number"
+                      id="doneCount"
+                    >
+                      0
+                    </p>
+
+                    <p class="summary_label">
+                      Done
+                    </p>
+                  </div>
                 </div>
               </div>
-              <div class="summary_tile summary_tile_small">
-                <div class="summary_icon summary_icon_dark">
-                  <img src="../assets/img/general/check.svg"/>
+
+              <div
+                class="summary_tile summary_tile_wide"
+                role="button"
+                tabindex="0"
+              >
+                <div class="summary_urgent">
+                  <div class="summary_icon summary_icon_urgent">
+                    <img
+                      src="../assets/img/task/urgentValidate.svg"
+                      alt=""
+                    />
+                  </div>
+
+                  <div class="summary_tile_text">
+                    <p
+                      class="summary_number"
+                      id="urgentCount"
+                    >
+                      0
+                    </p>
+
+                    <p class="summary_label">
+                      Urgent
+                    </p>
+                  </div>
                 </div>
-                <div class="summary_tile_text">
-                  <p class="summary_number" id="doneCount">1</p>
-                  <p class="summary_label">Done</p>
-               </div>
-              </div>
-            </div>
-            <div class="summary_tile summary_tile_wide" >
-              <div class="summary_urgent">
-                <div class="summary_icon summary_icon_urgent">
-                  <img src="../assets/img/task/urgentValidate.svg"/>
-                </div>
-                <div class="summary_tile_text">
-                <p class="summary_number" id="urgentCount">1</p>
-                <p class="summary_label">Urgent</p>
-                </div>
-              </div>
-              <div class="summary_divider"></div>
+
+                <div class="summary_divider"></div>
+
                 <div class="summary_deadline">
-                <p class="summary_date" id="upcomingDeadline">October 16, 2022</p>
-                <p class="summary_label">Upcoming Deadline</p>
+                  <p
+                    class="summary_date"
+                    id="upcomingDeadline"
+                  >
+                    No upcoming due dates
+                  </p>
+
+                  <p class="summary_label">
+                    Upcoming Deadline
+                  </p>
+                </div>
               </div>
-            </div>
-            <div class="summary_bottom_row">
-              <div class="summary_tile summary_tile_medium">
-                <p class="summary_number" id="tasksInBoardCount">1</p>
-                <p class="summary_label">Tasks in Board</p>
+
+              <div class="summary_bottom_row">
+                <div
+                  class="summary_tile summary_tile_medium"
+                  role="button"
+                  tabindex="0"
+                >
+                  <p
+                    class="summary_number"
+                    id="tasksInBoardCount"
+                  >
+                    0
+                  </p>
+
+                  <p class="summary_label">
+                    Tasks in Board
+                  </p>
+                </div>
+
+                <div
+                  class="summary_tile summary_tile_medium"
+                  role="button"
+                  tabindex="0"
+                >
+                  <p
+                    class="summary_number"
+                    id="tasksInProgressCount"
+                  >
+                    0
+                  </p>
+
+                  <p class="summary_label">
+                    Tasks In Progress
+                  </p>
+                </div>
+
+                <div
+                  class="summary_tile summary_tile_medium"
+                  role="button"
+                  tabindex="0"
+                >
+                  <p
+                    class="summary_number"
+                    id="awaitingFeedbackCount"
+                  >
+                    0
+                  </p>
+
+                  <p class="summary_label">
+                    Awaiting Feedback
+                  </p>
+                </div>
               </div>
-              <div class="summary_tile summary_tile_medium">
-                <p class="summary_number" id="tasksInProgressCount">1</p>
-                <p class="summary_label">Tasks In Progress</p>
-              </div>
-              <div class="summary_tile summary_tile_medium">
-                <p class="summary_number" id="awaitingFeedbackCount">1</p>
-                <p class="summary_label">Awaiting Feedback</p>
-              </div>
-            </div>
-          </section>
-         <section class="greeting_section">
-            <p id="greeting"></p>
-            <p id="greetingName"></p>
-          </section>
-        </div>
+            </section>
+
+            <section class="greeting_section">
+              <p id="greeting"></p>
+              <p id="greetingName"></p>
+            </section>
+          </div>
+        </section>
       </main>
     </article>
+
+    <footer class="mobile">
+      <section>
+        <a
+          class="current_page"
+          href="../pages/summary.html"
+        >
+          <img
+            src="../assets/img/aside/summaryValidate.svg"
+            alt="Summary Icon"
+          />
+          <p>Summary</p>
+        </a>
+      </section>
+
+      <section>
+        <a
+          class="another_page"
+          href="../pages/addTask.html"
+        >
+          <img
+            src="../assets/img/aside/addTask.svg"
+            alt="Add Task Icon"
+          />
+          <p>Add Task</p>
+        </a>
+      </section>
+
+      <section>
+        <a
+          class="another_page"
+          href="../pages/board.html"
+        >
+          <img
+            src="../assets/img/aside/board.svg"
+            alt="Board Icon"
+          />
+          <p>Board</p>
+        </a>
+      </section>
+
+      <section>
+        <a
+          class="another_page"
+          href="../pages/contacts.html"
+        >
+          <img
+            src="../assets/img/aside/contacts.svg"
+            alt="Contacts Icon"
+          />
+          <p>Contacts</p>
+        </a>
+      </section>
+    </footer>
   </body>
 </html>

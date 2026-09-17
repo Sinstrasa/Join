@@ -1,93 +1,277 @@
-// Fetches all tickets from the database as an array
 function loadTasks() {
-  return fetch(baseUrl + 'tickets.json')
-    .then(response => response.json())
-    .then((data) => {
-      if (!data) return [];
-      return Object.keys(data).map((key) => ({ id: key, ...data[key] }));
-    });
+  return fetch(baseUrl + "tickets.json")
+    .then((response) => response.json())
+    .then(convertTasksToArray);
 }
 
-// Counts tickets matching given status
+function convertTasksToArray(data) {
+  if (!data) return [];
+
+  return Object.keys(data).map((key) => ({
+    id: key,
+    ...data[key],
+  }));
+}
+
 function countTicketsByStatus(tickets, status) {
-  return tickets.filter(ticket => ticket.status === status).length;
+  return tickets.filter((ticket) => ticket.status === status).length;
 }
 
-// Counts urgent tickets that are not yet done
 function countUrgentTickets(tickets) {
-  return tickets.filter(ticket => ticket.priority === 'Urgent' && ticket.status !== 'done').length;
+  return tickets.filter(isUrgentAndOpen).length;
 }
 
-// Parses a date string in DD/MM/YYYY format into a Date object
+function isUrgentAndOpen(ticket) {
+  return ticket.priority === "Urgent" && ticket.status !== "done";
+}
+
 function parseGermanDate(dateString) {
-  const [day, month, year] = dateString.split('/');
-  return new Date(year, month - 1, day);
+  if (!dateString) return new Date("invalid");
+
+  const parts = dateString.split("/");
+  if (parts.length !== 3) return new Date("invalid");
+
+  return new Date(parts[2], parts[1] - 1, parts[0]);
 }
 
 function findNextDueDate(tickets) {
-  const dates = tickets.map(ticket => parseGermanDate(ticket.date)).filter((date) => !isNaN(date));
-  if (dates.length === 0) return "No upcoming due dates";
+  const dates = getValidTicketDates(tickets);
+  if (!dates.length) return "No upcoming due dates";
+
   const nextDate = new Date(Math.min(...dates));
-  return nextDate.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+  return formatDueDate(nextDate);
+}
+
+function getValidTicketDates(tickets) {
+  return tickets
+    .map((ticket) => parseGermanDate(ticket.date))
+    .filter((date) => !isNaN(date));
+}
+
+function formatDueDate(date) {
+  return date.toLocaleDateString("en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
 function countTicketsInBoard(tickets) {
-  return tickets.filter(ticket => ticket.status !== 'done').length;
+  return tickets.filter((ticket) => ticket.status !== "done").length;
 }
 
 function renderSummaryTiles(tickets) {
-  document.getElementById('todoCount').textContent = countTicketsByStatus(tickets, 'toDo');
-  document.getElementById('doneCount').textContent = countTicketsByStatus(tickets, 'done');
-  document.getElementById('urgentCount').textContent = countUrgentTickets(tickets);
-  document.getElementById('upcomingDeadline').textContent = findNextDueDate(tickets);
-  document.getElementById('tasksInBoardCount').textContent = countTicketsInBoard(tickets);
-  document.getElementById('tasksInProgressCount').textContent = countTicketsByStatus(tickets, 'inProgress');
-  document.getElementById('awaitingFeedbackCount').textContent = countTicketsByStatus(tickets, 'awaitFeedback');
+  setText("todoCount", countTicketsByStatus(tickets, "toDo"));
+  setText("doneCount", countTicketsByStatus(tickets, "done"));
+  setText("urgentCount", countUrgentTickets(tickets));
+  setText("upcomingDeadline", findNextDueDate(tickets));
+  renderBottomTiles(tickets);
 }
 
-// Loads the current user's data from the database and displays a greeting
+function renderBottomTiles(tickets) {
+  setText("tasksInBoardCount", countTicketsInBoard(tickets));
+  setText("tasksInProgressCount", countTicketsByStatus(tickets, "inProgress"));
+  setText("awaitingFeedbackCount", countTicketsByStatus(tickets, "awaitFeedback"));
+}
+
+function setText(id, value) {
+  const element = document.getElementById(id);
+  if (!element) return;
+
+  element.textContent = value;
+}
+
 function loadUserGreeting(uid) {
-  fetch(baseUrl + 'users/' + uid + '.json')
-    .then(response => response.json())
-    .then((userData) => displayGreeting(userData));
+  fetch(baseUrl + "users/" + uid + ".json")
+    .then((response) => response.json())
+    .then(displayGreeting)
+    .catch(handleGreetingError);
 }
 
-// Returns a time-appropriate greeting word based on the current hour
+function handleGreetingError(error) {
+  console.error("Greeting could not be loaded:", error);
+}
+
 function getTimeBasedGreeting() {
   const hour = new Date().getHours();
-  if (hour < 12) return 'Good morning';
-  if (hour < 18) return 'Good afternoon';
-  return 'Good evening';
+
+  if (hour < 12) return "Good morning";
+  if (hour < 18) return "Good afternoon";
+
+  return "Good evening";
 }
 
-// Fills the greeting element with the user's name and applies their color
 function displayGreeting(userData) {
-  const greeting = document.getElementById('greeting');
-  const greetingName = document.getElementById('greetingName');
-  greeting.textContent = getTimeBasedGreeting() + ',';
-  greetingName.textContent = userData.username + '!';
-  greetingName.style.color = `var(${userData.color})`;
-
-  displayProfileIcon(userData);
+  const user = userData || {};
+  displayDesktopGreeting(user);
+  displayMobileGreeting(user);
+  displayProfileIcon(user);
 }
 
-// Signs the current user out by clearing the stored session and redirects to login
-function handleLogout(event) {
-  event.preventDefault();
-  localStorage.removeItem('uid');
-  localStorage.removeItem('idToken');
-  window.location.href = '../index.html';
-}
+function displayDesktopGreeting(user) {
+  setText("greeting", getDesktopGreetingText());
 
-// Entry point: checks for a logged-in user via localStorage, then loads their data
-function initSummary() {
-  const uid = localStorage.getItem('uid');
-
-  if (!uid) {
-    window.location.href = '../index.html';
+  if (isGuest()) {
+    setText("greetingName", "");
     return;
   }
 
+  setText("greetingName", getUserName(user));
+  setGreetingColor(user);
+}
+
+function getDesktopGreetingText() {
+  const greeting = getTimeBasedGreeting();
+
+  if (isGuest()) return greeting + "!";
+  return greeting + ",";
+}
+
+function getDesktopGreetingText() {
+  const greeting = getTimeBasedGreeting();
+
+  if (isGuest()) return greeting + "!";
+  return greeting + ",";
+}
+
+function setGreetingColor(user) {
+  const name = document.getElementById("greetingName");
+  if (!name || !user.color) return;
+
+  name.style.color = `var(${user.color})`;
+}
+
+function displayMobileGreeting(user) {
+  const greeting = document.getElementById("mobileGreetingText");
+  const name = document.getElementById("mobileGreetingName");
+
+  if (!greeting || !name) return;
+
+  greeting.textContent = getMobileGreetingText();
+  name.textContent = getMobileGreetingName(user);
+  setMobileGreetingColor(name, user);
+}
+
+function setMobileGreetingColor(element, user) {
+  if (isGuest() || !user.color) return;
+
+  element.style.color = `var(${user.color})`;
+}
+
+function getMobileGreetingText() {
+  if (isGuest()) return getTimeBasedGreeting() + "!";
+
+  return getTimeBasedGreeting() + ",";
+}
+
+function getMobileGreetingName(user) {
+  if (isGuest()) return "";
+
+  return getUserName(user);
+}
+
+function getUserName(user) {
+  return user.username || user.name || "";
+}
+
+function isGuest() {
+  return localStorage.getItem("isGuest") === "true";
+}
+
+function displayProfileIcon(user) {
+  const initial = document.getElementById("userInitial");
+  if (!initial) return;
+
+  initial.textContent = isGuest() ? "G" : getProfileInitials(user);
+}
+
+function getProfileInitials(user) {
+  const name = getUserName(user).trim();
+  if (!name) return "";
+
+  return createInitials(name);
+}
+
+function createInitials(name) {
+  const parts = name.split(" ").filter(Boolean);
+  if (parts.length === 1) return parts[0][0].toUpperCase();
+
+  return getTwoInitials(parts);
+}
+
+function getTwoInitials(parts) {
+  const first = parts[0][0];
+  const last = parts[parts.length - 1][0];
+
+  return (first + last).toUpperCase();
+}
+
+function openBoard() {
+  window.location.href = "../pages/board.html";
+}
+
+function registerSummaryTileEvents() {
+  const tiles = document.querySelectorAll(".summary_tile");
+
+  tiles.forEach((tile) => {
+    tile.addEventListener("click", openBoard);
+    tile.addEventListener("keydown", handleTileKeydown);
+  });
+}
+
+function handleTileKeydown(event) {
+  if (event.key !== "Enter" && event.key !== " ") return;
+
+  event.preventDefault();
+  openBoard();
+}
+
+function handleLogout(event) {
+  event.preventDefault();
+
+  clearSession();
+  window.location.href = "../index.html";
+}
+
+function clearSession() {
+  localStorage.removeItem("uid");
+  localStorage.removeItem("idToken");
+  localStorage.removeItem("isGuest");
+}
+
+function startMobileGreeting() {
+  if (window.innerWidth >= 1024) return;
+
+  const greeting = document.getElementById("mobileGreeting");
+  const summary = document.getElementById("summaryPage");
+
+  greeting.classList.add("mobile_greeting_active");
+  summary.classList.add("mobile_summary_hidden");
+  setTimeout(showMobileSummary, 1600);
+}
+
+function showMobileSummary() {
+  const greeting = document.getElementById("mobileGreeting");
+  const summary = document.getElementById("summaryPage");
+
+  greeting.classList.remove("mobile_greeting_active");
+  summary.classList.remove("mobile_summary_hidden");
+}
+
+function initSummary() {
+  const uid = localStorage.getItem("uid");
+
+  if (!uid) {
+    window.location.href = "../index.html";
+    return;
+  }
+
+  initializeSummary(uid);
+}
+
+function initializeSummary(uid) {
   loadUserGreeting(uid);
-  loadTasks().then((tickets) => renderSummaryTiles(tickets));
+  loadTasks().then(renderSummaryTiles);
+  registerSummaryTileEvents();
+  startMobileGreeting();
 }
