@@ -12,11 +12,21 @@
   <body onload="initSignIn()">
     <div class="page_shell">
       <header class="site_header content_limit">
-        <img class="signup_logo" src="./assets/img/general/logoFavicon.svg" alt="Logo of Join" />
+        <img
+          class="signup_logo"
+          src="./assets/img/general/logoFavicon.svg"
+          alt="Logo of Join"
+        />
 
         <div class="signup_area login_fade">
           <span>Not a Join user?</span>
-          <button class="button button__primary" type="button" onclick="window.location.href='pages/signUp.html'">Sign up</button>
+          <button
+            class="button button__primary"
+            type="button"
+            onclick="window.location.href = 'pages/signUp.html'"
+          >
+            Sign up
+          </button>
         </div>
       </header>
 
@@ -38,7 +48,9 @@
                   autocomplete="email"
                   placeholder="Email"
                 />
-                <span class="field_icon"><img src="./assets/img/login/mail.svg" alt="Email icon" /></span>
+                <span class="field_icon"
+                  ><img src="./assets/img/login/mail.svg" alt="Email icon"
+                /></span>
               </div>
               <p class="error_message"></p>
             </div>
@@ -53,7 +65,9 @@
                   autocomplete="current-password"
                   placeholder="Password"
                 />
-                <span class="field_icon"><img src="./assets/img/login/lock.svg" alt="Password icon" /></span>
+                <span class="field_icon"
+                  ><img src="./assets/img/login/lock.svg" alt="Password icon"
+                /></span>
               </div>
               <p class="error_message"></p>
             </div>
@@ -64,7 +78,11 @@
               <button class="button button__primary" type="submit">
                 Log in
               </button>
-              <button class="button button__secondary" type="button">
+              <button
+                class="button button__secondary"
+                type="button"
+                id="guestLoginButton"
+              >
                 Guest Log in
               </button>
             </div>

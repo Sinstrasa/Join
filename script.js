@@ -1,44 +1,78 @@
 const apiKey = "AIzaSyBBqXuaXjnWIvN5to5PuH5jif1FhT_9KKw";
 
+const guestEmail = "guest@join.de";
+const guestPassword = "Guest123!";
+
 // Signs the user in via REST and returns the parsed response
 function signInUser(email, password) {
-  return fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`, {
-    method: 'POST',
-    body: JSON.stringify({ email: email, password: password, returnSecureToken: true })
-  }).then(response => response.json());
+  const url = getSignInUrl();
+  const data = { email, password, returnSecureToken: true };
+
+  return fetch(url, {
+    method: "POST",
+    body: JSON.stringify(data),
+  }).then((response) => response.json());
 }
 
-// Stores the logged-in user's id and token for later use on other pages
+// Returns the Firebase REST login URL
+function getSignInUrl() {
+  return `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apiKey}`;
+}
+
+// Stores the logged-in user's id and token
 function storeSession(data) {
-  localStorage.setItem('uid', data.localId);
-  localStorage.setItem('idToken', data.idToken);
+  localStorage.setItem("uid", data.localId);
+  localStorage.setItem("idToken", data.idToken);
 }
 
-// Handles login form submission: signs the user in and redirects on success
+// Handles normal login
 function handleLoginSubmit(event) {
   event.preventDefault();
 
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+  localStorage.removeItem("isGuest");
 
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  loginAndRedirect(email, password);
+}
+
+// Handles guest login
+function handleGuestLogin() {
+  localStorage.setItem("isGuest", "true");
+  loginAndRedirect(guestEmail, guestPassword);
+}
+
+// Signs in and redirects to summary
+function loginAndRedirect(email, password) {
   signInUser(email, password)
-    .then((data) => {
-      if (data.error) throw data.error;
-      storeSession(data);
-      window.location.href = 'pages/summary.html';
-    })
-    .catch(() => handleLoginError());
+    .then(handleLoginResponse)
+    .catch(handleLoginError);
 }
 
-// Displays a generic login error message
+// Processes Firebase login response
+function handleLoginResponse(data) {
+  if (data.error) {
+    handleLoginError();
+    return;
+  }
+
+  storeSession(data);
+  window.location.href = "pages/summary.html";
+}
+
+// Displays login error
 function handleLoginError() {
-  const formStatus = document.getElementById('formStatus');
-  formStatus.textContent = 'Invalid email or password.';
+  const formStatus = document.getElementById("formStatus");
+  formStatus.textContent = "Invalid email or password.";
 }
 
-// Entry point: attaches the submit handler once the DOM is ready
+// Registers login events
 function initSignIn() {
-  document.querySelector('form').addEventListener('submit', handleLoginSubmit);
+  const form = document.querySelector("form");
+  const guestButton = document.getElementById("guestLoginButton");
+
+  form.addEventListener("submit", handleLoginSubmit);
+  guestButton.addEventListener("click", handleGuestLogin);
 }
 
-// document.addEventListener('DOMContentLoaded', initSignIn);
