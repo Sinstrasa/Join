@@ -1,9 +1,44 @@
-main{
-    display: flex;
-    align-items: center;
+body {
+  height: 100vh;
+  overflow: hidden;
 }
 
-.new_contact{
+.main_content {
+  height: 100vh;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.contacts_container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.contacts_list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.new_contact {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,11 +46,11 @@ main{
   margin-bottom: 32px;
 }
 
-.highlighted_button{
+.highlighted_button {
   width: 90%;
 }
 
-#addContactButton{
+#addContactButton {
   display: flex;
   justify-content: center;
   gap: 16px;
@@ -97,8 +132,6 @@ main{
   align-self: center;
   margin: 56px;
   margin-top: -20px;
-
-
 }
 
 .contact_placeholder img {
@@ -107,11 +140,10 @@ main{
   filter: brightness(0) invert(1);
 }
 
-.add_contact_content{
- padding: 0px;
- justify-content: flex-start;
- width: 100%;
-
+.add_contact_content {
+  padding: 0px;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .add_contact_content form {
@@ -204,15 +236,19 @@ main{
   align-items: left;
   justify-content: left;
   background-color: white;
-   box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  min-height: 0;
+  overflow: hidden;
 }
 
 .contacts_list {
   flex: 1;
-  overflow-y: auto;
-  list-style: none;
+  min-height: 0;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
 }
 
 /* -----------------Contacts List Item----------------- */
@@ -223,11 +259,10 @@ main{
   font-size: 24px;
   font-weight: 600;
   color: var(--border_color);
-   border-bottom: 1px solid var(--menu_color);
-
+  border-bottom: 1px solid var(--menu_color);
 }
 
-.contact_item{
+.contact_item {
   display: flex;
   flex-direction: row;
   align-items: left;
@@ -287,7 +322,7 @@ main{
   margin-left: 80px;
 }
 
-.contact_detail_header{
+.contact_detail_header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -297,13 +332,13 @@ main{
   margin-top: 80px;
 }
 
-.contact_detail_header h2{
-  font-size:61px;
+.contact_detail_header h2 {
+  font-size: 61px;
   font-size: bold;
   font-weight: 700;
 }
 
-.contact_detail_header p{
+.contact_detail_header p {
   font-size: 27px;
   font-weight: 400;
 }
@@ -315,7 +350,6 @@ main{
   flex-direction: column;
   align-items: flex-start;
 }
-
 
 .contact_card_header {
   display: flex;
@@ -345,13 +379,13 @@ main{
   margin: 0;
 }
 
-.contact_card_buttons{
+.contact_card_buttons {
   display: flex;
   flex-direction: row;
   gap: 16px;
 }
 
-.contact_buttons{
+.contact_buttons {
   display: flex;
   font-size: 24px;
   border: none;
@@ -361,15 +395,14 @@ main{
   margin-top: 16px;
 }
 
-.contact_buttons:hover{
+.contact_buttons:hover {
   font-weight: bold;
 }
 
-.contact_buttons img{
+.contact_buttons img {
   width: 24px;
   margin-right: 8px;
 }
-
 
 .contact_card_info .subtitle {
   font-weight: 500;
@@ -389,11 +422,10 @@ main{
   font-size: 24px;
 }
 
-
 /* -----------------Edit Contact Dialog--------------------- */
 
-.contact_edit_color{
-    width: 80px;
+.contact_edit_color {
+  width: 80px;
   height: 80px;
   border-radius: 50%;
   flex-shrink: 0;
