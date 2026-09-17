@@ -157,17 +157,23 @@ form {
 }
 
 .field_icon {
-    position: absolute;
-    top: 50%;
-    right: 16px;
-    width: 22px;
-    height: 22px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(-50%);
-    color: #2a3647;
-    pointer-events: none;
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.field_icon img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .field_icon svg {
@@ -283,3 +289,4 @@ form {
     opacity: 1;
   }
 }
+
