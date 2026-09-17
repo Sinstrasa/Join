@@ -413,11 +413,11 @@ function hideTaskMessage() {
   }
 
   async function addContactsToSelection() {
+    const uid = localStorage.getItem('uid');
     const contactRef = document.getElementById("contactList");
-    const contacts = await getAddTaskData("/users");
-    if (!contactRef || !contacts) return;
-    const contactsArray = Object.values(contacts);
-    renderContacts(contactRef, contactsArray);
+    let myObject = await getAddTaskData("/users/" + uid + "/contacts");
+    let myArray = Object.values(myObject);
+    renderContacts(contactRef, myArray);
   }
 
   async function renderContacts(contactRef, contacts) {

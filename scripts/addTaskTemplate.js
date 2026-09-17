@@ -53,8 +53,8 @@ async function contactsTemplate(contact) {
   return `
     <button class="select_contacts_option assign" type="button" data-value="Contact">
       <div class="assign">
-        <div class="contact_color" style="background-color: var(${await contact.color});">A</div>   
-        <p class="select_areas_value">${await contact.username}</p>
+        <div class="contact_color" style="background-color: var(${contact.color});">A</div>   
+        <p class="select_areas_value">${contact.name}</p>
       </div>
         <input type="checkbox" name="" id="">
     </button>

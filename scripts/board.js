@@ -44,9 +44,7 @@ async function changeStatus(listKey) {
   const myArray = await getTickets("/tickets");
   const ticket = { ...myArray[draggedTicket], status: listKey };
   await putTicket("/tickets/" + draggedTicket, ticket);
-  await sortReference(
-    myArray.map((item) => (item.id === draggedTicket ? ticket : item)),
-  );
+  await sortReference(myArray.map((item) => (item.id === draggedTicket ? ticket : item)));
 }
 
 function allowDrop(event) {
@@ -76,11 +74,7 @@ async function updateHTML(toDo, inProgress, awaitFeedback, done) {
 async function updateColumn(arr, id) {
   document.getElementById(id).innerHTML = ``;
   for (let index = 0; index < arr.length; index++) {
-    document.getElementById(id).innerHTML += await somethingTemplate(
-      arr,
-      index,
-      id,
-    );
+    document.getElementById(id).innerHTML += await somethingTemplate(arr, index, id);
   }
 }
 
@@ -119,16 +113,10 @@ function readPriority(priority) {
 // }
 
 function readSubtask(arr, index) {
-  const safeSubtasks = Array.isArray(arr[index]?.subtasks)
-    ? arr[index]?.subtasks
-    : [];
+  const safeSubtasks = Array.isArray(arr[index]?.subtasks) ? arr[index]?.subtasks : [];
   return safeSubtasks
     .map((content, subtaskIndex) =>
-      taskDialogSubtasksTemplate(
-        content,
-        subtaskIndex,
-        isSubtaskChecked(arr[index]?.id, subtaskIndex),
-      ),
+      taskDialogSubtasksTemplate(content, subtaskIndex, isSubtaskChecked(arr[index]?.id, subtaskIndex)),
     )
     .join("");
 }
@@ -168,37 +156,15 @@ async function search(input) {
   let myArray = await getTickets("/tickets");
   ticketAkku = [];
   for (let index = 0; index < myArray.length; index++) {
-    for (
-      let subindex = 0;
-      subindex < (await myArray[index].title.length);
-      subindex++
-    ) {
-      let compare = (await myArray[index].title).slice(
-        subindex,
-        input.length + subindex,
-      );
-      if (
-        input == compare &&
-        !ticketAkku.some((ticket) => ticket.title === myArray[index].title)
-      ) {
+    for (let subindex = 0; subindex < (await myArray[index].title.length); subindex++) {
+      let compare = (await myArray[index].title).slice(subindex, input.length + subindex);
+      if (input == compare && !ticketAkku.some((ticket) => ticket.title === myArray[index].title)) {
         ticketAkku.push(myArray[index]);
       }
     }
-    for (
-      let subindex = 0;
-      subindex < (await myArray[index].description.length);
-      subindex++
-    ) {
-      let compare = (await myArray[index].description).slice(
-        subindex,
-        input.length + subindex,
-      );
-      if (
-        input == compare &&
-        !ticketAkku.some(
-          (ticket) => ticket.description === myArray[index].description,
-        )
-      ) {
+    for (let subindex = 0; subindex < (await myArray[index].description.length); subindex++) {
+      let compare = (await myArray[index].description).slice(subindex, input.length + subindex);
+      if (input == compare && !ticketAkku.some((ticket) => ticket.description === myArray[index].description)) {
         ticketAkku.push(myArray[index]);
       }
     }
@@ -269,10 +235,7 @@ function updateTaskSubtaskProgress(task, card, progress) {
   const progressBar = card?.querySelector(".ladebalken");
   const progressText = card?.querySelector(".sub_ladebalken > p");
   if (!progressSection || !progressBar || !progressText) return;
-  const checkedCount = subtasks.reduce(
-    (count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0),
-    0,
-  );
+  const checkedCount = subtasks.reduce((count, _, index) => count + (progress[task.id]?.[index] ? 1 : 0), 0);
   progressSection.style.display = subtasks.length === 0 ? "none" : "";
   progressBar.style.width = `${subtasks.length ? (checkedCount / subtasks.length) * 100 : 0}px`;
   progressText.textContent = `${checkedCount}/${subtasks.length} Subtasks`;
@@ -303,21 +266,15 @@ async function editTaskDialog(listKey, index) {
   const dialogRef = document.getElementById("dialog");
   dialogRef.classList.remove("task_board_dialog");
   dialogRef.classList.add("add_task_dialog");
-  dialogRef.innerHTML = await addTaskDialogTemplateTest(
-    arr,
-    index,
-    await readDatabase(arr, index, "status"),
-  );
+  dialogRef.innerHTML = await addTaskDialogTemplateTest(arr, index, await readDatabase(arr, index, "status"));
   setPriority(await readDatabase(arr, index, "priority"));
   setCategory(arr, index);
   const list = document.getElementById("subtasks");
   for (let subindex = 0; subindex < arr[index]["subtasks"].length; subindex++) {
-    list.innerHTML += createSubtaskTemplate(
-      arr[index]["subtasks"][subindex],
-      subindex,
-    );
+    list.innerHTML += createSubtaskTemplate(arr[index]["subtasks"][subindex], subindex);
   }
-  initialiseAddTask(listKey);
+  initialiseAddTask();
+  initActionButtons(listKey);
   hideButtons();
 }
 
@@ -331,31 +288,24 @@ async function editedTask(index, listkey) {
   await cardColumn();
   const updatedArr = taskList[listkey];
   const updatedIndex = updatedArr.findIndex((item) => item.id === id);
-  dialogRef.innerHTML = await taskDialogTemplate(
-    updatedArr,
-    updatedIndex,
-    listkey,
-  );
+  dialogRef.innerHTML = await taskDialogTemplate(updatedArr, updatedIndex, listkey);
   dialogRef.classList.add("task_board_dialog");
   dialogRef.classList.remove("add_task_dialog");
 }
 
-function initialiseAddTask(listKey) {
+function initialiseAddTask() {
   setupOutsideClick();
   initPriorityButtons();
   initDropdownButtons();
   initDropdownOptions();
   initSubtaskListEvents();
   addContactsToSelection();
-  initActionButtons(listKey);
   setMinimumDueDate();
 }
 
 async function setCategory(arr, index) {
   const categoryDropdown = document.getElementById("categoryDropdown");
-  const categoryOption = categoryDropdown?.querySelector(
-    `[data-value="${await readDatabase(arr, index, "category")}"]`,
-  );
+  const categoryOption = categoryDropdown?.querySelector(`[data-value="${await readDatabase(arr, index, "category")}"]`);
   if (categoryDropdown && categoryOption) {
     updateDropdownValue(categoryDropdown, categoryOption);
   }
@@ -372,18 +322,12 @@ function hideButtons() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document
-    .getElementById("searchField")
-    .addEventListener("input", validateSearch);
+  document.getElementById("searchField").addEventListener("input", validateSearch);
   updateSubtaskProgress();
   document.addEventListener("change", (event) => {
     if (!event.target.classList.contains("subtask_checkbox")) return;
     const dialog = event.target.closest("dialog");
-    saveSubtaskState(
-      dialog.dataset.taskId,
-      event.target.dataset.subtaskIndex,
-      event.target.checked,
-    );
+    saveSubtaskState(dialog.dataset.taskId, event.target.dataset.subtaskIndex, event.target.checked);
     updateSubtaskProgress();
   });
 });
@@ -398,14 +342,8 @@ async function openSpecificDialog(listKey, index, stat, reference) {
     dialogRef.classList.add("add_task_dialog");
     dialogRef.innerHTML = await addTaskDialogTemplate(stat);
     initActionButtons(stat);
-    setupOutsideClick();
-    initPriorityButtons();
-    initDropdownButtons();
-    initDropdownOptions();
-    initSubtaskListEvents();
-    addContactsToSelection();
     setPriority("Medium");
-    setMinimumDueDate();
+    initialiseAddTask();
   }
   dialogRef.showModal();
   openAnimation(dialogRef);
