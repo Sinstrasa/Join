@@ -95,18 +95,15 @@ function readPriority(priority) {
 
 async function readAssigned(arr, index) {
   const assignedArray = Array.isArray(arr[index]?.assigned) ? arr[index]?.assigned : [];
-  let assArr = await Promise.all(assignedArray.map(async (contact) => await taskDialogNamesTemplate(contact)));
-  return assArr.join("");
+  let asArr = await Promise.all(assignedArray.map(async (contact) => await taskDialogNamesTemplate(contact)));
+  return asArr.join("");
 }
 
-// async function addInitials(arr, index) {
-//   const safeAssigned = Array.isArray(arr[index]?.assigned)
-//     ? arr[index].assigned : [];
-//   let assignedRef = document.getElementById("assignedInitals");
-//   for (let subindex = 0; subindex < safeAssigned.length; subindex++) {
-//     assignedRef.innerHTML += await contactInitials(safeAssigned[subindex]);
-//   }
-// }
+async function addInitials(arr, index) {
+  const assignedArray = Array.isArray(arr[index]?.assigned) ? arr[index]?.assigned : [];
+  let asArr = await Promise.all(assignedArray.map(async (contact) => await contactInitials(contact)));
+  return asArr.join("");
+}
 
 function readSubtask(arr, index) {
   const safeSubtasks = Array.isArray(arr[index]?.subtasks) ? arr[index]?.subtasks : [];

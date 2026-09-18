@@ -234,7 +234,7 @@ async function somethingTemplate(arr, index, listKey) {
               <p></p>
             </section>
             <section class="card_footer">
-              
+              <div id="assignedInitials">${await addInitials(arr, index)}</div>
               ${readPriority(await readDatabase(arr, index, "priority"))}
             </section>
           </div>
@@ -244,8 +244,8 @@ async function somethingTemplate(arr, index, listKey) {
   `;
 }
 
-// async function contactInitials(contact) {
-//   return `
-//     <div class="contact_color" style="background-color: var(${await contact.color});">${getInitials(contact.name)}</div>
-//   `
-// }
+async function contactInitials(contact) {
+  return `
+    <div class="contact_color" style="background-color: var(${await contact.color});">${getInitials(contact.name)}</div>
+  `
+}
