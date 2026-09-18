@@ -129,8 +129,11 @@
           <section class="column" ondrop="changeStatus('toDo')" ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>To do</h2>
-              <button class="adding_task" onclick="openSpecificDialog(null, null, 'toDo', null)">
+              <button class="adding_task desktop" onclick="openSpecificDialog(null, null, 'toDo', null)">
                 +
+              </button>
+              <button class="adding_task mobile">
+                <a href="../pages/addTask.html">+</a>
               </button>
             </div>
             <ul class="column_list" id="toDo"></ul>
@@ -138,8 +141,11 @@
           <section class="column" ondrop="changeStatus('inProgress')" ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>In progress</h2>
-              <button class="adding_task" onclick="openSpecificDialog(null, null, 'inProgress', null)">
+              <button class="adding_task desktop" onclick="openSpecificDialog(null, null, 'inProgress', null)">
                 +
+              </button>
+              <button class="adding_task mobile">
+                <a href="../pages/addTask.html">+</a>
               </button>
             </div>
             <ul class="column_list" id="inProgress"></ul>
@@ -147,8 +153,11 @@
           <section class="column" ondrop="changeStatus('awaitFeedback')" ondragover="allowDrop(event)">
             <div class="column_title">
               <h2>Await Feedback</h2>
-              <button class="adding_task" onclick="openSpecificDialog(null, null, 'awaitFeedback', null)">
+              <button class="adding_task desktop" onclick="openSpecificDialog(null, null, 'awaitFeedback', null)">
                 +
+              </button>
+              <button class="adding_task mobile">
+                <a href="../pages/addTask.html">+</a>
               </button>
             </div>
             <ul class="column_list" id="awaitFeedback"></ul>
