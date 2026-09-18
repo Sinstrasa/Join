@@ -47,13 +47,13 @@ function recreateSubtaskTemplate(subtask, index) {
   `
 }
 
-async function contactsTemplate(contact) {
+async function contactsTemplate(contact, name) {
   // <input type="checkbox" class="subtask_checkbox" data-subtask-index="${index}" ${checked ? "checked" : ""} />
   return `
     <button class="select_contacts_option assign" type="button" data-value="Contact">
       <div class="assign">
-        <div class="contact_color" style="background-color: var(${contact.color});">${await getInitials(contact.name)}</div>   
-        <p class="select_areas_value">${contact.name}</p>
+        <div class="contact_color" style="background-color: var(${contact.color});">${await getInitials(contact[name])}</div>   
+        <p class="select_areas_value">${contact[name]}</p>
       </div>
         <input type="checkbox" name="" id="">
     </button>

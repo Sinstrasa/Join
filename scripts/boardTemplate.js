@@ -158,7 +158,7 @@ async function addTaskDialogTemplate() {
         </div>
       </section>
     </article>
-  `
+  `;
 }
 
 async function taskDialogNamesTemplate(contact) {
@@ -203,10 +203,9 @@ function nothingDoneTemplate() {
 }
 
 async function somethingTemplate(arr, index, listKey) {
-  // <div id="assignedInitials">${await addInitials()}</div>
   return `
     <li class="relative" id="li${+(await readDatabase(arr, index, "id"))}">
-      <article class="something" draggable="true" ondrag="shakeAnimation(${await readDatabase(arr, index, 'id')})" ondragstart="dragTicket(${await readDatabase(arr, index, "id")})">
+      <article class="something" draggable="true" ondrag="shakeAnimation(${await readDatabase(arr, index, "id")})" ondragstart="dragTicket(${await readDatabase(arr, index, "id")})">
         <button class="board_card" id="card${+(await readDatabase(arr, index, "id"))}" onclick="openSpecificDialog('${listKey}', ${index}, ${null}, 'taskBoardDialog')">
           <div class="board_card_content">
             <section class="board_card_header">
@@ -247,5 +246,5 @@ async function somethingTemplate(arr, index, listKey) {
 async function contactInitials(contact) {
   return `
     <div class="contact_color" style="background-color: var(${await contact.color});">${getInitials(contact.name)}</div>
-  `
+  `;
 }

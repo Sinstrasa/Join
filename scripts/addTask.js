@@ -413,13 +413,15 @@ function hideTaskMessage() {
     const uid = localStorage.getItem('uid');
     const contactRef = document.getElementById("contactList");
     let myObject = await getAddTaskData("/users/" + uid + "/contacts");
+    let myUser = await getAddTaskData("/users/" + uid);
     let myArray = Object.values(myObject);
+    contactRef.innerHTML = await contactsTemplate(myUser, 'username');
     renderContacts(contactRef, myArray);
   }
 
   async function renderContacts(contactRef, contacts) {
     for (const contact of contacts) {
-      contactRef.innerHTML += await contactsTemplate(contact);
+      contactRef.innerHTML += await contactsTemplate(contact, 'name');
     }
   }
 

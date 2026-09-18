@@ -46,7 +46,7 @@
   .column_list {
     flex-direction: row;
     width: 100%;
-    height: auto;
+    height: 300px;
     overflow-x: auto;
   }
   .nothing {
