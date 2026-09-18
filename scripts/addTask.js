@@ -150,11 +150,11 @@ function getTodayDate() {
   }
 
   function initActionButtons(stat) {
-    addClickListener("clearTaskButton", clearTaskForm);
-    addClickListener("createTaskButton", () => createTask(stat));
-    addClickListener("clearSubtaskButton", removeInput);
-    addClickListener("addSubtaskButton", addInput);
-  }
+  addClickListener("clearTaskButton", clearTaskForm);
+  addClickListener("createTaskButton", (event) => createTask(event, stat));
+  addClickListener("clearSubtaskButton", removeInput);
+  addClickListener("addSubtaskButton", addInput);
+}
 
   function addClickListener(id, callback) {
     const button = document.getElementById(id);
@@ -313,12 +313,18 @@ function validateDueDate() {
     };
   }
 
-  async function createTask(stat) {
-    if (!validateTask()) return showValidationError();
+ async function createTask(event, stat) {
+  event.preventDefault();
+  if (!validateTask()) return;
+
+  try {
     const id = await getNextTaskId();
     const task = collectTaskData(id, stat);
     await saveTask(task);
+  } catch (error) {
+    handleTaskCreationError(error);
   }
+}
 
   function collectTaskData(id, stat) {
     return {
@@ -340,17 +346,8 @@ function validateDueDate() {
   }
 
   async function saveTask(task) {
-    try {
-      await putAddTaskData(`/tickets/${task.id}`, task);
-      handleSuccessfulTaskCreation();
-    } catch (error) {
-      handleTaskCreationError(error);
-    }
-  }
-
-  function handleSuccessfulTaskCreation() {
-  clearTaskForm();
-  showTaskMessage("Task added to board");
+  await putAddTaskData(`/tickets/${task.id}`, task);
+  window.location.replace("board.html");
 }
 
   function handleTaskCreationError(error) {
