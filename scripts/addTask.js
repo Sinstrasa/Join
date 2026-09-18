@@ -3,6 +3,7 @@
 
   let selectedPriority = "Medium";
   let subtasks = [];
+  let assigned = [];
 
   function initAddTask() {
     const uid = localStorage.getItem('uid');
@@ -223,12 +224,6 @@ function getTodayDate() {
     updateSubtask(index, newValue);
   }
 
-  // function editSubtask(index) {
-  //   const newValue = prompt("Edit subtask:", subtasks[index]);
-  //   if (newValue === null) return;
-  //   updateSubtask(index, newValue);
-  // }
-
   function updateSubtask(index, value) {
     let subtaskRef = document.getElementById('subtaskListItem'+index);
     const trimmedValue = value.trim();
@@ -237,13 +232,6 @@ function getTodayDate() {
     subtaskRef.innerHTML = recreateSubtaskTemplate();
     renderSubtasks();
   }
-
-  // function updateSubtask(index, value) {
-  //   const trimmedValue = value.trim();
-  //   if (!trimmedValue) return;
-  //   subtasks[index] = trimmedValue;
-  //   renderSubtasks();
-  // }
 
   function escapeHtml(value) {
     const div = document.createElement("div");
@@ -423,6 +411,24 @@ function hideTaskMessage() {
     for (const contact of contacts) {
       contactRef.innerHTML += await contactsTemplate(contact, 'name');
     }
+  }
+
+  async function addAssignedUsers(name, color) {
+    let assignedRef = document.getElementById('assignedUser');
+    assigned.push({"name": name, "color": color});
+    if (assigned.length > 3) {
+      assigned.pop();
+    }
+    assignedRef.innerHTML = '';
+    for (let index = 0; index < assigned.length; index++) {
+      assignedRef.innerHTML += await contactInitials(assigned[index]);
+    }
+  }
+
+  function resetAssigned() {
+    let assignedRef = document.getElementById('assignedUser');
+    assignedRef.innerHTML = '';
+    assigned = [];
   }
 
   window.initAddTask = initAddTask;

@@ -203,6 +203,8 @@
                 <div class="select_areas_menu" id="contactList"></div>
 
                 <input type="hidden" id="assigned" name="assigned" value="" />
+
+                <div class="assigned_user" id="assignedUser"></div>
               </div>
             </div>
 
@@ -280,7 +282,7 @@
           <p><span>*</span>This field is required</p>
 
           <div class="footer_buttons">
-            <button class="cancel" id="clearTaskButton" type="button">
+            <button class="cancel" id="clearTaskButton" type="button" onclick="resetAssigned()">
               Clear
 
               <img src="../assets/img/general/close.svg" alt="Clear" />
@@ -290,7 +292,7 @@
               class="highlighted_button"
               id="createTaskButton"
               type="button"
-            >
+              onclick="resetAssigned()">
               Create Task
 
               <img src="../assets/img/general/check.svg" alt="Create task" />

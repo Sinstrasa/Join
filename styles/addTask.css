@@ -243,6 +243,13 @@
   background-color: var(--menu_color);
 }
 
+/* Assigned */
+
+.assigned_user {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
 
 /* Subtasks */
 

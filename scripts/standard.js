@@ -60,3 +60,9 @@ function loadOwnProfile(uid) {
     .then(response => response.json())
     .then((userData) => displayProfileIcon(userData));
 }
+
+async function contactInitials(contact) {
+  return `
+    <div class="contact_color" style="background-color: var(${await contact.color});">${getInitials(contact.name)}</div>
+  `;
+}

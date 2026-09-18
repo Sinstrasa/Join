@@ -242,9 +242,3 @@ async function somethingTemplate(arr, index, listKey) {
     </li>
   `;
 }
-
-async function contactInitials(contact) {
-  return `
-    <div class="contact_color" style="background-color: var(${await contact.color});">${getInitials(contact.name)}</div>
-  `;
-}
