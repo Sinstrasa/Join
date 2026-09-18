@@ -77,6 +77,8 @@
 }
 
 .new_task {
+  gap: 12px;
+  align-items: center;
   padding: 8px 16px;
   width: 160px;
   height: 48px;
@@ -85,7 +87,8 @@
   background-color: var(--main_color);
 }
 
-.new_task > p {
+.new_task > p,
+.new_task > a {
   color: white;
   font-size: 21px;
   font-weight: 700;
@@ -125,6 +128,7 @@
   height: 500px;
   list-style: none;
   overflow: auto;
+  overflow-x: hidden;
 }
 
 .adding_task {
@@ -271,10 +275,18 @@ h5 {
 }
 
 @keyframes taskToCenter {
-  from {
-    transform: translateX(100vw);
-  }
-  to {
-    transform: translateX(0vw);
-  }
+  from {transform: translateX(100vw);}
+  to {transform: translateX(0vw);}
+}
+
+.shakeItTillYouMakeIt {
+  animation: shake 500ms linear infinite;
+}
+
+@keyframes shake {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(-2deg); }
+    50%  { transform: rotate(2deg); }
+    75%  { transform: rotate(-2deg); }
+    100% { transform: rotate(0deg); }
 }

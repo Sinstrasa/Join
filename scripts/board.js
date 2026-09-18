@@ -370,3 +370,8 @@ async function closeSpecificDialog(reference) {
   dialogRef.classList.remove("add_task_dialog");
   cardColumn();
 }
+
+function shakeAnimation(id) {
+  const taskRef = document.getElementById('li' + id);
+  taskRef.classList.add('shakeItTillYouMakeIt');
+}
