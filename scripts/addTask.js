@@ -431,7 +431,8 @@ function hideTaskMessage() {
   }
 
   async function removeAssignedUsers(name) {
-    switch (assigned.findIndex((user) => user.name === name)) {
+    if (assigned.length == 3) {
+      switch (assigned.findIndex((user) => user.name === name)) {
       case 2:
         assigned.pop();
         updateAssigned();
@@ -446,6 +447,18 @@ function hideTaskMessage() {
         assigned.shift();
         updateAssigned();
         break;
+    }
+    } else {
+      switch (assigned.findIndex((user) => user.name === name)) {
+        case 1:
+          assigned.pop();
+          updateAssigned();
+          break;
+        default:
+          assigned.shift();
+          updateAssigned();
+          break;
+        }
     }
   }
 

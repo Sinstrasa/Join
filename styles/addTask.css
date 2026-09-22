@@ -194,6 +194,7 @@
 .select_areas_menu {
   position: absolute;
   top: calc(100% + 4px);
+  gap: 2px;
   left: 0;
   z-index: 5;
   display: none;
@@ -210,6 +211,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  font-size: 20px;
 }
 
 .select_contacts_option {
@@ -222,6 +224,7 @@
 }
 
 .select_contacts_option:hover {
+  color: black;
   background-color: var(--menu_color);
 }
 
@@ -249,6 +252,11 @@
   display: flex;
   gap: 8px;
   margin-top: 8px;
+}
+
+.assigned_button {
+  color: white;
+  background-color: var(--main_color);
 }
 
 /* Subtasks */

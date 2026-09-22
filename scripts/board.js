@@ -262,8 +262,8 @@ async function editTaskDialog(listKey, index) {
   dialogRef.innerHTML = await addTaskDialogTemplateTest(arr, index, await readDatabase(arr, index, "status"));
   await setData(arr, index);
   const list = document.getElementById("subtasks");
-  for (let subindex = 0; subindex < arr[index]["subtasks"].length; subindex++) {
-    list.innerHTML += createSubtaskTemplate(arr[index]["subtasks"][subindex], subindex);
+  for (let subindex = 0; subindex < subtasks.length; subindex++) {
+    list.innerHTML += createSubtaskTemplate(subtasks[subindex], subindex);
   }
   initialiseAddTask();
   initActionButtons(listKey);
@@ -303,7 +303,11 @@ async function setData(arr, index) {
 
 async function setAssigned(arr, index) {
   const assignedRef = document.getElementById("assignedUser");
-  assigned = await readDatabase(arr, index, 'assigned');
+  if (await readDatabase(arr, index, 'assigned') === undefined) {
+    assigned = [];
+  } else {
+    assigned = await readDatabase(arr, index, 'assigned');
+  }
   for (let subindex = 0; subindex < assigned.length; subindex++) {
     assignedRef.innerHTML += await contactInitials(assigned[subindex]);
   }
