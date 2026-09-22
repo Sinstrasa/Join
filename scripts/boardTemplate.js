@@ -102,6 +102,7 @@ async function addTaskDialogTemplate() {
               </button>
               <div class="select_areas_menu" id="contactList"></div>
               <input type="hidden" id="assigned" name="assigned" value=""/>
+              <div class="assigned_user" id="assignedUser"></div>
             </div>
           </div>
           <div class="add_task_input">
@@ -152,7 +153,7 @@ async function addTaskDialogTemplate() {
           <button class="cancel" id="clearTaskButton" type="button">
             Clear <img src="../assets/img/general/close.svg" alt="Clear"/>
           </button>
-          <button class="highlighted_button" id="createTaskButton" type="button" onclick="closeSpecificDialog('dialog'); openDialog('verifyDialog')">
+          <button class="highlighted_button" id="createTaskButton" type="button" onclick="closeSpecificDialog('dialog')">
             Create Task <img src="../assets/img/general/check.svg" alt="Create task"/>
           </button>
         </div>

@@ -46,6 +46,7 @@ async function addTaskDialogTemplateTest(arr, index, stat) {
               </button>
               <div class="select_areas_menu" id="contactList"></div>
               <input type="hidden" id="assigned" name="assigned" value=""/>
+              <div class="assigned_user" id="assignedUser"></div>
             </div>
           </div>
           <div class="add_task_input">

@@ -260,8 +260,7 @@ async function editTaskDialog(listKey, index) {
   dialogRef.classList.remove("task_board_dialog");
   dialogRef.classList.add("add_task_dialog");
   dialogRef.innerHTML = await addTaskDialogTemplateTest(arr, index, await readDatabase(arr, index, "status"));
-  setPriority(await readDatabase(arr, index, "priority"));
-  setCategory(arr, index);
+  await setData(arr, index);
   const list = document.getElementById("subtasks");
   for (let subindex = 0; subindex < arr[index]["subtasks"].length; subindex++) {
     list.innerHTML += createSubtaskTemplate(arr[index]["subtasks"][subindex], subindex);
@@ -294,6 +293,20 @@ function initialiseAddTask() {
   initSubtaskListEvents();
   addContactsToSelection();
   setMinimumDueDate();
+}
+
+async function setData(arr, index) {
+  setAssigned(arr, index);
+  setPriority(await readDatabase(arr, index, "priority"));
+  await setCategory(arr, index);
+}
+
+async function setAssigned(arr, index) {
+  const assignedRef = document.getElementById("assignedUser");
+  assigned = await readDatabase(arr, index, 'assigned');
+  for (let subindex = 0; subindex < assigned.length; subindex++) {
+    assignedRef.innerHTML += await contactInitials(assigned[subindex]);
+  }
 }
 
 async function setCategory(arr, index) {

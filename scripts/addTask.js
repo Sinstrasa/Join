@@ -321,7 +321,7 @@ function validateDueDate() {
       description: getInputValue("description"),
       date: getInputValue("dueDate"),
       priority: selectedPriority,
-      assigned: getAssignedContacts(),
+      assigned: assigned,
       category: getInputValue("category"),
       subtasks: [...subtasks],
       status: stat,
@@ -363,6 +363,7 @@ function hideTaskMessage() {
     resetDropdownLabels();
     resetSubtasks();
     setPriority("Medium");
+    resetAssigned();
   }
 
   function clearTextInputs() {
@@ -413,12 +414,43 @@ function hideTaskMessage() {
     }
   }
 
+  async function assignedUsers(name, color) {
+    if (assigned.some((user) => user.name === name)) {
+      removeAssignedUsers(name, color);
+    } else {
+      addAssignedUsers(name, color);
+    }
+  }
+
   async function addAssignedUsers(name, color) {
-    let assignedRef = document.getElementById('assignedUser');
     assigned.push({"name": name, "color": color});
     if (assigned.length > 3) {
       assigned.pop();
     }
+    updateAssigned();
+  }
+
+  async function removeAssignedUsers(name) {
+    switch (assigned.findIndex((user) => user.name === name)) {
+      case 2:
+        assigned.pop();
+        updateAssigned();
+        break;
+      case 1:
+        let helpArr = [assigned.pop()];
+        assigned.pop();
+        assigned = assigned.concat(helpArr);
+        updateAssigned();
+        break;
+      default:
+        assigned.shift();
+        updateAssigned();
+        break;
+    }
+  }
+
+  async function updateAssigned() {
+    let assignedRef = document.getElementById('assignedUser');
     assignedRef.innerHTML = '';
     for (let index = 0; index < assigned.length; index++) {
       assignedRef.innerHTML += await contactInitials(assigned[index]);
