@@ -188,7 +188,6 @@
 
 .select_areas_menu {
   position: absolute;
-  top: calc(100% + 4px);
   gap: 2px;
   left: 0;
   z-index: 5;
