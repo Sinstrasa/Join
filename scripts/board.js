@@ -4,8 +4,6 @@ let isSearch = false;
 let ticketAkku = [];
 let draggedTicket;
 
-// Funktionen, die nur für board gedacht sind
-
 function initialise() {
   const uid = localStorage.getItem("uid");
   if (!uid) {
