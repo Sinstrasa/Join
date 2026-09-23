@@ -79,6 +79,7 @@ async function updateColumn(arr, id) {
 }
 
 async function readDatabase(arr, index, information) {
+  if (arr === undefined || index === undefined || information === undefined) return "";
   return await arr[index][information];
 }
 
@@ -259,7 +260,7 @@ async function editTaskDialog(listKey, index) {
   const dialogRef = document.getElementById("dialog");
   dialogRef.classList.remove("task_board_dialog");
   dialogRef.classList.add("add_task_dialog");
-  dialogRef.innerHTML = await addTaskDialogTemplateTest(arr, index, await readDatabase(arr, index, "status"));
+  dialogRef.innerHTML = await addTaskDialogTemplate(arr, index, await readDatabase(arr, index, "status"));
   await setData(arr, index);
   const list = document.getElementById("subtasks");
   for (let subindex = 0; subindex < subtasks.length; subindex++) {
@@ -350,7 +351,9 @@ async function openSpecificDialog(listKey, index, stat, reference) {
     taskDialog(listKey, index, dialogRef);
   } else {
     dialogRef.classList.add("add_task_dialog");
-    dialogRef.innerHTML = await addTaskDialogTemplate();
+    dialogRef.innerHTML = await addTaskDialogTemplate(undefined, undefined, undefined);
+    document.getElementById('editTaskButton').classList.add("hide");
+    document.getElementById('editTaskButton').classList.remove("highlighted_button");
     initActionButtons(stat);
     setPriority("Medium");
     initialiseAddTask();
@@ -365,7 +368,7 @@ async function openSwapDialog(reference) {
   const liRef = document.getElementById(reference);
   const rect = liRef.getBoundingClientRect();
   dialogRef.style.top = `${rect.top + 16}px`;
-  dialogRef.style.left = `${rect.right - 175}px`;
+  dialogRef.style.left = `${rect.right - 188}px`;
   dialogRef.showModal();
   document.body.classList.toggle("dialog_open");
 }
@@ -387,5 +390,5 @@ async function closeSpecificDialog(reference) {
 
 function shakeAnimation(id) {
   const taskRef = document.getElementById('li' + id);
-  taskRef.classList.add('shakeItTillYouMakeIt');
+  taskRef.classList.add('shakeIt');
 }

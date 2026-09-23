@@ -288,7 +288,7 @@ h5 {
   to {transform: translateX(0vw);}
 }
 
-.shakeItTillYouMakeIt {
+.shakeIt {
   animation: shake 500ms linear infinite;
 }
 

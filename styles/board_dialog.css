@@ -275,14 +275,18 @@ h6 {
   color: white;
 }
 
-.swap_dialog > p {
-  margin-bottom: 11px;
-}
-
 .swap_dialog {
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.swap_dialog > p {
+  margin-bottom: 11px;
+}
+
+.swap_dialog > div {
+  padding: 8px 8px 0px 8px;
 }
 
 .hide {

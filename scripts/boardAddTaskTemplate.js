@@ -1,8 +1,11 @@
-async function addTaskDialogTemplateTest(arr, index, stat) {
+async function addTaskDialogTemplate(arr, index, stat) {
   return `
     <article class="add_task" onclick="stopPropagation(event)">
       <section class="add_task_head">
         <h1>Add Task</h1>
+        <button class="close" onclick="closeSpecificDialog('dialog')">
+            <img src="../assets/img/general/close.svg" alt="Close Symbol" />
+        </button>
       </section>
       <article class="add_task_main">
         <section class="add_task_left">
@@ -95,10 +98,10 @@ async function addTaskDialogTemplateTest(arr, index, stat) {
           <button class="cancel" id="clearTaskButton" type="button">
             Clear <img src="../assets/img/general/close.svg" alt="Clear"/>
           </button>
-          <button class="highlighted_button" id="createTaskButton" onclick="createTask('${stat}')" type="button">
+          <button class="highlighted_button" id="createTaskButton" type="button" onclick="closeSpecificDialog('dialog')">
             Create Task <img src="../assets/img/general/check.svg" alt="Create task"/>
           </button>
-          <button class="highlighted_button hide" id="editTaskButton" onclick="editedTask(${index}, '${stat}')" type="button">
+          <button class="highlighted_button" id="editTaskButton" onclick="editedTask(${index}, '${stat}')" type="button">
             Ok <img src="../assets/img/general/check.svg" alt="Editing Task">
           </button>
         </div>

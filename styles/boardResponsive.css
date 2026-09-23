@@ -61,7 +61,7 @@
   .add_task_dialog {
     min-width: 234px;
     max-width: 353px;
-    height: 640px;
+    max-height: 640px;
   }
   .task_board {
     padding: 32px 24px;
@@ -87,6 +87,16 @@
   }
   .add_task_head{
     display: none;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 374px){
+  .task_board_dialog {
+    max-width: 300px;
+    max-height: 600px;
+  }
+  .add_task_dialog {
+    max-height: 600px;
   }
 }
 
