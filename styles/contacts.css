@@ -2,18 +2,15 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-
 .main_content {
   height: 100vh;
 }
-
 main {
   display: flex;
   flex: 1;
   min-height: 0;
   overflow: hidden;
 }
-
 .contacts_container {
   display: flex;
   flex-direction: column;
@@ -22,14 +19,12 @@ main {
   min-height: 0;
   overflow: hidden;
 }
-
 .contacts_list {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
-
 main {
   display: flex;
   align-items: center;
@@ -37,7 +32,6 @@ main {
   min-height: 0;
   overflow: hidden;
 }
-
 .new_contact {
   display: flex;
   justify-content: center;
@@ -45,19 +39,15 @@ main {
   margin-top: 32px;
   margin-bottom: 32px;
 }
-
 .highlighted_button {
   width: 90%;
 }
-
 #addContactButton {
   display: flex;
   justify-content: center;
   gap: 16px;
 }
-
 /* -----------Add Concat Dialog---------------------------- */
-
 .add_contact_dialog {
   padding: 0;
   border: none;
@@ -69,14 +59,12 @@ main {
   transform: translate(-50%, -50%);
   margin: 0;
 }
-
 .add_contact {
   display: flex;
   flex-direction: row;
   width: 1000px;
   height: 500px;
 }
-
 .add_contact_header {
   background-color: var(--main_color);
   width: 400px;
@@ -91,25 +79,21 @@ main {
   border-radius: 16px 0 0 16px;
   margin-top: -80px;
 }
-
 .add_contact_header img {
   width: 48px;
   height: 48px;
 }
-
 .add_contact_dialog h2 {
   font-size: 48px;
   font-weight: 600;
   margin: 0;
 }
-
 .title_underline {
   width: 64px;
   height: 2px;
   background-color: var(--add_hover);
   border-radius: 3px;
 }
-
 .add_contact_content {
   flex: 1;
   /* padding: 24px; */
@@ -118,7 +102,6 @@ main {
   justify-content: center;
   gap: 24px;
 }
-
 .contact_placeholder {
   width: 100px;
   height: 100px;
@@ -133,19 +116,16 @@ main {
   margin: 56px;
   margin-top: -20px;
 }
-
 .contact_placeholder img {
   width: 36px;
   height: 36px;
   filter: brightness(0) invert(1);
 }
-
 .add_contact_content {
   padding: 0px;
   justify-content: flex-start;
   width: 100%;
 }
-
 .add_contact_content form {
   display: flex;
   flex-direction: column;
@@ -154,11 +134,9 @@ main {
   gap: 16px;
   width: 80%;
 }
-
 .add_contact_content .form_group {
   position: relative;
 }
-
 .sr_only {
   position: absolute;
   width: 1px;
@@ -170,7 +148,6 @@ main {
   border: 0;
   clip: rect(0, 0, 0, 0);
 }
-
 .add_contact_content input {
   width: 100%;
   height: 48px;
@@ -179,7 +156,6 @@ main {
   border: 1px solid var(--border_color);
   font-size: 16px;
 }
-
 .add_contact_content .field_icon {
   position: absolute;
   right: 12px;
@@ -198,14 +174,12 @@ main {
   background: none;
   cursor: pointer;
 }
-
 .footer_buttons {
   display: flex;
   justify-content: flex-start;
   gap: 16px;
   margin-top: 24px;
 }
-
 .footer_buttons .cancel {
   padding: 12px 20px;
   border-radius: 8px;
@@ -215,7 +189,6 @@ main {
   cursor: pointer;
   white-space: nowrap;
 }
-
 .footer_buttons .highlighted_button {
   border-radius: 10px;
   border: none;
@@ -226,7 +199,6 @@ main {
   font-size: 21px;
   font-weight: 700;
 }
-
 .contacts_container {
   width: 500px;
   flex-shrink: 0;
@@ -240,7 +212,6 @@ main {
   min-height: 0;
   overflow: hidden;
 }
-
 .contacts_list {
   flex: 1;
   min-height: 0;
@@ -250,9 +221,7 @@ main {
   overflow-y: auto;
   list-style: none;
 }
-
 /* -----------------Contacts List Item----------------- */
-
 .contact_group_header {
   padding: 12px 16px 16px;
   margin-left: 24px;
@@ -261,7 +230,6 @@ main {
   color: var(--border_color);
   border-bottom: 1px solid var(--menu_color);
 }
-
 .contact_item {
   display: flex;
   flex-direction: row;
@@ -271,7 +239,6 @@ main {
   padding: 16px 16px;
   cursor: pointer;
 }
-
 .contact_item:hover {
   color: white;
   background-color: var(--main_color);
@@ -279,14 +246,12 @@ main {
   border-radius: 10px;
   cursor: pointer;
 }
-
 .contact_info {
   display: flex;
   flex-direction: column;
   gap: 2px;
   overflow: hidden;
 }
-
 .contact_name {
   font-weight: 500;
   font-size: 24px;
@@ -295,7 +260,6 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .contact_email {
   color: var(--add_hover);
   font-size: 14px;
@@ -304,13 +268,10 @@ main {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .contact_phone {
   display: none;
 }
-
 /* ------------------Contact Details----------------- */
-
 .contact_details_container {
   display: flex;
   flex-direction: column;
@@ -321,7 +282,6 @@ main {
   padding: 40px;
   margin-left: 80px;
 }
-
 .contact_detail_header {
   display: flex;
   flex-direction: row;
@@ -331,18 +291,15 @@ main {
   height: 60px;
   margin-top: 80px;
 }
-
 .contact_detail_header h2 {
   font-size: 61px;
   font-size: bold;
   font-weight: 700;
 }
-
 .contact_detail_header p {
   font-size: 27px;
   font-weight: 400;
 }
-
 .contact_card {
   margin-top: 50px;
   text-align: left;
@@ -350,14 +307,12 @@ main {
   flex-direction: column;
   align-items: flex-start;
 }
-
 .contact_card_header {
   display: flex;
   align-items: center;
   gap: 64px;
   margin-bottom: 32px;
 }
-
 .contact_card_color {
   width: 160px;
   height: 160px;
@@ -372,19 +327,16 @@ main {
   border: 4px solid white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 .contact_card_header h2 {
   font-size: 64px;
   font-weight: 600;
   margin: 0;
 }
-
 .contact_card_buttons {
   display: flex;
   flex-direction: row;
   gap: 16px;
 }
-
 .contact_buttons {
   display: flex;
   font-size: 24px;
@@ -394,36 +346,29 @@ main {
   align-items: center;
   margin-top: 16px;
 }
-
 .contact_buttons:hover {
   font-weight: bold;
 }
-
 .contact_buttons img {
   width: 24px;
   margin-right: 8px;
 }
-
 .contact_card_info .subtitle {
   font-weight: 500;
   font-size: 32px;
   margin: 0 0 48px;
 }
-
 .contact_card_info .detail_label {
   color: var(--main_color);
   font-size: 24px;
   margin: 16px 0 16px;
   font-weight: bold;
 }
-
 .contact_card_info .detail_value {
   margin: 0;
   font-size: 24px;
 }
-
 /* -----------------Edit Contact Dialog--------------------- */
-
 .contact_edit_color {
   width: 80px;
   height: 80px;
@@ -438,7 +383,6 @@ main {
   border: 2px solid white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 .contact_edit_color_spacer {
   border-radius: 50%;
   background: none;
@@ -450,7 +394,6 @@ main {
   margin: 56px;
   margin-top: -20px;
 }
-
 @keyframes slide_in {
   from {
     transform: translate(-50%, -50%) translateX(400px);
@@ -461,7 +404,6 @@ main {
     opacity: 1;
   }
 }
-
 @keyframes slide_out {
   from {
     transform: translate(-50%, -50%) translateX(0);
@@ -472,11 +414,9 @@ main {
     opacity: 0;
   }
 }
-
 .slide_in {
   animation: slide_in 0.3s ease-out;
 }
-
 .slide_out {
   animation: slide_out 0.3s ease-in;
 }
