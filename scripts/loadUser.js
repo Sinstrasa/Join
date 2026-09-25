@@ -96,7 +96,8 @@ function isGuestUser() {
 }
 
 function loadUserProfile(uid) {
-  fetch(`${baseUrl}users/${uid}.json`)
+  const idToken = localStorage.getItem('idToken');
+  fetch(`${baseUrl}users/${uid}.json?auth=${idToken}`)
     .then((response) => response.json())
     .then(showUserInitials)
     .catch(handleProfileError);

@@ -82,7 +82,8 @@ function getInputValue(id) {
 }
 
 async function getAddTaskData(path = "") {
-  const response = await fetch(addTaskBaseUrl + path + ".json");
+  const idToken = localStorage.getItem('idToken');
+  const response = await fetch(addTaskBaseUrl + path + ".json?auth=" + idToken);
   if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
   return await response.json();
 }
@@ -100,8 +101,9 @@ function isNumericKey(key) {
 }
 
 async function putAddTaskData(path = "", data = {}) {
+  const idToken = localStorage.getItem('idToken');
   const response = await fetch(
-    addTaskBaseUrl + path + ".json",
+    addTaskBaseUrl + path + ".json?auth=" + idToken,
     getPutOptions(data)
   );
   if (!response.ok) throw new Error(`HTTP error: ${response.status}`);

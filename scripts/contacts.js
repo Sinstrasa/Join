@@ -3,20 +3,23 @@ const state = {
 };
 
 function createContact(uid, contactData) {
-  return fetch(baseUrl + "users/" + uid + "/contacts.json", {
+  const idToken = localStorage.getItem('idToken');
+  return fetch(baseUrl + "users/" + uid + "/contacts.json?auth=" + idToken, {
     method: "POST",
     body: JSON.stringify(contactData),
   });
 }
 
 function deleteContact(uid, contactId) {
+  const idToken = localStorage.getItem('idToken');
   const path = "users/" + uid + "/contacts/" + contactId + ".json";
-  return fetch(baseUrl + path, {method: "DELETE",});
+  return fetch(baseUrl + path + "?auth=" + idToken, {method: "DELETE",});
 }
 
 function updateContact(uid, contactId, contactData) {
+  const idToken = localStorage.getItem('idToken');
   const path = "users/" + uid + "/contacts/" + contactId + ".json";
-  return fetch(baseUrl + path, {
+  return fetch(baseUrl + path + "?auth=" + idToken , {
     method: "PATCH",
     body: JSON.stringify(contactData),
   });
@@ -124,7 +127,8 @@ function createContactGroupHtml(letter, contacts) {
 }
 
 function loadContacts(uid) {
-  const url = baseUrl + "users/" + uid + "/contacts.json";
+  const idToken = localStorage.getItem('idToken');
+  const url = baseUrl + "users/" + uid + "/contacts.json?auth=" + idToken;
   return fetch(url)
     .then((response) => response.json())
     .then(saveAndRenderContacts);

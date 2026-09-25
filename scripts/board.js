@@ -16,7 +16,8 @@ function initialise() {
 }
 
 async function getTickets(path = "") {
-  let response = await fetch(baseUrl + path + ".json");
+  const idToken = localStorage.getItem('idToken');
+  let response = await fetch(baseUrl + path + ".json?auth=" + idToken);
   let responseToJson = await response.json();
   return Object.values(responseToJson);
 }
@@ -165,8 +166,9 @@ async function search(input) {
 }
 
 async function deleteTicket(path = "") {
+  const idToken = localStorage.getItem('idToken');
   const myArray = await getTickets("/tickets");
-  let myTicket = await (await fetch(baseUrl + path + ".json")).json();
+  let myTicket = await (await fetch(baseUrl + path + ".json?auth=" + idToken)).json();
   let akkumulator = myTicket.id;
   for (let index = akkumulator; index < myArray.length - 1; index++) {
     putTicket("/tickets/" + index, {
@@ -181,14 +183,15 @@ async function deleteTicket(path = "") {
       status: myArray[index + 1].status,
     });
   }
-  await fetch(baseUrl + "/tickets/" + (myArray.length - 1) + ".json", {
+  await fetch(baseUrl + "/tickets/" + (myArray.length - 1) + ".json?auth=" + idToken, {
     method: "DELETE",
   });
   await cardColumn();
 }
 
 async function putTicket(path = "", data = {}) {
-  await fetch(baseUrl + path + ".json", {
+  const idToken = localStorage.getItem('idToken');
+  await fetch(baseUrl + path + ".json?auth=" + idToken, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

@@ -223,3 +223,8 @@ main {
   margin: 0;
   font-size: 24px;
 }
+/* @media screen and (orientation: landscape){
+  body {
+    display: none;
+  }
+} */

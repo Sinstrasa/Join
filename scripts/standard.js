@@ -56,7 +56,8 @@ function displayProfileIcon(userData) {
 
 // Loads the current user's own data and fills their profile icon
 function loadOwnProfile(uid) {
-  fetch(baseUrl + 'users/' + uid + '.json')
+  const idToken = localStorage.getItem('idToken');
+  fetch(baseUrl + 'users/' + uid + '.json?auth=' + idToken)
     .then(response => response.json())
     .then((userData) => displayProfileIcon(userData));
 }

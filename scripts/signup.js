@@ -62,8 +62,8 @@ function signUpUser(email, password) {
 }
 
 // Writes the new user's username, email, and color to the database via REST
-function saveUserToDatabase(uid, username, email) {
-  return fetch(baseUrl + 'users/' + uid + '.json', {
+function saveUserToDatabase(uid, username, email, idToken) {
+  return fetch(baseUrl + 'users/' + uid + '.json?auth=' + idToken, {
     method: 'PUT',
     body: JSON.stringify({ username: username, email: email, color: getRandomContactColor() })
   });
@@ -82,7 +82,7 @@ function handleSignUpSubmit(event) {
   signUpUser(email, password)
     .then((data) => {
       if (data.error) throw data.error;
-      return saveUserToDatabase(data.localId, username, email);
+      return saveUserToDatabase(data.localId, username, email, data.idToken);
     })
     .then(() => showSuccessOverlay())
     .catch((error) => handleSignUpError(error, emailError));
@@ -97,7 +97,7 @@ function handleSignUpError(error, emailErrorElement) {
   }
 }
 
-// Shows the success overlay for a short time before redirecting
+// Shows the success overlay for a short time before redirecting to the login page
 function showSuccessOverlay() {
   const overlay = document.getElementById('successOverlay');
   overlay.hidden = false;
@@ -118,3 +118,5 @@ function initSignUp() {
 
   updateSubmitButtonState();
 }
+
+document.addEventListener('DOMContentLoaded', initSignUp);

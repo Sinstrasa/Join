@@ -1,5 +1,6 @@
 function loadTasks() {
-  return fetch(baseUrl + "tickets.json")
+  const idToken = localStorage.getItem('idToken');
+  return fetch(baseUrl + "tickets.json?auth=" + idToken)
     .then((response) => response.json())
     .then(convertTasksToArray);
 }
@@ -82,7 +83,8 @@ function setText(id, value) {
 }
 
 function loadUserGreeting(uid) {
-  fetch(baseUrl + "users/" + uid + ".json")
+  const idToken = localStorage.getItem('idToken');
+  fetch(baseUrl + "users/" + uid + ".json?auth=" + idToken)
     .then((response) => response.json())
     .then(displayGreeting)
     .catch(handleGreetingError);
