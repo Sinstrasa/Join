@@ -11,9 +11,7 @@ function createContact(uid, contactData) {
 
 function deleteContact(uid, contactId) {
   const path = "users/" + uid + "/contacts/" + contactId + ".json";
-  return fetch(baseUrl + path, {
-    method: "DELETE",
-  });
+  return fetch(baseUrl + path, {method: "DELETE",});
 }
 
 function updateContact(uid, contactId, contactData) {
@@ -31,7 +29,6 @@ function getRandomContactColor() {
 
 function generateContact(name, email, phone) {
   const uid = localStorage.getItem("uid");
-
   return createContact(uid, {
     name,
     email,
@@ -47,7 +44,6 @@ function injectAddContactDialog() {
 
 function injectEditContactDialog(contact) {
   removeExistingEditDialog();
-
   const mainContent = document.querySelector(".main_content");
   mainContent.insertAdjacentHTML("beforeend", editContactDialogTemplate(contact));
 }
@@ -75,7 +71,6 @@ function stopPropagation(event) {
 
 function mapContactsToArray(contactsData) {
   if (!contactsData) return [];
-
   return Object.keys(contactsData).map((key) => {
     return {
       id: key,
@@ -92,11 +87,9 @@ function sortContactsByName(contacts) {
 
 function groupContactsByLetter(contacts) {
   const groups = {};
-
   contacts.forEach((contact) => {
     addContactToGroup(groups, contact);
   });
-
   return groups;
 }
 
@@ -114,7 +107,6 @@ function renderContactsList(contacts) {
   const list = document.getElementById("contactsList");
   const sorted = sortContactsByName(contacts);
   const grouped = groupContactsByLetter(sorted);
-
   list.innerHTML = createContactsListHtml(grouped);
 }
 
@@ -133,7 +125,6 @@ function createContactGroupHtml(letter, contacts) {
 
 function loadContacts(uid) {
   const url = baseUrl + "users/" + uid + "/contacts.json";
-
   return fetch(url)
     .then((response) => response.json())
     .then(saveAndRenderContacts);
@@ -150,7 +141,6 @@ function findContactById(contacts, id) {
 
 function showContactDetail(contact) {
   if (!contact) return;
-
   const card = document.getElementById("contactCard");
   card.innerHTML = contactDetailTemplate(contact);
 }
@@ -158,7 +148,6 @@ function showContactDetail(contact) {
 function handleContactClick(event) {
   const item = event.target.closest(".contact_item");
   if (!item) return;
-
   const contact = findContactById(state.contacts, item.dataset.contactId);
   showContactDetail(contact);
   openMobileContactDetail();
@@ -166,10 +155,8 @@ function handleContactClick(event) {
 
 function openMobileContactDetail() {
   if (window.innerWidth >= 1024) return;
-
   const list = document.querySelector(".contacts_container");
   const details = document.querySelector(".contact_details_container");
-
   list.classList.add("mobile_detail_hidden");
   details.classList.add("mobile_detail_open");
 }
@@ -177,14 +164,12 @@ function openMobileContactDetail() {
 function closeMobileContactDetail() {
   const list = document.querySelector(".contacts_container");
   const details = document.querySelector(".contact_details_container");
-
   list.classList.remove("mobile_detail_hidden");
   details.classList.remove("mobile_detail_open");
 }
 
 function handleDeleteContact(contactId) {
   const uid = localStorage.getItem("uid");
-
   deleteContact(uid, contactId).then(() => {
     clearContactDetail();
     closeMobileContactDetail();
@@ -200,7 +185,6 @@ function clearContactDetail() {
 function handleEditContact(contactId) {
   const contact = findContactById(state.contacts, contactId);
   if (!contact) return;
-
   injectEditContactDialog(contact);
   registerEditDialogListeners();
   openEditContactDialog();
@@ -218,21 +202,18 @@ function handleContactCardClick(event) {
     handleMobileContactAction(actionButton);
     return;
   }
-
   handleDesktopContactAction(event);
 }
 
 function handleDesktopContactAction(event) {
   const editButton = event.target.closest("#editContactButton");
   const deleteButton = event.target.closest("#deleteContactButton");
-
   if (editButton) handleEditContact(editButton.dataset.contactId);
   if (deleteButton) handleDeleteContact(deleteButton.dataset.contactId);
 }
 
 function handleMobileContactAction(button) {
   const action = button.dataset.action;
-
   if (action === "toggle-menu") toggleMobileContactMenu();
   if (action === "edit-mobile") openMobileEdit(button);
   if (action === "delete-mobile") deleteMobileContact(button);
@@ -241,14 +222,12 @@ function handleMobileContactAction(button) {
 function toggleMobileContactMenu() {
   const menu = document.querySelector(".contact_mobile_menu");
   if (!menu) return;
-
   menu.classList.toggle("contact_mobile_menu_open");
 }
 
 function closeMobileContactMenu() {
   const menu = document.querySelector(".contact_mobile_menu");
   if (!menu) return;
-
   menu.classList.remove("contact_mobile_menu_open");
 }
 
@@ -264,10 +243,8 @@ function deleteMobileContact(button) {
 
 function handleAddContactSubmit(event) {
   event.preventDefault();
-
   const uid = localStorage.getItem("uid");
   const data = getAddContactFormData();
-
   generateContact(data.name, data.email, data.phone).then(() => {
     finishAddContact(uid);
   });
@@ -285,14 +262,13 @@ function finishAddContact(uid) {
   document.getElementById("addContactForm").reset();
   closeDialog("addContact");
   loadContacts(uid);
+  showSuccessOverlay();
 }
 
 function handleEditContactSubmit(event) {
   event.preventDefault();
-
   const uid = localStorage.getItem("uid");
   const data = getEditContactFormData();
-
   updateContact(uid, data.id, data.contact).then(() => {
     finishEditContact(uid, data.id);
   });
@@ -311,7 +287,6 @@ function getEditContactFormData() {
 
 function finishEditContact(uid, contactId) {
   document.getElementById("editContact").remove();
-
   loadContacts(uid).then(() => {
     const contact = findContactById(state.contacts, contactId);
     showContactDetail(contact);
@@ -322,7 +297,6 @@ function registerEditDialogListeners() {
   const form = document.getElementById("editContactForm");
   const close = document.getElementById("closeEditContactButton");
   const remove = document.getElementById("deleteEditContactButton");
-
   form.addEventListener("submit", handleEditContactSubmit);
   close.addEventListener("click", closeEditContactDialog);
   remove.addEventListener("click", handleEditDelete);
@@ -335,7 +309,6 @@ function closeEditContactDialog() {
 
 function handleEditDelete(event) {
   const contactId = event.currentTarget.dataset.contactId;
-
   handleDeleteContact(contactId);
   closeAnimation(document.getElementById("editContact"));
 }
@@ -354,14 +327,12 @@ function registerAddContactForm() {
 function registerAddContactButtons() {
   const desktop = document.getElementById("addContactButton");
   const mobile = document.getElementById("mobileAddContactButton");
-
   desktop.addEventListener("click", openAddContactDialog);
   mobile.addEventListener("click", openAddContactDialog);
 }
 
 function openAddContactDialog() {
   const dialog = document.getElementById("addContact");
-
   openDialog("addContact");
   openAnimation(dialog);
 }
@@ -369,7 +340,6 @@ function openAddContactDialog() {
 function registerCloseContactButtons() {
   const close = document.getElementById("closeAddContactButton");
   const cancel = document.getElementById("cancelAddContactButton");
-
   close.addEventListener("click", closeAddContactDialog);
   cancel.addEventListener("click", closeAddContactDialog);
 }
@@ -382,19 +352,16 @@ function closeAddContactDialog() {
 function registerContactListeners() {
   const list = document.getElementById("contactsList");
   const card = document.getElementById("contactCard");
-
   list.addEventListener("click", handleContactClick);
   card.addEventListener("click", handleContactCardClick);
 }
 
 function initContacts() {
   const uid = localStorage.getItem("uid");
-
   if (!uid) {
     window.location.href = "../index.html";
     return;
   }
-
   initializeContactsPage(uid);
 }
 
@@ -404,4 +371,12 @@ function initializeContactsPage(uid) {
   loadContacts(uid);
   registerDialogListeners();
   registerContactListeners();
+}
+
+function showSuccessOverlay() {
+  const overlay = document.getElementById('successOverlay');
+  overlay.hidden = false;
+  setTimeout(() => {
+    overlay.hidden = true;
+  }, 2000);
 }

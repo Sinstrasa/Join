@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/standardClasses.css" />
     <link rel="stylesheet" href="../styles/contacts.css" />
+    <link rel="stylesheet" href="../styles/contactsDialogs.css" />
     <link rel="stylesheet" href="../styles/contactsResponsive.css" />
     <link rel="stylesheet" href="../styles/contactsResponsiveTwo.css" />
 
@@ -26,6 +27,11 @@
   </head>
 
   <body onload="initContacts()">
+    <div class="overlay" id="successOverlay" hidden>
+        <div class="overlay_box">
+          <p>Contact added successfully</p>
+        </div>
+      </div>
     <aside class="desktop">
       <img
         src="../assets/img/general/joinLogo.svg"

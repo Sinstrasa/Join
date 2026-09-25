@@ -147,6 +147,17 @@
   display: none;
 }
 
+@keyframes fly_in {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .overlay_box {
   padding: 25px;
   border: none;
@@ -154,6 +165,7 @@
   color: white;
   background-color: var(--main_color);
   font-size: 24px;
+  animation: fly_in 0.4s ease-out;
 }
 
 .page_shell > .footer {
