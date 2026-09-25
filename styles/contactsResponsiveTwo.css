@@ -1,5 +1,68 @@
 @media screen and (max-width: 1023px) {  
   
+  /* Contact actions */
+
+  .contact_mobile_actions {
+    position: fixed;
+    right: 24px;
+    bottom: 100px;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .contact_more_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    padding: 0 0 8px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--main_color);
+    color: white;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .contact_mobile_menu {
+    position: absolute;
+    right: 0;
+    bottom: 64px;
+    display: none;
+    flex-direction: column;
+    min-width: 120px;
+    padding: 8px;
+    border-radius: 12px 12px 0 12px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .contact_mobile_menu.contact_mobile_menu_open {
+    display: flex;
+  }
+
+  .contact_mobile_menu button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .contact_mobile_menu img {
+    width: 20px;
+    height: 20px;
+  }
+
   /* Add and edit dialog */
 
   .add_contact_dialog {
