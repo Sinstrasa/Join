@@ -11,13 +11,12 @@
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/standardClasses.css" />
     <link rel="stylesheet" href="../styles/information.css" />
-    <link rel="stylesheet" href="../styles/standardResponsive.css">
+    <link rel="stylesheet" href="../styles/standardResponsive.css" />
     <link rel="stylesheet" href="../styles/informationResponsive.css" />
-    
 
     <script src="../scripts/loadUser.js"></script>
     <script src="../scripts/standard.js" defer></script>
-    
+
     <link
       rel="shortcut icon"
       href="../assets/img/general/logoFavicon.svg"
@@ -27,7 +26,9 @@
 
   <body onload="initInformationPage()">
     <aside class="desktop">
-      <a class="logo" href="summary.html"><img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" /></a>
+      <a class="logo" href="summary.html"
+        ><img src="../assets/img/general/joinLogo.svg" alt="Logo of Join"
+      /></a>
 
       <article>
         <section class="menu">
@@ -100,11 +101,12 @@
         <div class="information_title_row">
           <h1>Help</h1>
 
-          <button class="back_button" type="button" onclick="history.back()">
-            <img
-              src="../assets/img/general/arrow.svg"
-              alt="Go back"
-            />
+          <button
+            class="back_button help_back_button"
+            type="button"
+            onclick="history.back()"
+          >
+            <img src="../assets/img/general/arrow.svg" alt="Go back" />
           </button>
         </div>
 
@@ -149,8 +151,8 @@
                 When you open the <strong>Board</strong>, you will see an
                 overview of all your tasks. Tasks are organized into four
                 different sections: <strong>To do</strong>,
-                <strong>In progress</strong>,
-                <strong>Await feedback</strong>, and <strong>Done</strong>.
+                <strong>In progress</strong>, <strong>Await feedback</strong>,
+                and <strong>Done</strong>.
               </p>
 
               <p>
