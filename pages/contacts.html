@@ -16,8 +16,11 @@
     <link rel="stylesheet" href="../styles/contactsResponsiveTwo.css" />
 
     <script src="../scripts/standard.js" defer></script>
-    <script src="../scripts/contacts.js" defer></script>
     <script src="../scripts/contactsTemplates.js" defer></script>
+    <script src="../scripts/contactsDialogTemplates.js" defer></script>
+    <script src="../scripts/contactsData.js" defer></script>
+    <script src="../scripts/contacts.js" defer></script>
+    <script src="../scripts/contactsInteractions.js" defer></script>
 
     <link
       rel="shortcut icon"
@@ -28,36 +31,30 @@
 
   <body onload="initContacts()">
     <div class="overlay" id="successOverlay" hidden>
-        <div class="overlay_box">
-          <p>Contact added successfully</p>
-        </div>
+      <div class="overlay_box">
+        <p>Contact added successfully</p>
       </div>
+    </div>
+
     <aside class="desktop">
-      <a class="logo" href="summary.html"><img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" /></a>
+      <a class="logo" href="summary.html">
+        <img src="../assets/img/general/joinLogo.svg" alt="Logo of Join" />
+      </a>
 
       <article>
         <section class="menu">
           <a class="another_page" href="summary.html">
-            <img
-              src="../assets/img/aside/summary.svg"
-              alt="Summary Icon"
-            />
+            <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
             <p>Summary</p>
           </a>
 
           <a class="another_page" href="addTask.html">
-            <img
-              src="../assets/img/aside/addTask.svg"
-              alt="Task Icon"
-            />
+            <img src="../assets/img/aside/addTask.svg" alt="Task Icon" />
             <p>Add Task</p>
           </a>
 
           <a class="another_page" href="board.html">
-            <img
-              src="../assets/img/aside/board.svg"
-              alt="Board Icon"
-            />
+            <img src="../assets/img/aside/board.svg" alt="Board Icon" />
             <p>Board</p>
           </a>
 
@@ -71,17 +68,11 @@
         </section>
 
         <section class="legal_necessities">
-          <a
-            class="policies"
-            href="../pages/privacyPolicy.html"
-          >
+          <a class="policies" href="../pages/privacyPolicy.html">
             <p>Privacy Policy</p>
           </a>
 
-          <a
-            class="policies"
-            href="../pages/legalNotice.html"
-          >
+          <a class="policies" href="../pages/legalNotice.html">
             <p>Legal Notice</p>
           </a>
         </section>
@@ -100,10 +91,7 @@
 
         <section class="header_right">
           <a href="../pages/help.html">
-            <img
-              src="../assets/img/general/help.svg"
-              alt="Help Button"
-            />
+            <img src="../assets/img/general/help.svg" alt="Help Button" />
           </a>
 
           <section>
@@ -115,26 +103,13 @@
               <p id="userInitial"></p>
             </button>
 
-            <dialog
-              class="navigation"
-              id="nav"
-              onclick="closeDialog('nav')"
-            >
-              <div
-                class="subnavigation"
-                onclick="stopPropagation(event)"
-              >
-                <a href="../pages/legalNotice.html">
-                  Legal Notice
-                </a>
+            <dialog class="navigation" id="nav" onclick="closeDialog('nav')">
+              <div class="subnavigation" onclick="stopPropagation(event)">
+                <a href="../pages/legalNotice.html"> Legal Notice </a>
 
-                <a href="../pages/privacyPolicy.html">
-                  Privacy Policy
-                </a>
+                <a href="../pages/privacyPolicy.html"> Privacy Policy </a>
 
-                <a href="../index.html" id="logoutButton">
-                  Log out
-                </a>
+                <a href="../index.html" id="logoutButton"> Log out </a>
               </div>
             </dialog>
           </section>
@@ -151,17 +126,13 @@
             >
               Add new contact
 
-              <img
-                src="../assets/img/contacts/personAdd.svg"
-                alt=""
-              />
+              <img src="../assets/img/contacts/personAdd.svg" alt="" />
             </button>
           </div>
 
-          <ul
-            class="contacts_list"
-            id="contactsList"
-          ></ul>
+          <div class="own_user" id="ownUser"></div>
+
+          <ul class="contacts_list" id="contactsList"></ul>
 
           <button
             class="mobile_add_contact"
@@ -169,10 +140,7 @@
             type="button"
             aria-label="Add contact"
           >
-            <img
-              src="../assets/img/contacts/personAdd.svg"
-              alt=""
-            />
+            <img src="../assets/img/contacts/personAdd.svg" alt="" />
           </button>
         </section>
 
@@ -187,20 +155,15 @@
                 onclick="closeMobileContactDetail()"
                 aria-label="Back to contacts"
               >
-                <img
-                  src="../assets/img/general/arrow.svg"
-                  alt="Back"
-                />
+                <img src="../assets/img/general/arrow.svg" alt="Back" />
               </button>
             </div>
+
             <div class="seperator_line"></div>
             <p>Better with a team</p>
           </div>
 
-          <div
-            class="contact_card"
-            id="contactCard"
-          >
+          <div class="contact_card" id="contactCard">
             <p>Select a contact to see details.</p>
           </div>
         </section>
@@ -209,49 +172,28 @@
 
     <footer class="mobile">
       <section>
-        <a
-          class="another_page"
-          href="summary.html"
-        >
-          <img
-            src="../assets/img/aside/summary.svg"
-            alt="Summary Icon"
-          />
+        <a class="another_page" href="summary.html">
+          <img src="../assets/img/aside/summary.svg" alt="Summary Icon" />
           <p>Summary</p>
         </a>
       </section>
 
       <section>
-        <a
-          class="another_page"
-          href="addTask.html"
-        >
-          <img
-            src="../assets/img/aside/addTask.svg"
-            alt="Add Task Icon"
-          />
+        <a class="another_page" href="addTask.html">
+          <img src="../assets/img/aside/addTask.svg" alt="Add Task Icon" />
           <p>Add Task</p>
         </a>
       </section>
 
       <section>
-        <a
-          class="another_page"
-          href="board.html"
-        >
-          <img
-            src="../assets/img/aside/board.svg"
-            alt="Board Icon"
-          />
+        <a class="another_page" href="board.html">
+          <img src="../assets/img/aside/board.svg" alt="Board Icon" />
           <p>Board</p>
         </a>
       </section>
 
       <section>
-        <a
-          class="current_page"
-          href="contacts.html"
-        >
+        <a class="current_page" href="contacts.html">
           <img
             src="../assets/img/aside/contactsValidate.svg"
             alt="Contacts Icon"
