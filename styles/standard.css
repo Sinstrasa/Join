@@ -75,3 +75,25 @@ header > img {
   display: none;
   width: 32px;
 }
+
+.orientation_warning {
+  display: none;
+}
+
+@media (orientation: landscape) and (max-width: 1024px) {
+  .body {
+    display: none;
+  }
+
+  .orientation_warning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    padding: 24px;
+    font-size: 20px;
+    background-color: #f6f7f8;
+  }
+}
