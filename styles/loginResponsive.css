@@ -244,7 +244,7 @@
   }
 
   .signup_area {
-    bottom: 140px;
+    bottom: 80px;
     gap: 16px;
   }
 
@@ -252,7 +252,11 @@
     font-size: 16px;
   }
 
+  .form_status {
+    display: none;
+  }
+
   .footer {
-    bottom: 16px;
+    bottom: 0px;
   }
 }

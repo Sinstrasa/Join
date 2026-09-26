@@ -27,7 +27,7 @@ body {
 }
 
 .site_header {
-    min-height: 190px;
+    /* min-height: 190px; */
     padding: 64px 80px 24px;
     display: flex;
     justify-content: space-between;
@@ -108,7 +108,7 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 8px;
 }
 
 .form_group {
