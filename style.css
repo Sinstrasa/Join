@@ -5,9 +5,6 @@
 }
 
 html,
-body {
-    min-height: 100%;
-}
 
 body {
     min-height: 100vh;
@@ -24,9 +21,9 @@ body {
 
 .content_limit {
     width: 100%;
-    padding: 100px max(calc(50% - 720px), 100px);
-    margin-left: 0;
-    margin-right: auto;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 100px;
 }
 
 .site_header {
@@ -268,7 +265,7 @@ form {
 
   100% {
     top: 64px;
-    left: 80px;
+    left: max(calc(50% - 720px + 80px), 80px);
     transform: translate(0, 0) scale(1);
   }
 }
