@@ -316,10 +316,8 @@ function contactDetailTemplate(contact) {
       >
         ${getInitials(contact.name)}
       </div>
-
       <div class="name_and_buttons">
         <h2>${contact.name}</h2>
-
         <div class="contact_card_buttons">
           <button
             class="contact_buttons"
@@ -334,7 +332,6 @@ function contactDetailTemplate(contact) {
             />
             Edit
           </button>
-
           <button
             class="contact_buttons"
             type="button"
@@ -351,63 +348,32 @@ function contactDetailTemplate(contact) {
         </div>
       </div>
     </div>
-
     <section class="contact_card_info">
       <p class="subtitle">
         Contact Information
       </p>
-
       <p class="detail_label">
         Email
       </p>
-
       <p class="detail_value contact_email">
         ${contact.email}
       </p>
-
       <p class="detail_label">
         Phone
       </p>
-
       <p class="detail_value">
         ${contact.phone}
       </p>
     </section>
-
     <div class="mobile contact_mobile_actions">
-      <button
-        class="contact_more_button"
-        type="button"
-        data-action="toggle-menu"
-        aria-label="Contact options"
-      >
-        ⋮
+      <button class="contact_more_button" type="button" data-action="toggle-menu" aria-label="Contact options">
+       ⋮
       </button>
-
       <div class="contact_mobile_menu">
-        <button
-          type="button"
-          data-action="edit-mobile"
-          data-contact-id="${contact.id}"
-        >
-          <img
-            src="../assets/img/general/edit.svg"
-            alt=""
-          />
-          Edit
-        </button>
-
-        <button
-          type="button"
-          data-action="delete-mobile"
-          data-contact-id="${contact.id}"
-        >
-          <img
-            src="../assets/img/general/delete.svg"
-            alt=""
-          />
-          Delete
-        </button>
+        <button type="button" data-action="edit-mobile" data-contact-id="${contact.id}">
+          <img src="../assets/img/general/edit.svg" alt=""/>Edit</button>
+        <button type="button" data-action="delete-mobile" data-contact-id="${contact.id}">
+          <img src="../assets/img/general/delete.svg" alt=""/> Delete </button>
       </div>
     </div>
   `;
@@ -418,17 +384,14 @@ function getInitials(name) {
     .trim()
     .split(" ")
     .filter((part) => part !== "");
-
   if (parts.length === 1) {
     return parts[0].charAt(0).toUpperCase();
   }
-
   return getTwoInitials(parts);
 }
 
 function getTwoInitials(parts) {
   const first = parts[0].charAt(0).toUpperCase();
   const last = parts[parts.length - 1].charAt(0).toUpperCase();
-
   return first + last;
 }
