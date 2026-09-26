@@ -76,24 +76,24 @@ header > img {
   width: 32px;
 }
 
-.orientation_warning {
-  display: none;
-}
-
-@media (orientation: landscape) and (max-width: 1024px) {
-  .body {
-    display: none;
+@media (orientation: landscape) and (max-width: 900px) {
+  body > * {
+    display: none !important;
   }
 
-  .orientation_warning {
+  body::before {
+    content: "Please rotate your device to portrait mode.";
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    text-align: center;
+    height: 100%;
     padding: 24px;
     font-size: 20px;
+    text-align: center;
     background-color: #f6f7f8;
   }
 }
